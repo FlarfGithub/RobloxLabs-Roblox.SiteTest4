@@ -1,0 +1,308 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Ads Api v1"
+    },
+    "host": "ads.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v1/sponsored-games/sponsored-game": {
+            "get": {
+                "tags": ["SponsoredGames"],
+                "summary": "Retrieves a sponsored game to serve to a user on a specific device type.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Ads.Api.Models.Response.SponsoredGameResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["SponsoredGames:ServeSponsoredGame"]
+                }
+            }
+        },
+        "/v1/sponsored-pages": {
+            "get": {
+                "tags": ["SponsoredPages"],
+                "summary": "Retrieves sponsored pages to serve to a user on a specific device type in a specific country.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Ads.Api.Models.Response.SponsoredPageResponse]"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["SponsoredPages:GetSponsoredPages"]
+                }
+            }
+        },
+        "/v1/sponsored-games/click": {
+            "post": {
+                "tags": ["SponsoredGames"],
+                "summary": "Records user click of sponsored game to user ad service",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "sponsoredGameCode",
+                    "in": "body",
+                    "description": "Sponsored game identifier",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "6: The request data format is incorrect."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    },
+                    "404": {
+                        "description": "3: The sponsored game code is invalid\r\n4: The ad campaign is non-existent"
+                    },
+                    "503": {
+                        "description": "1: This feature is disabled.\r\n5: The user ads service is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["SponsoredGames:RecordSponsoredGameClick"]
+                }
+            }
+        },
+        "/v1/user-ads/assets/create": {
+            "post": {
+                "tags": ["UserAds"],
+                "summary": "Creates a user ad for an asset.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "query",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "request.name",
+                    "in": "formData",
+                    "description": "The user input ad name.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "request.files",
+                    "in": "formData",
+                    "required": false,
+                    "type": "file"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "1: Insufficient permissions\r\n2: Ad target is not approved\r\n3: Floodchecked\r\n4: Missing image\r\n5: Invalid image format\r\n6: Invalid image size\r\n7: Ad name was filtered\r\n8: Ad target does not exist\r\n10: Invalid ad name"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["UserAds:CreateAssetUserAd"]
+                }
+            }
+        },
+        "/v1/user-ads/game-passes/create": {
+            "post": {
+                "tags": ["UserAds"],
+                "summary": "Creates a user ad for a game pass.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [{
+                    "name": "gamePassId",
+                    "in": "query",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "request.name",
+                    "in": "formData",
+                    "description": "The user input ad name.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "request.files",
+                    "in": "formData",
+                    "required": false,
+                    "type": "file"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "1: Insufficient permissions\r\n2: Ad target is not approved\r\n3: Floodchecked\r\n4: Missing image\r\n5: Invalid image format\r\n6: Invalid image size\r\n7: Ad name was filtered\r\n8: Ad target does not exist\r\n10: Invalid ad name"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["UserAds:CreateGamePassUserAd"]
+                }
+            }
+        },
+        "/v1/user-ads/groups/create": {
+            "post": {
+                "tags": ["UserAds"],
+                "summary": "Creates a user ad for a group.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "query",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "request.name",
+                    "in": "formData",
+                    "description": "The user input ad name.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "request.files",
+                    "in": "formData",
+                    "required": false,
+                    "type": "file"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "1: Insufficient permissions\r\n2: Ad target is not approved\r\n3: Floodchecked\r\n4: Missing image\r\n5: Invalid image format\r\n6: Invalid image size\r\n7: Ad name was filtered\r\n8: Ad target does not exist\r\n10: Invalid ad name"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["UserAds:CreateGroupUserAd"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Ads.Api.Models.Response.SponsoredGameResponse": {
+            "description": "The response model for serving a sponsored game.",
+            "type": "object",
+            "properties": {
+                "universeId": {
+                    "format": "int64",
+                    "description": "ID of the universe representing the sponsored game.",
+                    "type": "integer"
+                },
+                "sponsoredGameCode": {
+                    "description": "Sponsored game identifier used to call the RecordClick() endpoint.",
+                    "type": "string"
+                },
+                "rootPlaceId": {
+                    "format": "int64",
+                    "description": "ID of the root place of the universe representing the sponsored game.",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Ads.Api.Models.Response.SponsoredPageResponse]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Ads.Api.Models.Response.SponsoredPageResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.Ads.Api.Models.Response.SponsoredPageResponse": {
+            "description": "The response model for serving a sponsored game.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name of the sponsored page.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The title of the sponsored page.",
+                    "type": "string"
+                },
+                "logoImageUrl": {
+                    "description": "The logo image hash of the sponsored page.",
+                    "type": "string"
+                },
+                "pageType": {
+                    "description": "The type of the sponsored page.",
+                    "enum": ["Event", "Sponsored"],
+                    "type": "string"
+                },
+                "pagePath": {
+                    "description": "The path of the sponsored page.",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Ads.Api.CreateUserAdRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The user input ad name.",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

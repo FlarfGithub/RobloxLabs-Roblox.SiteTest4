@@ -1,0 +1,69 @@
+<title><%= MetaTagListViewModel.StructuredDataTags.Title %></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="<%= MetaTagListViewModel.StructuredDataTags.StructuredDataName %> Corporation" />
+<meta name="description" content="<%= MetaTagListViewModel.Description %>" />
+<meta name="keywords" content="<%= MetaTagListViewModel.Keywords %>" />
+<meta name="apple-itunes-app" content="app-id=431946152" /> <% /* TODO: This */ %> <% if (MetaTagListViewModel.NoIndexNoFollow) { %>
+<meta id="RobotsMeta" name="robots" content="noindex, nofollow" />
+<% } else if (MetaTagListViewModel.NoIndex) { %>
+<meta id="RobotsMeta" name="robots" content="noindex" />
+<% } else if (MetaTagListViewModel.NoFollow) { %>
+<meta id="RobotsMeta" name="robots" content="nofollow" />
+<% } %>
+
+<script type="application/ld+json">
+	{
+		"@context": "<%= MetaTagListViewModel.StructuredDataTags.StructuredDataContext %>",
+		"@type": "<%= MetaTagListViewModel.StructuredDataTags.StructuredDataType %>",
+		"name": "<%= MetaTagListViewModel.StructuredDataTags.StructuredDataName %>",
+		"url": "<%= MetaTagListViewModel.StructuredDataTags.RobloxUrl %>",
+		"logo": "<%= MetaTagListViewModel.StructuredDataTags.RobloxLogoUrl %>",
+		"sameAs": [
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxFacebookUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxTwitterUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxLinkedInUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxInstagramUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxYouTubeUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxGooglePlusUrl %>",
+			"<%= MetaTagListViewModel.StructuredDataTags.RobloxTwitchTvUrl %>"
+		]
+	}
+</script>
+<% if (MetaTagListViewModel.OGDataTags) { %>
+<meta property="og:site_name" content="<%= MetaTagListViewModel.OGDataTags.SiteName %>" />
+<meta property="og:title" content="<%= MetaTagListViewModel.OGDataTags.Title %>" />
+<meta property="og:type" content="<%= MetaTagListViewModel.OGDataTags.Type %>" />
+<meta property="og:url" content="<%= MetaTagListViewModel.OGDataTags.Url %>" />
+<% if (MetaTagListViewModel.StructuredDataTags.Description) { %>
+<meta property="og:description" content="<%= MetaTagListViewModel.StructuredDataTags.Description %>" />
+<% } %> <% if (MetaTagListViewModel.StructuredDataTags.Images) { %>
+<meta property="og:image" content="<%= MetaTagListViewModel.StructuredDataTags.Images[0] %>" />
+<% } %> <% } %> <% if (MetaTagListViewModel.FacebookMetaTags) { %>
+<meta property="fb:app_id" content="<%= MetaTagListViewModel.FacebookMetaTag.AppID %>" />
+<% } %> <% if (MetaTagListViewModel.TwitterMetaTags) { %>
+<meta name="twitter:card" content="<%= MetaTagListViewModel.TwitterMetaTags.CardType %>" />
+<meta name="twitter:site" content="@<%= MetaTagListViewModel.TwitterMetaTags.SiteName %>" />
+<meta name="twitter:title" content="<%= MetaTagListViewModel.TwitterMetaTags.CardTitle %>" />
+<% if (MetaTagListViewModel.StructuredDataTags.Description) { %>
+<meta property="twitter:description" content="<%= MetaTagListViewModel.StructuredDataTags.Description %>" />
+<% } %>
+<meta name="twitter:creator" />
+<% if (MetaTagListViewModel.StructuredDataTags.Images) { %>
+<meta name="twitter:image1" content="<%= MetaTagListViewModel.StructuredDataTags.Images[0] %>" />
+<% } %>
+<meta name="twitter:app:country" content="<%= MetaTagListViewModel.TwitterMetaTags.App.Country %>" />
+<% if (MetaTagListViewModel.TwitterMetaTags.App.IPhone) { %>
+<meta name="twitter:app:name:iphone" content="<%= MetaTagListViewModel.TwitterMetaTags.App.IPhone.Name %>" />
+<meta name="twitter:app:id:iphone" content="<%= MetaTagListViewModel.TwitterMetaTags.App.IPhone.ID %>" />
+<meta name="twitter:app:url:iphone" />
+<% } %> <% if (MetaTagListViewModel.TwitterMetaTags.App.IPad) { %>
+<meta name="twitter:app:name:ipad" content="<%= MetaTagListViewModel.TwitterMetaTags.App.IPad.Name %>" />
+<meta name="twitter:app:id:ipad" content="<%= MetaTagListViewModel.TwitterMetaTags.App.IPad.ID %>" />
+<meta name="twitter:app:url:ipad" />
+<% } %> <% if (MetaTagListViewModel.TwitterMetaTags.App.Android) { %>
+<meta name="twitter:app:name:googleplay" content="<%= MetaTagListViewModel.TwitterMetaTags.App.Android.Name %>" />
+<meta name="twitter:app:id:googleplay" content="<%= MetaTagListViewModel.TwitterMetaTags.App.Android.ID %>" />
+<meta name="twitter:app:url:googleplay" />
+<% } %> <% } %>

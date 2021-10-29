@@ -1,0 +1,552 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "PremiumFeatures Api v1"
+	},
+	"host": "premiumfeatures.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/products": {
+			"get": {
+				"tags": ["PremiumFeaturesProducts"],
+				"summary": "Gets available PremiumFeatures Products available to the user",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "typeName",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesProducts:GetAvailablePremiumFeaturesProducts"]
+				}
+			}
+		},
+		"/v1/users/{userId}/premium-upsell-precheck": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Premium upsell precheck",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "User ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "query",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "placeId",
+						"in": "query",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["PremiumFeaturesUsers:PremiumUpsellPrecheck"]
+				}
+			}
+		},
+		"/v1/users/{userId}/subscriptions": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Gets a user's current subscription product",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "User ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:GetSubscriptionProductForUser"]
+				}
+			},
+			"patch": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Updates the subscription and returns the new Subscription product for the User.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "productId",
+						"in": "query",
+						"description": "The ID of the product",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:UpdateSubscriptionProductForUser"]
+				}
+			}
+		},
+		"/v1/users/{userId}/subscriptions/metadata": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Gets metadata about a user's current subscription status",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "User ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.PremiumFeatures.Api.SubscriptionsMetadataDisplayResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:GetSubscriptionMetadata"]
+				}
+			}
+		},
+		"/v1/users/{userId}/validate-membership": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Get if a user has a Premium membership",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "User ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["PremiumFeaturesUsers:GetIsPremiumUserForUser"]
+				}
+			}
+		},
+		"/v1/users/{userId}/validate-membership-rcc": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Get if a user has a Premium membership for RCC only",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "User ID",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:GetIsPremiumUserForUserRcc"]
+				}
+			}
+		},
+		"/v1/users/buy-robux-settings": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Gets robux page settings for the authenticated user",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:GetBuyRobuxPageSettingsForUser"]
+				}
+			}
+		},
+		"/v1/users/premium-disclosure-settings": {
+			"get": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Gets premium disclosure settings for the authenticated user",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:GetPremiumDisclosureSettingsForUser"]
+				}
+			}
+		},
+		"/v1/users/{userId}/subscriptions/cancel": {
+			"post": {
+				"tags": ["PremiumFeaturesUsers"],
+				"summary": "Cancel membership endpoint that works for both the new subscription product and BC",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PremiumFeaturesUsers:CancelSubscriptionForUser"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.PremiumFeatures.Api.SubscriptionsMetadataDisplayResponse": {
+			"description": "A response model for the premium features metadata endpoint",
+			"type": "object",
+			"properties": {
+				"Expiration": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"ComputerSubscriptionRenewal": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"AppleSubscriptionRenewal": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"GoogleSubscriptionRenewal": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"UpgradeProduct": {
+					"$ref": "#/definitions/Roblox.PremiumFeatures.PremiumFeature"
+				},
+				"NumRobuxText": {
+					"type": "string"
+				},
+				"MembershipName": {
+					"type": "string"
+				},
+				"MembershipDuration": {
+					"type": "string"
+				},
+				"PremiumFeatureId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"StipendFrequency": {
+					"type": "string"
+				},
+				"AppleCancellationDirectionsUrl": {
+					"type": "string"
+				},
+				"GoogleCancellationDirectionsUrl": {
+					"type": "string"
+				},
+				"RobuxEarnedFromSales": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"SalesEarningsVisible": {
+					"type": "boolean"
+				},
+				"RobuxEarningsVisible": {
+					"type": "boolean"
+				},
+				"UserIsSubscribedToAccountProduct": {
+					"type": "boolean"
+				},
+				"UserIsInPromotionNoCancelWindow": {
+					"type": "boolean"
+				},
+				"PromotionNoCancelTerm": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"UserRenewalIsProcessing": {
+					"type": "boolean"
+				},
+				"UserHasMultipleActiveSubscriptions": {
+					"type": "boolean"
+				},
+				"UserHasComputerSubscription": {
+					"type": "boolean"
+				},
+				"UserHasAppleAppStoreSubscription": {
+					"type": "boolean"
+				},
+				"UserHasGooglePlayStoreSubscription": {
+					"type": "boolean"
+				},
+				"RobloxSupportUrl": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.PremiumFeatures.PremiumFeature": {
+			"type": "object",
+			"properties": {
+				"ID": {
+					"format": "int32",
+					"type": "integer",
+					"readOnly": true
+				},
+				"Name": {
+					"type": "string"
+				},
+				"AccountAddOnTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"DurationTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"IsRenewal": {
+					"type": "boolean"
+				},
+				"RobuxCreditQuantityTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"RobuxStipendQuantityTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"RobuxStipendFrequencyTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"ShowcaseAllotmentTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"ContentPrivilegeTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"AdvertisingSuppressionTypeID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"GrantedAssetListID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"GrantedBadgeListID": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"GrantedItemListID": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"IsAnyBuildersClub": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsAnySubscription": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsBuildersClub": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsTurboBuildersClub": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsOutrageousBuildersClub": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"CacheInfo": {
+					"$ref": "#/definitions/Roblox.Caching.ICacheInfo",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Caching.ICacheInfo": {
+			"type": "object",
+			"properties": {
+				"Cacheability": {
+					"$ref": "#/definitions/Roblox.Caching.CacheabilitySettings",
+					"readOnly": true
+				},
+				"EntityType": {
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Caching.CacheabilitySettings": {
+			"type": "object",
+			"properties": {
+				"CollectionsAreCacheable": {
+					"type": "boolean"
+				},
+				"CountsAreCacheable": {
+					"type": "boolean"
+				},
+				"EntityIsCacheable": {
+					"type": "boolean"
+				},
+				"IDLookupsAreCacheable": {
+					"type": "boolean"
+				},
+				"IsNullCacheable": {
+					"type": "boolean"
+				},
+				"HasUnqualifiedCollections": {
+					"type": "boolean"
+				},
+				"IDLookupsAreCaseSensitive": {
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}

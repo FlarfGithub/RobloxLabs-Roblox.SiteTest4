@@ -1,0 +1,5 @@
+CREATE TABLE `robloxaccounting`.`account` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `AccountId_UNIQUE` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;

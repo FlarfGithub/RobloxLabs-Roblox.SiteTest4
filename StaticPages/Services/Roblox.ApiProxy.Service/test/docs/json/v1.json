@@ -1,0 +1,109 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1.1", "title": "Test Api v1" },
+	"host": "test.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/GetABTests": {
+			"post": {
+				"tags": ["ABTests"],
+				"summary": "Gets a list of {Roblox.Platform.ABTesting.IABTest}s of the latest ABTests, depending on the {Roblox.Test.Models.ABTestRequest}.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.Test.Models.ABTestRequest}.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Test.Models.ABTestRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Platform.ABTesting.IABTest]"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["ABTests:GetABTests"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Test.Models.ABTestRequest": {
+			"type": "object",
+			"properties": {
+				"SubjectType": {
+					"enum": ["Both", "User", "BrowserTracker"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Platform.ABTesting.IABTest]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Platform.ABTesting.IABTest"
+					}
+				}
+			}
+		},
+		"Roblox.Platform.ABTesting.IABTest": {
+			"type": "object",
+			"properties": {
+				"Name": {
+					"type": "string"
+				},
+				"SubjectType": {
+					"enum": ["User", "BrowserTracker"],
+					"type": "string"
+				},
+				"IsActive": {
+					"type": "boolean"
+				},
+				"IsGlobal": {
+					"type": "boolean"
+				},
+				"IsUpsell": {
+					"type": "boolean"
+				},
+				"GlobalVariation": {
+					"type": "boolean"
+				},
+				"CanUserEnroll": {
+					"type": "boolean"
+				},
+				"CanBeForceEnrolled": {
+					"type": "boolean"
+				},
+				"TestGrade": {
+					"type": "string"
+				},
+				"Description": {
+					"type": "string"
+				},
+				"Created": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"Updated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"IssuerId": {
+					"type": "integer",
+					"format": "int64"
+				}
+			}
+		}
+	}
+}

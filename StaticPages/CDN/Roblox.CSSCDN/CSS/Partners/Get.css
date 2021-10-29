@@ -1,0 +1,56 @@
+﻿.menu {
+    margin-bottom: 20px;
+}
+
+.menuitem {
+    margin-right: 50px;
+}
+
+.pixelType {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.deletePixel {
+    font-weight: normal;
+}
+
+.active-field {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+textarea {
+    margin-bottom: 30px;
+}
+
+.notes {
+    color: red;
+}
+
+.messages {
+    margin-bottom: 15px;
+}
+
+table {
+    margin: 20px;
+}
+
+table, tr, td {
+    border: 1px solid;
+    text-align: center;
+}
+
+#NameCell {
+    width: 250px;
+    font-weight: bold;
+}
+
+#SuppressedCell {
+    font-weight: bold;
+    width: 75px;
+}
+
+fieldset {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,2 @@
+<% LinkData.forEach(link => { %> <%- "<link" %> rel="<%= link.Type %>" <% if (link.Bundle) { %> onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="<%= link.Bundle.Name %>" data-bundle-source="<%= link.Bundle.Source %>" <% }
+%> href="<%= link.HREF %>" /> <% }) %>

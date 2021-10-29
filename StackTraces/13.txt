@@ -1,0 +1,26 @@
+[Exception: Default assetType mapping missing mapping for: System.Collections.Generic.List`1[Roblox.Platform.Assets.AssetType]]
+   Roblox.CatalogItemChangePublisher.ItemDomainTypeMapper.ValidateMapping(Dictionary`2 mapping) in C:\buildAgent\work\2756c7d8a6d40d8\Assemblies\SqsClients\Roblox.CatalogDistribution.Client\Implementation\ItemDomainTypeMapper.cs:100
+   Roblox.CatalogItemChangePublisher.ItemDomainTypeMapper..ctor() in C:\buildAgent\work\2756c7d8a6d40d8\Assemblies\SqsClients\Roblox.CatalogDistribution.Client\Implementation\ItemDomainTypeMapper.cs:43
+   Roblox.CatalogItemChangePublisher.ItemDomainTypeMapper.GetSingleton() in C:\buildAgent\work\2756c7d8a6d40d8\Assemblies\SqsClients\Roblox.CatalogDistribution.Client\Implementation\ItemDomainTypeMapper.cs:22
+   Roblox.CatalogItemChangePublisher.CatalogItemChangePublisher..ctor() in C:\buildAgent\work\2756c7d8a6d40d8\Assemblies\SqsClients\Roblox.CatalogDistribution.Client\Implementation\CatalogItemChangePublisher.cs:20
+   Roblox.CatalogItemChangePublisher.CatalogItemChangePublisher.get_Singleton() in C:\buildAgent\work\2756c7d8a6d40d8\Assemblies\SqsClients\Roblox.CatalogDistribution.Client\Implementation\CatalogItemChangePublisher.cs:73
+   Roblox.ApiProxy.Service.Global..cctor() in C:\buildAgent\work\2756c7d8a6d40d8\Services\Roblox.ApiProxy\Roblox.ApiProxy.Service\Global.asax.cs:583
+
+[TypeInitializationException: The type initializer for 'Roblox.ApiProxy.Service.Global' threw an exception.]
+   ASP.global_asax..ctor() +28
+
+[TargetInvocationException: Exception has been thrown by the target of an invocation.]
+   System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck) +0
+   System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark) +139
+   System.Activator.CreateInstance(Type type, Boolean nonPublic) +105
+   System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark) +1431
+   System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes) +184
+   System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture) +27
+   System.Web.HttpRuntime.CreateNonPublicInstance(Type type, Object[] args) +80
+   System.Web.HttpApplicationFactory.GetSpecialApplicationInstance(IntPtr appContext, HttpContext context) +182
+   System.Web.Hosting.PipelineRuntime.InitializeApplication(IntPtr appContext) +369
+
+[HttpException (0x80004005): Exception has been thrown by the target of an invocation.]
+   System.Web.HttpRuntime.FirstRequestInit(HttpContext context) +532
+   System.Web.HttpRuntime.EnsureFirstRequestInit(HttpContext context) +111
+   System.Web.HttpRuntime.ProcessRequestNotificationPrivate(IIS7WorkerRequest wr, HttpContext context) +714

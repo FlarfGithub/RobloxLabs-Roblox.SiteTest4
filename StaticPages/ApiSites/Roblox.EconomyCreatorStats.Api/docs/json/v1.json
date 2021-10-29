@@ -1,0 +1,205 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "Roblox.EconomyCreatorStats.Api v1" },
+	"host": "economycreatorstats.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/universes/{universeId}/stats": {
+			"get": {
+				"tags": ["Statistics"],
+				"summary": "Get statistics data for a universe.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "The universe id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.type",
+						"in": "query",
+						"required": true,
+						"type": "string",
+						"enum": ["PremiumUpsells", "PremiumVisits"]
+					},
+					{ "name": "request.startTime", "in": "query", "required": true, "type": "string" },
+					{ "name": "request.endTime", "in": "query", "required": true, "type": "string" }
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Roblox.EconomyCreatorStats.Api.Models.StatisticsResponse" }
+					},
+					"400": {
+						"description": "1: The Universe is invalid.\r\n3: Too many data points requested.\r\n4: The requested data type is not known."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request.\r\n2: Not authorized to perform this action."
+					}
+				},
+				"properties": { "internal": false, "metricIds": ["Statistics:GetStatistics"] }
+			}
+		},
+		"/v1/asset/{assetId}/premium-upsell-shown/increment": {
+			"post": {
+				"tags": ["Statistics"],
+				"summary": "Increment premium upsell shown for an asset.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "assetId",
+						"in": "path",
+						"description": "The asset id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.EconomyCreatorStats.Api.Models.IncrementPremiumUpsellRequest}.",
+						"required": true,
+						"schema": { "$ref": "#/definitions/Roblox.EconomyCreatorStats.Api.Models.IncrementPremiumUpsellRequest" }
+					}
+				],
+				"responses": {
+					"200": { "description": "OK", "schema": { "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel" } },
+					"400": { "description": "8: AssetId is invalid.\r\n9: Location cannot be empty." },
+					"401": {
+						"description": "0: Authorization has been denied for this request.\r\n2: Not authorized to perform this action."
+					},
+					"403": { "description": "0: Token Validation Failed" },
+					"429": { "description": "6: User is flooded" },
+					"503": { "description": "7: This feature is disabled." }
+				},
+				"properties": { "internal": true, "metricIds": ["Statistics:IncrementPremiumUpsellShownForAsset"] }
+			}
+		},
+		"/v1/bundle/{bundleId}/premium-upsell-shown/increment": {
+			"post": {
+				"tags": ["Statistics"],
+				"summary": "Increment premium upsell shown for a bundle.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "bundleId",
+						"in": "path",
+						"description": "The bundle id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.EconomyCreatorStats.Api.Models.IncrementPremiumUpsellRequest}.",
+						"required": true,
+						"schema": { "$ref": "#/definitions/Roblox.EconomyCreatorStats.Api.Models.IncrementPremiumUpsellRequest" }
+					}
+				],
+				"responses": {
+					"200": { "description": "OK", "schema": { "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel" } },
+					"400": { "description": "9: Location cannot be empty.\r\n10: BundleId is invalid." },
+					"401": {
+						"description": "0: Authorization has been denied for this request.\r\n2: Not authorized to perform this action."
+					},
+					"403": { "description": "0: Token Validation Failed" },
+					"429": { "description": "6: User is flooded" },
+					"503": { "description": "7: This feature is disabled." }
+				},
+				"properties": { "internal": true, "metricIds": ["Statistics:IncrementPremiumUpsellShownForBundle"] }
+			}
+		},
+		"/v1/universes/{universeId}/premium-impressions/increment": {
+			"post": {
+				"tags": ["Statistics"],
+				"summary": "Increment premium Impression for a universe.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "The universe id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": { "description": "OK", "schema": { "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel" } },
+					"400": { "description": "1: The Universe is invalid." },
+					"401": {
+						"description": "0: Authorization has been denied for this request.\r\n2: Not authorized to perform this action."
+					},
+					"403": { "description": "0: Token Validation Failed" },
+					"429": { "description": "6: User is flooded" }
+				},
+				"properties": { "internal": true, "metricIds": ["Statistics:IncrementPremiumImpressionForUniverse"] }
+			}
+		},
+		"/v1/universes/{universeId}/premium-upsells/increment": {
+			"post": {
+				"tags": ["Statistics"],
+				"summary": "Increment premium upsell for a universe.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "The universe id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": { "description": "OK", "schema": { "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel" } },
+					"400": { "description": "1: The Universe is invalid." },
+					"401": { "description": "2: Not authorized to perform this action." }
+				},
+				"properties": { "internal": true, "metricIds": ["Statistics:IncrementPremiumUpsellForUniverse"] }
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.EconomyCreatorStats.Api.Models.GetStatisticsRequest": {
+			"description": "Get Statistics Request",
+			"required": ["type", "startTime", "endTime"],
+			"type": "object",
+			"properties": {
+				"type": { "enum": ["PremiumUpsells", "PremiumVisits"], "type": "string" },
+				"startTime": { "format": "date-time", "type": "string" },
+				"endTime": { "format": "date-time", "type": "string" }
+			}
+		},
+		"Roblox.EconomyCreatorStats.Api.Models.StatisticsResponse": {
+			"description": "The response model",
+			"type": "object",
+			"properties": {
+				"dataGranularity": { "enum": ["Hourly", "Daily", "Monthly"], "type": "string" },
+				"data": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "array",
+						"items": { "type": "array", "items": { "format": "double", "type": "number" } }
+					}
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ApiEmptyResponseModel": { "type": "object", "properties": {} },
+		"Roblox.EconomyCreatorStats.Api.Models.IncrementPremiumUpsellRequest": {
+			"description": "A request model for incrementing premium upsell.",
+			"required": ["location"],
+			"type": "object",
+			"properties": { "location": { "description": "The location where premium upsell happens", "type": "string" } }
+		}
+	}
+}

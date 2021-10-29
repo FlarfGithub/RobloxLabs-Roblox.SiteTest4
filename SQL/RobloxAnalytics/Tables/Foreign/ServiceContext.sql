@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS `RobloxAnalytics`;
+
+CREATE TABLE IF NOT EXISTS `RobloxAnalytics`.`ServiceContexts` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Created` DATETIME NOT NULL,
+  `Updated` DATETIME NOT NULL,
+  `Name` TEXT NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+) ENGINE=InnoDB;

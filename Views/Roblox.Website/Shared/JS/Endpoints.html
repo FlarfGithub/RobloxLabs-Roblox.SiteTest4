@@ -1,0 +1,108 @@
+<script type="text/javascript">
+	if (typeof Roblox === 'undefined') {
+		Roblox = {};
+	}
+	Roblox.Endpoints = Roblox.Endpoints || {};
+	Roblox.Endpoints.Urls = Roblox.Endpoints.Urls || {};
+	Roblox.Endpoints.Urls['/asset/'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset/';
+	Roblox.Endpoints.Urls['/client-status/set'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/client-status/set';
+	Roblox.Endpoints.Urls['/client-status'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/client-status';
+	Roblox.Endpoints.Urls['/game/'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/';
+	Roblox.Endpoints.Urls['/game/edit.ashx'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/edit.ashx';
+	Roblox.Endpoints.Urls['/game/placelauncher.ashx'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/placelauncher.ashx';
+	Roblox.Endpoints.Urls['/game/preloader'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/preloader';
+	Roblox.Endpoints.Urls['/game/report-stats'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/report-stats';
+	Roblox.Endpoints.Urls['/game/report-event'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/report-event';
+	Roblox.Endpoints.Urls['/game/updateprerollcount'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/game/updateprerollcount';
+	Roblox.Endpoints.Urls['/login/default.aspx'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/login/default.aspx';
+	Roblox.Endpoints.Urls['/my/avatar'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/my/avatar';
+	Roblox.Endpoints.Urls['/my/money.aspx'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/my/money.aspx';
+	Roblox.Endpoints.Urls['/navigation/userdata'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/navigation/userdata';
+	Roblox.Endpoints.Urls['/chat/chat'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/chat/chat';
+	Roblox.Endpoints.Urls['/chat/data'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/chat/data';
+	Roblox.Endpoints.Urls['/friends/list'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/friends/list';
+	Roblox.Endpoints.Urls['/navigation/getcount'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/navigation/getCount';
+	Roblox.Endpoints.Urls['/regex/email'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/regex/email';
+	Roblox.Endpoints.Urls['/catalog/browse.aspx'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/catalog/browse.aspx';
+	Roblox.Endpoints.Urls['/catalog/html'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.SearcherHost %>/catalog/html';
+	Roblox.Endpoints.Urls['/catalog/json'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.SearcherHost %>/catalog/json';
+	Roblox.Endpoints.Urls['/catalog/contents'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.SearcherHost %>/catalog/contents';
+	Roblox.Endpoints.Urls['/catalog/lists.aspx'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.SearcherHost %>/catalog/lists.aspx';
+	Roblox.Endpoints.Urls['/catalog/items'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.SearcherHost %>/catalog/items';
+	Roblox.Endpoints.Urls['/asset-hash-thumbnail/image'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-hash-thumbnail/image';
+	Roblox.Endpoints.Urls['/asset-hash-thumbnail/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-hash-thumbnail/json';
+	Roblox.Endpoints.Urls['/asset-thumbnail-3d/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-thumbnail-3d/json';
+	Roblox.Endpoints.Urls['/asset-thumbnail/image'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-thumbnail/image';
+	Roblox.Endpoints.Urls['/asset-thumbnail/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-thumbnail/json';
+	Roblox.Endpoints.Urls['/asset-thumbnail/url'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset-thumbnail/url';
+	Roblox.Endpoints.Urls['/asset/request-thumbnail-fix'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.AssetGameHost %>/asset/request-thumbnail-fix';
+	Roblox.Endpoints.Urls['/avatar-thumbnail-3d/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/avatar-thumbnail-3d/json';
+	Roblox.Endpoints.Urls['/avatar-thumbnail/image'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/avatar-thumbnail/image';
+	Roblox.Endpoints.Urls['/avatar-thumbnail/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/avatar-thumbnail/json';
+	Roblox.Endpoints.Urls['/avatar-thumbnails'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/avatar-thumbnails';
+	Roblox.Endpoints.Urls['/avatar/request-thumbnail-fix'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/avatar/request-thumbnail-fix';
+	Roblox.Endpoints.Urls['/bust-thumbnail/json'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/bust-thumbnail/json';
+	Roblox.Endpoints.Urls['/group-thumbnails'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/group-thumbnails';
+	Roblox.Endpoints.Urls['/groups/getprimarygroupinfo.ashx'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/groups/getprimarygroupinfo.ashx';
+	Roblox.Endpoints.Urls['/headshot-thumbnail/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/headshot-thumbnail/json';
+	Roblox.Endpoints.Urls['/item-thumbnails'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/item-thumbnails';
+	Roblox.Endpoints.Urls['/outfit-thumbnail/json'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/outfit-thumbnail/json';
+	Roblox.Endpoints.Urls['/place-thumbnails'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/place-thumbnails';
+	Roblox.Endpoints.Urls['/thumbnail/asset/'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/asset/';
+	Roblox.Endpoints.Urls['/thumbnail/avatar-headshot'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/avatar-headshot';
+	Roblox.Endpoints.Urls['/thumbnail/avatar-headshots'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/avatar-headshots';
+	Roblox.Endpoints.Urls['/thumbnail/user-avatar'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/user-avatar';
+	Roblox.Endpoints.Urls['/thumbnail/resolve-hash'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/resolve-hash';
+	Roblox.Endpoints.Urls['/thumbnail/place'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/place';
+	Roblox.Endpoints.Urls['/thumbnail/get-asset-media'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/get-asset-media';
+	Roblox.Endpoints.Urls['/thumbnail/remove-asset-media'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/remove-asset-media';
+	Roblox.Endpoints.Urls['/thumbnail/set-asset-media-sort-order'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/set-asset-media-sort-order';
+	Roblox.Endpoints.Urls['/thumbnail/place-thumbnails'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/place-thumbnails';
+	Roblox.Endpoints.Urls['/thumbnail/place-thumbnails-partial'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail/place-thumbnails-partial';
+	Roblox.Endpoints.Urls['/thumbnail_holder/g'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/thumbnail_holder/g';
+	Roblox.Endpoints.Urls['/users/{id}/profile'] = '<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/users/{id}/profile';
+	Roblox.Endpoints.Urls['/service-workers/push-notifications'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/service-workers/push-notifications';
+	Roblox.Endpoints.Urls['/notification-stream/notification-stream-data'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/notification-stream/notification-stream-data';
+	Roblox.Endpoints.Urls['/api/friends/acceptfriendrequest'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/api/friends/acceptfriendrequest';
+	Roblox.Endpoints.Urls['/api/friends/declinefriendrequest'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/api/friends/declinefriendrequest';
+	Roblox.Endpoints.Urls['/authentication/is-logged-in'] =
+		'<%= urlMetadata.Protocol %>://<%= urlMetadata.Hosts.BaseHost %>/authentication/is-logged-in';
+	Roblox.Endpoints.addCrossDomainOptionsToAllRequests = true;
+</script>
+
+<script type="text/javascript">
+	if (typeof Roblox === 'undefined') {
+		Roblox = {};
+	}
+	Roblox.Endpoints = Roblox.Endpoints || {};
+	Roblox.Endpoints.Urls = Roblox.Endpoints.Urls || {};
+</script>

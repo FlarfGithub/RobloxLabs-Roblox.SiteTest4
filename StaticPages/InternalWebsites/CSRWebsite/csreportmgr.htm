@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roblox Exploiting Report</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<script src="js/modernizr-2.8.1.js"></script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap.min.3.4.1.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/jquery.bootgrid.fa.js"></script>
+		<script src="js/csrutils.js"></script>
+		<style>
+			@-webkit-viewport {
+				width: device-width;
+			}
+			@-moz-viewport {
+				width: device-width;
+			}
+			@-ms-viewport {
+				width: device-width;
+			}
+			@-o-viewport {
+				width: device-width;
+			}
+			@viewport {
+				width: device-width;
+			}
+
+			body {
+				padding-top: 70px;
+				padding-left: 30px;
+			}
+
+			.column .text {
+				color: #f00 !important;
+			}
+			.cell {
+				font-weight: bold;
+			}
+			th {
+				height: 30px;
+				vertical-align: middle;
+			}
+			td {
+				height: 30px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" data-i18n="title">Roblox Exploiting Report: CS Report Manager</span>
+				</div>
+				<nav id="menu" class="navbar-collapse collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.htm">Home</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">
+					<span><b>Create New Report:&nbsp;&nbsp;</b></span>
+					<span
+						>From<span class="timezone"></span>: &nbsp;<input
+							type="text"
+							id="datepicker1"
+							placeholder="Begin Date"
+							readonly
+						/>&nbsp;&nbsp;</span
+					>
+					<span
+						>To<span class="timezone"></span>: &nbsp;<input
+							type="text"
+							id="datepicker2"
+							placeholder="End Date"
+							readonly
+						/>&nbsp;&nbsp;</span
+					>
+					<span>&nbsp;&nbsp;|</span>
+					<span
+						>&nbsp;&nbsp;Minimum Severity: &nbsp;
+						<select id="sel-severity">
+							<option value="5" selected>Exploits</option>
+							<option value="4">Possible Exploits</option>
+							<option value="3">Suspicious</option>
+						</select>
+						&nbsp;&nbsp;
+					</span>
+					<span
+						>&nbsp;&nbsp;Minimum Detected Times: &nbsp;
+
+						<select id="sel-throttle">
+							<option value="9">10</option>
+							<option value="8">9</option>
+							<option value="7">8</option>
+							<option value="6">7</option>
+							<option value="5">6</option>
+							<option value="4" selected>5</option>
+							<option value="3">4</option>
+							<option value="2">3</option>
+							<option value="1">2</option>
+							<option value="0">1</option>
+						</select>
+						&nbsp;&nbsp;
+					</span>
+					<button id="btn-create-report">Create</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<table id="tbl_reports" cellpadding="30">
+						<thead style="background-color: rgb(60, 100, 60); color: white">
+							<tr>
+								<th style="width: 40px; text-align: center">ID</th>
+								<th style="width: 70px; text-align: center">Creator</th>
+								<th style="width: 160px; text-align: center">CreateTime<span class="timezone"></span></th>
+								<th style="width: 160px; text-align: center">UpdateTime<span class="timezone"></span></th>
+								<th style="width: 160px; text-align: center">BeginDate<span class="timezone"></span></th>
+								<th style="width: 160px; text-align: center">EndDate<span class="timezone"></span></th>
+								<th style="width: 100px; text-align: center">Players</th>
+								<th style="width: 100px; text-align: center">Status</th>
+								<th style="width: 100px; text-align: center">Operations</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_reports_body" class="reportarea"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<span><img id="wait-spinner" src="images/color-spinner.gif" alt="Loading ..." /></span>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">© Copyright 2020 Roblox Corporation. All Rights Reserved.</footer>
+
+		<script>
+			function getLastReportEndDate() {
+				var rows = $('#tbl_reports_body').children().length;
+				var result = '';
+				var i = 0;
+				for (i = 0; i < rows; i++) {
+					var row = $('#tbl_reports_body').children()[i];
+					if (row.children[7].innerHTML != 'Deleted') {
+						result = row.children[5].innerHTML;
+						return result;
+					}
+				}
+				return result;
+			}
+
+			function getTodayDate() {
+				var t = (Date.now() / 86400000) * 86400000;
+				return new Date(t);
+			}
+
+			$(document).ready(function () {
+				var tzone = new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2];
+				$('.timezone').text(' (' + tzone + ')');
+
+				$('#datepicker1').datepicker({
+					dateFormat: 'yy-mm-dd',
+					beforeShowDay: function (date) {
+						var dtEnd = $('#datepicker2').datepicker('getDate');
+						if (dtEnd) {
+							var dtStart = new Date(dtEnd);
+							dtStart.setDate(dtEnd.getDate() - 7);
+							return [date <= dtEnd && date > dtStart, '', ''];
+						} else {
+							var dtPrev = new Date(getLastReportEndDate());
+							dtPrev.setDate(dtPrev.getDate() + 1);
+							var dtToday = new Date(Date.now());
+							dtToday.setHours(0);
+							dtToday.setMinutes(0);
+							dtToday.setSeconds(0);
+							dtToday.setMilliseconds(0);
+							if (isNaN(dtPrev.getTime())) return [date < dtToday, '', ''];
+							else return [date > dtPrev && date < dtToday, '', ''];
+						}
+					},
+				});
+
+				$('#datepicker2').datepicker({
+					dateFormat: 'yy-mm-dd',
+					beforeShowDay: function (date) {
+						var dtStart = $('#datepicker1').datepicker('getDate');
+						if (dtStart) {
+							var dtToday = CsrUtils.getBeginOfToday();
+							var dtEnd = new Date(dtStart);
+							dtEnd.setDate(dtStart.getDate() + 7);
+							if (dtToday < dtEnd) {
+								dtEnd = dtToday;
+							}
+							return [date >= dtStart && date < dtEnd, '', ''];
+						} else {
+							var dtPrev = new Date(getLastReportEndDate());
+							dtPrev.setDate(dtPrev.getDate() + 1);
+							var dtToday = CsrUtils.getBeginOfToday();
+							if (isNaN(dtPrev.getTime())) return [date < dtToday, '', ''];
+							else return [date > dtPrev && date < dtToday, '', ''];
+						}
+					},
+				});
+
+				$('.reportarea').on('click', 'button', function () {
+					var btnText = $(this).text();
+					if (btnText == 'Delete') {
+						var reportId = this.id;
+						reportId = reportId.substring(11);
+						var r = confirm('Do you want to delete CSREPORT #' + reportId + '?');
+						if (r) {
+							var vUrl = CsrUtils.csrApiHost + '/report/delete?id=' + reportId;
+							//alert(vUrl);
+							$.ajax({
+								type: 'POST',
+								url: vUrl,
+								dataType: 'json',
+								success: function (data, status) {
+									alert('CSREPORT #' + reportId + ' has been deleted!');
+									// so the row name is "csreport-" + reportId
+									//alert("Response:" + JSON.stringify(data));
+									var row = document.getElementById('csreport-' + reportId);
+									row.setAttribute('style', 'background-color: rgb(220, 220, 220)');
+									$('#btn-create-report').prop('disabled', true);
+									$('#sel-severity').prop('disabled', true);
+									$('#sel-throttle').prop('disabled', true);
+									$('#datepicker1').prop('disabled', true);
+									$('#datepicker2').prop('disabled', true);
+									$(this).prop('disabled', true);
+									$(this).css('background-color', 'rgb(180, 180, 180)');
+									location.reload();
+								},
+								error: function (xhr, status, error) {
+									alert('Fail to delete CSREPORT #' + reportId + ' (' + status + '): ' + error);
+								},
+							});
+						}
+					} else if (btnText == 'Refresh') {
+						location.reload();
+					}
+				});
+			});
+
+			$('#btn-create-report').click(function () {
+				var sSeverity = $('#sel-severity').val();
+				var sThrottle = $('#sel-throttle').val();
+				var sBegin = $('#datepicker1').val();
+				var sEnd = $('#datepicker2').val();
+				//alert( "Creating new report ...\nFrom: " + sBegin + "\nTo:  " + sEnd);
+				var dtBegin = CsrUtils.localDateStringToDate(sBegin);
+				var dtEnd = CsrUtils.localDateStringToDate(sEnd);
+				if (isNaN(dtBegin.getTime())) {
+					alert('Please choose begin date');
+					return;
+				}
+				if (isNaN(dtEnd.getTime())) {
+					alert('Please choose end date');
+					return;
+				}
+				dtEnd = CsrUtils.addDays(dtEnd, 1);
+
+				// alert("Creating CSREPORT from:\n        "
+				//     + CsrUtils.timeToLocalTimeString(dtBegin) + " (" + dtBegin.toISOString() + ")"
+				//     + "\nto:\n        " + CsrUtils.timeToLocalTimeString(dtEnd) + " (" + dtEnd.toISOString() + ")\n");
+				var createConfirm = confirm("Do you want to create CSREPORT from '" + sBegin + "' to '" + sEnd + "'?\n");
+				if (!createConfirm) return;
+
+				var vUrl =
+					CsrUtils.csrApiHost +
+					'/report/create?st=' +
+					dtBegin.getTime() / 1000 +
+					'&et=' +
+					dtEnd.getTime() / 1000 +
+					'&severity=' +
+					sSeverity +
+					'&throttle=' +
+					sThrottle;
+				//alert("REST: POST " + vUrl);
+
+				$.ajax({
+					type: 'POST',
+					url: vUrl,
+					data: '',
+					dataType: 'json',
+					success: function (data, status) {
+						//alert("New report has been created, waiting for server processing ...");
+						//alert("Response:" + JSON.stringify(data));
+						location.reload();
+					},
+					error: function (jqXHR, status, error) {
+						alert('Fail to create (' + status + '): ' + error);
+					},
+				});
+			});
+
+			$(function () {
+				function init() {
+					$.ajax({
+						url: CsrUtils.csrApiHost + '/report/list',
+						type: 'GET',
+						data: '',
+						success: function (data, status) {
+							var i = 0;
+							var idx = 0;
+							var removable = true;
+
+							for (i = data.result.length - 1; i >= 0; i--) {
+								var rowContent = '';
+								rowContent += '<tr id="csreport-' + data.result[i].ID + '"';
+								if (data.result[i].RSTATUS == 2) {
+									rowContent += ', style="background-color: rgb(220, 220, 220)">';
+								} else if (data.result[i].RSTATUS == 0) {
+									rowContent += ', style="background-color: rgb(255, 240, 240)">';
+									removable = false;
+									$('#btn-create-report').prop('disabled', true);
+									$('#sel-severity').prop('disabled', true);
+									$('#sel-throttle').prop('disabled', true);
+									$('#datepicker1').prop('disabled', true);
+									$('#datepicker2').prop('disabled', true);
+								} else {
+									if (idx == 0) {
+										rowContent += ', style="background-color: rgb(240, 255, 240)">';
+										idx = 1;
+									} else {
+										rowContent += ', style="background-color: rgb(220, 255, 220)">';
+										idx = 0;
+									}
+								}
+
+								var createTime = new Date(CsrUtils.localTimeStringToISOString(data.result[i].CREATETIME));
+								var updateTime = new Date(CsrUtils.localTimeStringToISOString(data.result[i].UPDATETIME));
+								var statBeginTime = new Date(CsrUtils.localTimeStringToISOString(data.result[i].STATBEGIN));
+								var statEndTime = new Date(CsrUtils.localTimeStringToISOString(data.result[i].STATEND));
+								statEndTime = CsrUtils.addDays(statEndTime, -1);
+
+								rowContent += '<td style="text-align: center;"><span>' + data.result[i].ID + '</span>.</td>';
+								rowContent += '<td style="text-align: center;">' + data.result[i].CREATORID + '</td>';
+								rowContent += '<td style="text-align: center;">' + CsrUtils.timeToLocalTimeString(createTime) + '</td>';
+								rowContent += '<td style="text-align: center;">' + CsrUtils.timeToLocalTimeString(updateTime) + '</td>';
+								// timestampToDateString
+								rowContent += '<td style="text-align: center;">' + CsrUtils.timeToLocalDateString(statBeginTime) + '</td>';
+								rowContent += '<td style="text-align: center;">' + CsrUtils.timeToLocalDateString(statEndTime) + '</td>';
+								rowContent += '<td style="text-align: center;">' + data.result[i].STATCOUNT + '</td>';
+								if (data.result[i].RSTATUS == 2) {
+									rowContent += '<td style="text-align: center;">Deleted</td>';
+									rowContent += '<td style="text-align: center;"></td>';
+								} else if (data.result[i].RSTATUS == 0) {
+									rowContent += '<td style="text-align: center;">Pending</td>';
+									rowContent +=
+										"<td style=\"text-align: center;\"><span>&nbsp;&nbsp;</span><span><button type='button' id='btn-refresh-" +
+										data.result[i].ID +
+										"' style='background-color: rgb(255,180,180);'>Refresh</button></span></td>";
+								} else {
+									rowContent += '<td style="text-align: center;">Ready</td>';
+									rowContent += '<td style="text-align: center;">';
+									rowContent += '<span>&nbsp;&nbsp;</span>';
+									rowContent +=
+										"<span><a id='btn-view-" +
+										data.result[i].ID +
+										"' href='csreport.htm?id=" +
+										data.result[i].ID +
+										"' target='_blank'>View</a></span>";
+									rowContent +=
+										"<span>&nbsp;&nbsp;</span><span><a id='btn-dl-" +
+										data.result[i].ID +
+										"' href='" +
+										CsrUtils.csrApiHost +
+										'/report?id=' +
+										data.result[i].ID +
+										"&style=csv' target='_blank'>Download</a></span>";
+									if (removable) {
+										removable = false;
+										rowContent +=
+											"<span>&nbsp;&nbsp;</span><span><button class='del-btn' type='button' id='btn-delete-" +
+											data.result[i].ID +
+											"' style='background-color: rgb(255,180,180);'>Delete</button></span>";
+									}
+									rowContent += '<span>&nbsp;&nbsp;</span>';
+									rowContent += '</td>';
+								}
+								rowContent += '</tr>';
+								$('#tbl_reports_body').append(rowContent);
+							}
+
+							$('#wait-spinner').hide();
+						},
+					});
+				}
+
+				init();
+			});
+		</script>
+	</body>
+</html>

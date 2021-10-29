@@ -1,0 +1,28 @@
+name: Analyze Linux
+
+on:
+    push:
+        branches: [Roblox.SiteTest4]
+    pull_request:
+        branches: [Roblox.SiteTest4]
+
+jobs:
+    AnalyzeLinux:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                language: ['typescript']
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+            - name: Initialize CodeQL
+              uses: github/codeql-action/init@v1
+              with:
+                  languages: ${{ matrix.language }}
+                  config-file: './.github/codeql/codeql-config.yml'
+            - name: Autobuild
+              uses: github/codeql-action/autobuild@v1
+            - name: Perform CodeQL Analysis
+              uses: github/codeql-action/analyze@v1

@@ -1,0 +1,10 @@
+﻿.inputLabel 
+{
+	float: left;
+	width: 100px;
+	padding-top: 5px;
+}
+.MouseOver
+{
+    background-color: yellow;
+}

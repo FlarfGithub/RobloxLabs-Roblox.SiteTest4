@@ -1,0 +1,53 @@
+
+Error Detail: An exception was thrown when attempting to send the request.\n\tUrl: (Post) https://avatar.api.sitetest3.robloxlabs.com/v1/GetAccoutrementsByUserIds?apiKey=********
+Inner Exception: Roblox.Http.HttpException: The operation has timed out ---> System.Net.WebException: The operation has timed out
+   at System.Net.HttpWebRequest.GetResponse()
+   at Roblox.Http.Client.SendHttpRequestHandler.Invoke(IExecutionContext`2 context)
+   --- End of inner exception stack trace ---
+   at Roblox.Http.Client.SendHttpRequestHandler.Invoke(IExecutionContext`2 context)
+   at Roblox.Http.Client.Monitoring.HttpRequestMetricsHandler.Invoke(IExecutionContext`2 context)
+   at Roblox.Http.Client.CircuitBreakerHandler.Invoke(IExecutionContext`2 context)
+   at Roblox.Http.Client.RequestFailureThrowsHandler.Invoke(IExecutionContext`2 context)
+Exception Stack Trace:    at Roblox.Http.Client.RequestFailureThrowsHandler.Invoke(IExecutionContext`2 context)
+   at Roblox.Pipeline.ExecutionPlan`2.Execute(TInput input)
+   at Roblox.Http.Client.HttpRequestSender.SendRequestWithJsonBody[TRequest,TResponse](HttpMethod httpMethod, String path, TRequest requestData, IEnumerable`1 queryStringParameters)
+   at Roblox.Http.ServiceClient.ServiceRequestSender.SendPostRequest[TRequest,TResponse](String path, TRequest requestData)
+   at Roblox.Platform.Avatar.Accoutrement.GetUserAccoutrementsNoFilter(Int64 userId) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Entities\Accoutrement.cs:line 101
+   at Roblox.Platform.Avatar.AccoutrementFactory.GetUserAccoutrementsNoFilter(Int64 userId) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Factories\AccoutrementFactory.cs:line 72
+   at Roblox.Platform.Avatar.Avatar.LoadAccoutrements(Boolean mustCheckWearingRules, AccessoryLimitModeEnum accessoryLimitMode) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Implementation\Avatar.cs:line 176
+   at Roblox.Platform.Avatar.Avatar.GetAccoutrements(Boolean mustCheckWearingRules) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Implementation\Avatar.cs:line 852
+   at Roblox.Platform.Avatar.Avatar.GetWornAssets(Boolean checkIfDefaultClothingNeeded, Boolean mustCheckWearingRules) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Implementation\Avatar.cs:line 864
+   at Roblox.Platform.Avatar.AvatarKeyGenerator.ComputeKey(IAvatar avatar, Boolean checkIfDefaultClothingNeeded) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Implementation\AvatarKeyGenerator.cs:line 48
+   at Roblox.Platform.Avatar.AvatarKeyGenerator.GenerateAssetHash(IAvatar avatar, Boolean checkIfDefaultClothing) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Avatar\Roblox.Platform.Avatar\Implementation\AvatarKeyGenerator.cs:line 104
+   at Roblox.Thumbs.AvatarThumbnail.CreateNewAvatarAssetHash(Int64 userId, IUserAvatar& userAvatar) in Z:\build\work\73cbbb52b9c062db\Assemblies\UI\Roblox.Thumbs\Implementation\AvatarThumbnail.cs:line 146
+   at Roblox.Thumbs.AvatarThumbnail.GetThumbnailUrl(Int64 userId, Int32 width, Int32 height, String format, AvatarImageType imageType, Nullable`1 isCircular) in Z:\build\work\73cbbb52b9c062db\Assemblies\UI\Roblox.Thumbs\Implementation\AvatarThumbnail.cs:line 317
+   at Roblox.Thumbs.AvatarThumbnail.GetThumbnailUrl(User user, Int32 width, Int32 height, String format, AvatarImageType imageType) in Z:\build\work\73cbbb52b9c062db\Assemblies\UI\Roblox.Thumbs\Implementation\AvatarThumbnail.cs:line 188
+   at Roblox.Thumbs.AvatarThumbnail.GetThumbnailUrl(User user, ImageParameters imageParameters, AvatarImageType imageType) in Z:\build\work\73cbbb52b9c062db\Assemblies\UI\Roblox.Thumbs\Implementation\AvatarThumbnail.cs:line 197
+   at Roblox.Website.Controllers.ProfileController.GetProfile(Int64 userId, Int32 imgWidth, Int32 imgHeight, String imgFormat) in Z:\build\work\73cbbb52b9c062db\web\RobloxWebSite\Controllers\ProfileController.cs:line 84
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+Exception Source: Roblox.Http.Client
+Exception TargetSite: Void Invoke(Roblox.Pipeline.IExecutionContext`2[Roblox.Http.IHttpRequest,Roblox.Http.IHttpResponse])
+Exception Data: System.Collections.ListDictionaryInternal

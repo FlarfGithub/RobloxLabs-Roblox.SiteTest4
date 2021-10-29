@@ -1,0 +1,839 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v2",
+        "title": "Economy Api v2"
+    },
+    "host": "economy.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v2/assets/{assetId}/details": {
+            "get": {
+                "tags": ["Asset"],
+                "summary": "Retrieves the product and asset details given its id.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "path",
+                    "description": "The id of the asset.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Economy.Api.Models.ItemDetailResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "5: The asset id is invalid.\r\n20: No Product Info found associated with the AssetId."
+                    },
+                    "503": {
+                        "description": "11: The requested feature is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["AssetV2:GetItemDetailsByAssetId"]
+                }
+            }
+        },
+        "/v2/groups/{groupId}/transactions": {
+            "get": {
+                "tags": ["TransactionHistory"],
+                "summary": "Fetches the transaction history for a group.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "transactionType",
+                    "in": "query",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Sale", "Purchase", "AffiliateSale", "DevEx", "GroupPayout", "AdImpressionPayout", "CurrencyPurchase", "TradeRobux", "PremiumStipend", "PendingRobux", "EngagementPayout", "GroupEngagementPayout", "AdSpend", "Summary", "IndividualToGroup", "CSAdjustment"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "The order the results are sorted in.",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Economy.Api.Models.TransactionResponse]"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The group is invalid."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "3: Insufficient permissions."
+                    },
+                    "503": {
+                        "description": "11: The requested feature is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["TransactionHistoryV2:GetGroupTransactions"]
+                }
+            }
+        },
+        "/v2/users/{userId}/transactions": {
+            "get": {
+                "tags": ["TransactionRecords"],
+                "summary": "Fetches the transaction history for the authenticated user.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "transactionType",
+                    "in": "query",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Sale", "Purchase", "AffiliateSale", "DevEx", "GroupPayout", "AdImpressionPayout", "CurrencyPurchase", "TradeRobux", "PremiumStipend", "PendingRobux", "EngagementPayout", "GroupEngagementPayout", "AdSpend", "Summary", "IndividualToGroup", "CSAdjustment"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "The order the results are sorted in.",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Economy.Api.Models.TransactionRecordResponse]"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The user is invalid.\r\n12: Invalid transaction type."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["TransactionRecords:GetUserTransactions"]
+                }
+            }
+        },
+        "/v2/users/{userId}/transaction-totals": {
+            "get": {
+                "tags": ["TransactionRecords"],
+                "summary": "Gets recent transaction total summaries for the Authenticated User.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "timeFrame",
+                    "in": "query",
+                    "description": "The {Roblox.Economy.Api.RevenueSummaryTimeFrame} to get for.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Day", "Week", "Month", "Year"]
+                }, {
+                    "name": "transactionType",
+                    "in": "query",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Sale", "Purchase", "AffiliateSale", "DevEx", "GroupPayout", "AdImpressionPayout", "CurrencyPurchase", "TradeRobux", "PremiumStipend", "PendingRobux", "EngagementPayout", "GroupEngagementPayout", "AdSpend", "Summary", "IndividualToGroup", "CSAdjustment"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "The order the results are sorted in.",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionTotalsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The user is invalid.\r\n4: The time frame is not supported or is invalid."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["TransactionRecords:GetUserRevenueSummary"]
+                }
+            }
+        },
+        "/v2/users/{userId}/transaction-types": {
+            "get": {
+                "tags": ["TransactionRecords"],
+                "summary": "Gets the transaction types that a user has used at any point in their account's lifetime.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionUsedTypesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The user is invalid."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["TransactionRecords:GetUsedTransactionTypes"]
+                }
+            }
+        },
+        "/v2/developer-products/{productId}/purchase": {
+            "post": {
+                "tags": ["Purchase"],
+                "summary": "Purchases a User Product given its product id.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "productId",
+                    "in": "path",
+                    "description": "The id of the product.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "purchaseDetail",
+                    "in": "body",
+                    "description": "The product purchase details.",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Economy.Api.Models.PurchaseRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Economy.Api.Models.PurchaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The user is invalid."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Purchase:PurchaseDeveloperProductByProductId"]
+                }
+            }
+        },
+        "/v2/user-products/{productId}/purchase": {
+            "post": {
+                "tags": ["Purchase"],
+                "summary": "Purchases a User Product given its product id.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "productId",
+                    "in": "path",
+                    "description": "The id of the product.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "purchaseDetail",
+                    "in": "body",
+                    "description": "The product purchase details.",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Economy.Api.Models.PurchaseRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Economy.Api.Models.PurchaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The user is invalid."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Purchase:PurchaseUserProductByProductId"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Economy.Api.Models.ItemDetailResponse": {
+            "type": "object",
+            "properties": {
+                "TargetId": {
+                    "format": "int64",
+                    "description": "The target Id",
+                    "type": "integer"
+                },
+                "ProductType": {
+                    "description": "The type of product requested",
+                    "type": "string"
+                },
+                "AssetId": {
+                    "format": "int64",
+                    "description": "The asset Id",
+                    "type": "integer"
+                },
+                "ProductId": {
+                    "format": "int64",
+                    "description": "The product Id",
+                    "type": "integer"
+                },
+                "Name": {
+                    "description": "Name of the asset",
+                    "type": "string"
+                },
+                "Description": {
+                    "description": "Description of the asset",
+                    "type": "string"
+                },
+                "AssetTypeId": {
+                    "format": "int32",
+                    "description": "The assetType Id",
+                    "type": "integer"
+                },
+                "Creator": {
+                    "$ref": "#/definitions/Roblox.Economy.Api.Models.CreatorDetails",
+                    "description": "Creator information"
+                },
+                "IconImageAssetId": {
+                    "format": "int64",
+                    "description": "Icon Image Asset Id",
+                    "type": "integer"
+                },
+                "Created": {
+                    "format": "date-time",
+                    "description": "Created Datetime",
+                    "type": "string"
+                },
+                "Updated": {
+                    "format": "date-time",
+                    "description": "Updated Datetime",
+                    "type": "string"
+                },
+                "PriceInRobux": {
+                    "format": "int64",
+                    "description": "Nullable Price in Robux",
+                    "type": "integer"
+                },
+                "PremiumPriceInRobux": {
+                    "format": "int64",
+                    "description": "Nullable Premium price in Robux",
+                    "type": "integer"
+                },
+                "PriceInTickets": {
+                    "format": "int64",
+                    "description": "Nullable Price in Tickets",
+                    "type": "integer"
+                },
+                "Sales": {
+                    "format": "int64",
+                    "description": "Num of Sales",
+                    "type": "integer"
+                },
+                "IsNew": {
+                    "description": "Is New ?",
+                    "type": "boolean"
+                },
+                "IsForSale": {
+                    "description": "Is For Sale ?",
+                    "type": "boolean"
+                },
+                "IsPublicDomain": {
+                    "description": "Is Public Domain ?",
+                    "type": "boolean"
+                },
+                "IsLimited": {
+                    "description": "Is Limited ?",
+                    "type": "boolean"
+                },
+                "IsLimitedUnique": {
+                    "description": "Is Limited Unique",
+                    "type": "boolean"
+                },
+                "Remaining": {
+                    "format": "int64",
+                    "description": "Nullable Num of Remainning",
+                    "type": "integer"
+                },
+                "MinimumMembershipLevel": {
+                    "format": "int32",
+                    "description": "Minimum membership level needed",
+                    "type": "integer"
+                },
+                "ContentRatingTypeId": {
+                    "format": "int32",
+                    "description": "Content Rating Type Id",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.CreatorDetails": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "format": "int64",
+                    "description": "Id of the Creator",
+                    "type": "integer"
+                },
+                "Name": {
+                    "description": "Name of the Creator",
+                    "type": "string"
+                },
+                "CreatorType": {
+                    "description": "Type of the Creator",
+                    "type": "string"
+                },
+                "CreatorTargetId": {
+                    "format": "int64",
+                    "description": "TargetId for the Creator",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.PurchaseRequest": {
+            "description": "Purchase detail request model.",
+            "type": "object",
+            "properties": {
+                "expectedPrice": {
+                    "format": "int64",
+                    "description": "Expected Price for product",
+                    "type": "integer"
+                },
+                "saleLocationType": {
+                    "description": "Source of Sale, Defaults to Website",
+                    "enum": ["Website", "Game"],
+                    "type": "string"
+                },
+                "saleLocationId": {
+                    "format": "int64",
+                    "description": "Source of Sale identification, Defaults to null",
+                    "type": "integer"
+                },
+                "requestId": {
+                    "description": "Client Request Id",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.PurchaseResponse": {
+            "description": "Purchase response model.",
+            "type": "object",
+            "properties": {
+                "purchased": {
+                    "type": "boolean"
+                },
+                "transactionStatus": {
+                    "enum": ["Success", "AlreadyOwned", "ApplicationError", "EconomyDisabled", "InsufficientFunds", "InsufficientMembership", "InvalidTransaction", "NotAvailableInRobux", "NotForSale", "PriceChanged", "SaleExpired", "SupplyExausted", "ContentRatingRestricted", "UnknownBirthday", "AffiliateSalesDisabled", "BadAffiliateSaleProduct", "ExceptionOccurred", "IOSOnlyItem", "InvalidArguments", "TooManyPurchases", "Unauthorized", "AccountRestrictionsRestricted", "PendingTransactionAlreadyExists", "SaleUnavailableAtSaleLocation"],
+                    "type": "string"
+                },
+                "productId": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "price": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "receipt": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Paging.ExclusiveStartKeyCursor[System.Int64]": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "sortOrder": {
+                    "enum": ["Asc", "Desc"],
+                    "type": "string"
+                },
+                "pagingDirection": {
+                    "enum": ["Forward", "Backward"],
+                    "type": "string"
+                },
+                "pageNumber": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "discriminator": {
+                    "type": "string"
+                },
+                "count": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Economy.Api.Models.TransactionResponse]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.TransactionResponse": {
+            "description": "Response model for a virtual economy transaction.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int64",
+                    "description": "The id",
+                    "type": "integer"
+                },
+                "created": {
+                    "format": "date-time",
+                    "description": "The timestamp the transaction occurred.",
+                    "type": "string"
+                },
+                "isPending": {
+                    "description": "Whether or not the transaction is pending.",
+                    "type": "boolean"
+                },
+                "agent": {
+                    "$ref": "#/definitions/Roblox.Economy.Api.Models.AgentResponse",
+                    "description": "The other agent in the transaction. Can be a user or a group."
+                },
+                "details": {
+                    "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionDetailsResponse",
+                    "description": "The transaction details. Includes different information based on transaction type."
+                },
+                "currency": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Economy.GenericCurrencyResponse",
+                    "description": "The transaction's currency amount and type."
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.AgentResponse": {
+            "description": "Represents an agent, which can be either a user or a group.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int64",
+                    "type": "integer",
+                    "readOnly": true
+                },
+                "type": {
+                    "enum": ["User", "Group"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "name": {
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.TransactionDetailsResponse": {
+            "description": "Base class that represents the item in the transaction.",
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.Web.Responses.Economy.GenericCurrencyResponse": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "type": {
+                    "enum": ["Robux", "Tickets"],
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Economy.Api.Models.TransactionRecordResponse]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionRecordResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.TransactionRecordResponse": {
+            "description": "Response model for a virtual economy transaction record.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int64",
+                    "description": "The database id of the hold",
+                    "type": "integer"
+                },
+                "transactionType": {
+                    "description": "The type of the transaction",
+                    "type": "string"
+                },
+                "created": {
+                    "format": "date-time",
+                    "description": "The timestamp the transaction occurred.",
+                    "type": "string"
+                },
+                "isPending": {
+                    "description": "Whether or not the transaction is pending.",
+                    "type": "boolean"
+                },
+                "agent": {
+                    "$ref": "#/definitions/Roblox.Economy.Api.Models.AgentResponse",
+                    "description": "The other agent in the transaction. Can be a user or a group."
+                },
+                "details": {
+                    "$ref": "#/definitions/Roblox.Economy.Api.Models.TransactionDetailsResponse",
+                    "description": "The transaction details. Includes different information based on transaction type."
+                },
+                "currency": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Economy.GenericCurrencyResponse",
+                    "description": "The transaction's currency amount and type."
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.TransactionTotalsResponse": {
+            "description": "Response model for a virtual economy transaction totals.",
+            "type": "object",
+            "properties": {
+                "salesTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "purchasesTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "affiliateSalesTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "groupPayoutsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "currencyPurchasesTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "premiumStipendsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "tradeSystemEarningsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "tradeSystemCostsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "premiumPayoutsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "groupPremiumPayoutsTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "adSpendTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "developerExchangeTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "pendingRobuxTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "incomingRobuxTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "outgoingRobuxTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "individualToGroupTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "csAdjustmentTotal": {
+                    "format": "int64",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Economy.Api.Models.TransactionUsedTypesResponse": {
+            "description": "Response model detailing the transaction types a user has used in their account lifetime.",
+            "type": "object",
+            "properties": {
+                "HasPurchase": {
+                    "type": "boolean"
+                },
+                "HasSale": {
+                    "type": "boolean"
+                },
+                "HasAffiliateSale": {
+                    "type": "boolean"
+                },
+                "HasGroupPayout": {
+                    "type": "boolean"
+                },
+                "HasCurrencyPurchase": {
+                    "type": "boolean"
+                },
+                "HasTradeRobux": {
+                    "type": "boolean"
+                },
+                "HasPremiumStipend": {
+                    "type": "boolean"
+                },
+                "HasEngagementPayout": {
+                    "type": "boolean"
+                },
+                "HasGroupEngagementPayout": {
+                    "type": "boolean"
+                },
+                "HasAdSpend": {
+                    "type": "boolean"
+                },
+                "HasDevEx": {
+                    "type": "boolean"
+                },
+                "HasIndividualToGroup": {
+                    "type": "boolean"
+                },
+                "HasCSAdjustment": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

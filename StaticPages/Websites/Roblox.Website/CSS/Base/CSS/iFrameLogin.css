@@ -1,0 +1,106 @@
+﻿.fbSplashPageConnect 
+{
+	margin: 5px 0px;
+}
+a.facebook-login, a.facebook-login:visited {
+	display:inline-block;
+	text-decoration:none;
+	/*These styles cannot be over-ridden or they will break the display. Since this is used
+     more than once, there can be no ID on the element*/
+    font-weight: normal !important; 
+    font-size: 12px !important;
+}
+a.facebook-login:hover span.left, a.facebook-login:hover span.middle {
+	background-position:left bottom;
+}
+a.facebook-login:hover span.right {
+	background-position:right bottom;
+}
+a.facebook-login span.left, a.facebook-login span.right, a.facebook-login span.middle {
+	float:left;
+	height:25px;line-height:14px
+}
+a.facebook-login span.left {
+	width:27px;
+	background:url(/images/facebook/bg-fblogin_sides.png) left top no-repeat;
+}
+a.facebook-login span.middle {
+	height:18px;
+	width:auto;
+	background:url(/images/facebook/bg-fblogin_middle.png) left top repeat-x;
+	color:#394f7d;
+	padding:7px 2px 0px 6px;
+}
+a.facebook-login span.middle span {
+	display:block;
+	color:#fff;
+	position:relative;
+	bottom:16px;
+}
+a.facebook-login span.right {
+	width:5px;
+	background:url(/images/facebook/bg-fblogin_sides.png) right top no-repeat;
+}
+.newLogin 
+{
+	margin: 10px;
+}
+.iframe-login-signup
+{
+	margin-top: 6px;
+	float: right;
+	position: relative;
+}
+#header-login .grey-arrow {
+    color:#666;
+    font-size: 12px;
+}
+#header-login.btn-control.btn-control-large.active {
+    background-image: none;
+    background-color: #e1e1e1;
+    border-color: #000;
+}
+#header-login
+{
+    font-weight: 600;
+	display: inline-block;
+	width: 62px;
+	position: relative;
+	cursor:pointer;
+	letter-spacing: -1px;
+    font-size: 15px;
+}
+#header-signup
+{
+	font-weight: 600;
+	color: #fff;
+	font-size: 15px;
+	position: relative;
+}
+#header-or
+{
+	font-weight: normal;
+	color: #9Ec3E7;
+	font-size: 13px;
+	position: relative;
+	margin: 0 6px;
+}
+.login-frame 
+{
+	height: 100%;
+	width: 100%;
+}
+#iFrameLogin {
+    border:1px solid #0C3060;
+    border-top:none;
+    height:128px;
+    position:absolute;
+    right:0;
+    top:26px;
+    width:340px;
+}
+#facebookSignIn {
+    margin-top:8px;
+    margin-bottom:10px;
+    text-align:center;
+}

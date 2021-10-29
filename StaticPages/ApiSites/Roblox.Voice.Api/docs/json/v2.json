@@ -1,0 +1,65 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v2", "title": "Voice Api v2" },
+	"host": "voice.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v2/tokens": {
+			"post": {
+				"tags": ["ProtectedVoice"],
+				"summary": "Creates a new signed JWT token containing the channel and user details from the request.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "requestModel",
+						"in": "body",
+						"description": "",
+						"required": true,
+						"schema": { "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceChannelTokenRequest" }
+					}
+				],
+				"responses": {
+					"200": { "description": "", "schema": { "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceChannelTokenResponse" } }
+				},
+				"properties": { "internal": true, "metricIds": ["ProtectedVoice:GenerateChannelToken"] }
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Voice.Api.Models.VoiceChannelTokenRequest": {
+			"description": "Request model for the API to create a new channel token",
+			"type": "object",
+			"properties": {
+				"serverId": {
+					"format": "int64",
+					"description": "Gets or sets the server id for which the token is valid",
+					"type": "integer"
+				},
+				"userId": { "format": "int64", "description": "Gets or sets the user id for which the token is valid", "type": "integer" },
+				"channelName": { "description": "Gets or sets the name of the channel", "maxLength": 32, "minLength": 1, "type": "string" },
+				"global": { "description": "Gets or sets a value indicating whether this is a global channel", "type": "boolean" }
+			}
+		},
+		"Roblox.Voice.Api.Models.VoiceChannelTokenResponse": {
+			"description": "Response model for serializing a channel token response",
+			"type": "object",
+			"properties": {
+				"token": { "description": "Gets or sets the resulting token", "type": "string" },
+				"expires": {
+					"format": "int64",
+					"description": "Gets or sets the token's expiry time as a Unix timestamp",
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,70 @@
+import { CacheabilitySettings } from 'Assemblies/Caching/Roblox.Caching/CacheabilitySettings';
+import { CacheInfo } from 'Assemblies/Caching/Roblox.Caching/CacheInfo';
+import { CacheManager } from 'Assemblies/Caching/Roblox.Caching/CacheManager';
+import { IRobloxEntity } from 'Assemblies/Data/Interfaces/Roblox.Data.Interfaces/IRobloxEntity';
+import { EntityHelper } from 'Assemblies/Data/Roblox.Data/Entities/EntityHelper';
+import { <CLASSNAME> } from '<CLASSNAMEIMPORT>';
+
+export class <BIZCLASSNAME> implements IRobloxEntity<<IDTYPE>, <CLASSNAME>> {
+	private _EntityDAL: <CLASSNAME>;
+
+	public get ID() {
+		return this._EntityDAL.ID;
+	}
+	<BIZPROPERTIES>
+
+	public constructor() {
+		this._EntityDAL = new <CLASSNAME>();
+	}
+
+	public Delete() {
+		EntityHelper.DeleteEntity(this, this._EntityDAL.Delete);
+	}
+
+	public Save() {
+		EntityHelper.SaveEntity(
+			this,
+			() => {
+				this._EntityDAL.Created = new Date(Date.now());
+				this._EntityDAL.Updated = this._EntityDAL.Created;
+				this._EntityDAL.Insert();
+			},
+			() => {
+				this._EntityDAL.Updated = new Date(Date.now());
+				this._EntityDAL.Update();
+			},
+		);
+	}
+
+	public static Get(id: <IDTYPE>): <BIZCLASSNAME> {
+		return EntityHelper.GetEntity<<IDTYPE>, <CLASSNAME>, <BIZCLASSNAME>>(this.EntityCacheInfo, id, () => <CLASSNAME>.Get(id));
+	}
+
+	public static Get<BIZCLASSNAME>sBy<FKPROPERTYNAME>(<FKPROPERTYNAME>: <FKIDTYPE>): <BIZCLASSNAME>[] {
+		const collectionId = `Get<BIZCLASSNAME>sBy<FKPROPERTYNAME>_<FKPROPERTYNAME>:${<FKPROPERTYNAME>}`;
+		return EntityHelper.GetEntityCollection<<BIZCLASSNAME>, <IDTYPE>>(
+			this.EntityCacheInfo,
+			new CacheManager.CachePolicy(CacheManager.CacheScopeFilter.Qualified, `<FKPROPERTYNAME>:${<FKPROPERTYNAME>}`),
+			collectionId,
+			() => <CLASSNAME>.Get<BIZCLASSNAME>IDsBy<FKPROPERTYNAME>(<FKPROPERTYNAME>),
+			<BIZCLASSNAME>.Get,
+		);
+	}
+
+	public Construct(dal: <CLASSNAME>) {
+		this._EntityDAL = dal;
+	}
+
+	public get CacheInfo() {
+		return <BIZCLASSNAME>.EntityCacheInfo;
+	}
+
+	public static EntityCacheInfo: CacheInfo = new CacheInfo(
+		new CacheabilitySettings(true, true, true, true, true, true, true),
+		typeof <BIZCLASSNAME>.toString(),
+	);
+
+	public *BuildEntityIDLookups(): Generator<any, string[], any> {
+		return yield [];
+	}
+}

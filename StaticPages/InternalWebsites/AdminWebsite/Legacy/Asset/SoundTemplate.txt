@@ -1,0 +1,12 @@
+﻿<item class="Sound" referent="RBX0">
+	<properties>
+		<bool name="Looped">false</bool>
+		<string name="Name">&lt;&lt;&lt;&lt;<name>&gt;&gt;&gt;&gt;</string>
+		<float name="Pitch">1</float>
+		<int name="PlayCount">-1</int>
+		<bool name="PlayOnRemove">false</bool>
+		<content name="SoundId"><url>&lt;&lt;&lt;&lt;<domain>&gt;&gt;&gt;&gt;/asset/?id=&lt;&lt;&lt;&lt;<soundassetid>&gt;&gt;&gt;&gt;</url></content>
+		<float name="Volume">1</float>
+		<bool name="archivable">true</bool>
+	</properties>
+</item>

@@ -1,0 +1,116 @@
+﻿.GenericModal .Title,
+.ConfirmationModal .Title {
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-weight: bold;
+	font-size: 27px;
+	color: #363636;
+	margin: 5px;
+	letter-spacing: -1px;
+}
+
+.GenericModal {
+	padding: 5px;
+	*top: -150px;
+}
+
+.GenericModalBody {
+	background-color: #fff;
+	padding: 10px;
+}
+
+.GenericModal .Message,
+.ConfirmationModal .Message {
+	display: inline-block;
+	width: 275px;
+	vertical-align: middle;
+	font: bold 15px Arial, Helvetica, Sans-Serif;
+	letter-spacing: 0;
+	font-size-adjust: none;
+	font-stretch: normal;
+	margin-bottom: 5px;
+}
+
+.GenericModal div.ImageContainer {
+	display: inline-block;
+	height: 110px;
+	width: 110px;
+	overflow: hidden;
+	vertical-align: middle;
+	margin-left: -15px;
+	*float: left;
+	*margin-left: 0px;
+}
+
+.GenericModal img.GenericModalImage {
+	display: inline-block;
+	max-height: 110px;
+	max-width: 110px;
+}
+
+.GenericModal .GenericModalButtonContainer {
+	text-align: center;
+	margin: 5px auto;
+	*margin-top: 115px;
+}
+
+.largeModal .GenericModalBody {
+	position: relative;
+}
+
+.largeModal div.ImageContainer {
+	position: absolute;
+	left: 35px;
+	top: 50%;
+	margin-top: -55px;
+}
+
+div.GenericModalErrorMessage {
+	background-color: #fae5e5;
+	border: 1px solid #c00;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: left;
+	padding: 5px;
+	margin: 0 5px;
+}
+.ConfirmationModal .BlueYes {
+	background: url('/images/Buttons/blue_yes.png') top;
+	width: 100px;
+}
+.ConfirmationModal .BlueNo {
+	background: url('/images/Buttons/blue_no.png') top;
+	width: 106px;
+}
+.ConfirmationModal .GreyYes {
+	background: url('/images/Buttons/grey_yes.png') top;
+	width: 112px;
+}
+.ConfirmationModal .GreyNo {
+	background: url('/images/Buttons/grey_no.png') top;
+	width: 100px;
+}
+.ConfirmationModal .GreyNo,
+.ConfirmationModal .GreyYes,
+.ConfirmationModal .BlueYes,
+.ConfirmationModal .BlueNo {
+	height: 50px;
+	display: inline-block;
+}
+.GenericModal .GreyNo:hover,
+.GenericModal .GreyYes:hover,
+.GenericModal .BlueNo:hover,
+.GenericModal .BlueYes:hover {
+	background-position: bottom;
+}
+.ConfirmationModalButtonContainer {
+	text-align: center;
+}
+.ConfirmationModal .Message {
+	min-height: 30px;
+	width: 100%;
+	margin: 10px auto;
+	text-align: center;
+}
+div.ConfirmationModal div.GenericModalBody {
+	padding: 5px;
+}

@@ -1,0 +1,451 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v3",
+		"title": "Authentication Api v3"
+	},
+	"host": "auth.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v3/signup/bundles": {
+			"get": {
+				"tags": ["Signup"],
+				"summary": "Gets the avatar bundles that are displayed at signup",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.SignupBundlesResponse"
+						}
+					},
+					"501": {
+						"description": "Bundles not found"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["SignupV3:GetSignupBundles"]
+				}
+			}
+		},
+		"/v3/signup": {
+			"post": {
+				"tags": ["Signup"],
+				"summary": "Endpoint for signing up a new user",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "{Roblox.Authentication.Api.Models.SignupV3Request}",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.SignupV3Request"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful signup",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.SignupResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request\r\n1: The request was empty."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: Captcha Failed.\r\n10: Invalid Birthdate.\r\n11: Invalid Username.\r\n12: Username already taken.\r\n13: Invalid Password.\r\n14: Password and Username are same.\r\n15: Password is too simple.\r\n16: Bundle id is not valid for sign up.\r\n25: Too many attempts. Please wait a bit."
+					},
+					"429": {
+						"description": "Too many requests"
+					},
+					"500": {
+						"description": "Internal server error"
+					},
+					"503": {
+						"description": "Service unavailable"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["SignupV3:Signup"]
+				}
+			}
+		},
+		"/v3/signup/challenge": {
+			"post": {
+				"tags": ["VerifiedSignup"],
+				"summary": "Create a new verified signup challenge",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.VerifiedSignupChallengeCreationRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.VerifiedSignupChallengeCreationResponse"
+						}
+					},
+					"400": {
+						"description": "1: The request is empty.\r\n3: The delivery method is not supported.\r\n4: The delivery target is invalid.\r\n5: The email address is invalid.\r\n6: The phone number is invalid."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n7: The email address is already linked to the maximum number of users.\r\n8: The phone number is already linked to a user."
+					},
+					"429": {
+						"description": "2: Too many attempts. Please wait a bit.\r\n18: Captcha must be passed before signing up."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["VerifiedSignup:CreateChallenge"]
+				}
+			}
+		},
+		"/v3/signup/verified": {
+			"post": {
+				"tags": ["Signup"],
+				"summary": "Endpoint for signing up a new verified user",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "{Roblox.Authentication.Api.Models.VerifiedSignupV3Request}",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.VerifiedSignupV3Request"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful signup",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.SignupResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request\r\n1: The request was empty."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: Captcha Failed.\r\n10: Invalid Birthdate.\r\n11: Invalid Username.\r\n12: Username already taken.\r\n13: Invalid Password.\r\n14: Password and Username are same.\r\n15: Password is too simple.\r\n16: Bundle id is not valid for sign up.\r\n20: The voucher is invalid.\r\n21: The voucher has expired.\r\n22: The phone number is invalid.\r\n23: The phone number is already linked to a user.\r\n24: The email address is already linked to the maximum number of users.\r\n25: Too many attempts. Please wait a bit."
+					},
+					"429": {
+						"description": "Too many requests"
+					},
+					"500": {
+						"description": "Internal server error"
+					},
+					"503": {
+						"description": "Service unavailable"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["SignupV3:VerifiedSignup"]
+				}
+			}
+		},
+		"/v3/signup/voucher": {
+			"post": {
+				"tags": ["VerifiedSignup"],
+				"summary": "Create a new verified signup voucher",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.VerifiedSignupVoucherCreationRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.Models.VerifiedSignupVoucherCreationResponse"
+						}
+					},
+					"400": {
+						"description": "1: The request is empty.\r\n9: The challenge is invalid.\r\n11: The code is invalid."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n10: The challenge has expired."
+					},
+					"429": {
+						"description": "2: Too many attempts. Please wait a bit."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["VerifiedSignup:CreateVoucher"]
+				}
+			}
+		},
+		"/v3/users/{userId}/two-step-verification/login": {
+			"post": {
+				"tags": ["TwoStepVerification"],
+				"summary": "Authenticates as a user given a two step verification verification token.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "The user ID to authenticate as.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.Authentication.Api.TwoStepVerificationLoginRequest}.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Authentication.Api.TwoStepVerificationLoginRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "1: User is invalid.\r\n5: Invalid two step verification ticket.\r\n10: Invalid verification token."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["TwoStepVerificationV3:TwoStepVerificationV3Login"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Authentication.Api.Models.SignupV3Request": {
+			"description": "Request model for the /v3/signup endpoint",
+			"type": "object",
+			"properties": {
+				"username": {
+					"description": "Username",
+					"type": "string"
+				},
+				"password": {
+					"description": "Password",
+					"type": "string"
+				},
+				"birthdate": {
+					"format": "date-time",
+					"description": "Birthdate",
+					"type": "string"
+				},
+				"bundleId": {
+					"format": "int64",
+					"description": "Avatar bundle ID",
+					"type": "integer"
+				},
+				"locale": {
+					"description": "Locale",
+					"type": "string"
+				},
+				"agreementIds": {
+					"description": "AgreementIds",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"captchaToken": {
+					"type": "string"
+				},
+				"captchaProvider": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.SignupResponse": {
+			"description": "A response model for the Signup endpoint",
+			"type": "object",
+			"properties": {
+				"userId": {
+					"format": "int64",
+					"description": "The user ID",
+					"type": "integer"
+				},
+				"starterPlaceId": {
+					"format": "int64",
+					"description": "The id of the game to start with",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.VerifiedSignupV3Request": {
+			"description": "Request model for the /v3/signup/verified endpoint",
+			"type": "object",
+			"properties": {
+				"voucher": {
+					"description": "Verified signup voucher",
+					"type": "string"
+				},
+				"username": {
+					"description": "Username",
+					"type": "string"
+				},
+				"password": {
+					"description": "Password",
+					"type": "string"
+				},
+				"birthdate": {
+					"format": "date-time",
+					"description": "Birthdate",
+					"type": "string"
+				},
+				"bundleId": {
+					"format": "int64",
+					"description": "Avatar bundle ID",
+					"type": "integer"
+				},
+				"locale": {
+					"description": "Locale",
+					"type": "string"
+				},
+				"agreementIds": {
+					"description": "AgreementIds",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.SignupBundlesResponse": {
+			"description": "The response model for the bundles needed for signup",
+			"type": "object",
+			"properties": {
+				"bundles": {
+					"description": "The list of bundles - {Roblox.Authentication.Api.Models.BundleResponse}",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Authentication.Api.Models.BundleResponse"
+					},
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.BundleResponse": {
+			"description": "Api response model to represent a bundle",
+			"type": "object",
+			"properties": {
+				"bundleId": {
+					"format": "int64",
+					"description": "The bundle ID",
+					"type": "integer",
+					"readOnly": true
+				},
+				"userOutfitId": {
+					"format": "int64",
+					"description": "The asset IDs that are associated with the bundle",
+					"type": "integer",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Authentication.Api.TwoStepVerificationLoginRequest": {
+			"description": "Request parameters for logging in via two step verification.",
+			"type": "object",
+			"properties": {
+				"challengeId": {
+					"description": "The two step verification challenge Id.",
+					"type": "string"
+				},
+				"verificationToken": {
+					"description": "The two step verification verification token.",
+					"type": "string"
+				},
+				"rememberDevice": {
+					"description": "Whether or not two step verification should be required from this device for the next 30 days.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.Authentication.Api.Models.VerifiedSignupChallengeCreationRequest": {
+			"description": "A request to create a verified signup challenge",
+			"type": "object",
+			"properties": {
+				"deliveryMethod": {
+					"description": "The delivery method",
+					"enum": ["Sms", "Email"],
+					"type": "string"
+				},
+				"deliveryTarget": {
+					"description": "The delivery target",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.VerifiedSignupChallengeCreationResponse": {
+			"description": "Response for successfully creating a challenge",
+			"type": "object",
+			"properties": {
+				"challenge": {
+					"description": "The challenge",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.VerifiedSignupVoucherCreationRequest": {
+			"description": "Request to create a verified signup voucher",
+			"type": "object",
+			"properties": {
+				"challenge": {
+					"description": "The challenge",
+					"type": "string"
+				},
+				"code": {
+					"description": "The code",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Authentication.Api.Models.VerifiedSignupVoucherCreationResponse": {
+			"description": "Response for successfully creating a voucher",
+			"type": "object",
+			"properties": {
+				"voucher": {
+					"description": "The voucher",
+					"type": "string"
+				}
+			}
+		}
+	}
+}

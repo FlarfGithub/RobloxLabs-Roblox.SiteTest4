@@ -1,0 +1,2251 @@
+POST https://www.sitetest4.robloxlabs.com/Authentication/Login.ashx
+user-agent: robloxlabs-tests
+X-CSRF-TOKEN: E2dlGxP71VnijP/NIH6+8w==
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Cookie: AuthToken=b0572679d8d2ad651ec2e0cf0cc1f0ab590fd393ee5d1cb629cd40ef42ac826bdf4f6d5513d535a91821a42346c2e207b03e84308afc7adfaded1e889a5e7eb6
+
+&cvalue=somewhatfag&password=password&captchaToken=p7iXXdp6YiGcfeUbQ3nenbJenCEO6baJw8WU48o0E_BwPyPUairj6nwUuNw06VvGeHD2aF44xr5TCaEtkOabw_7SYvnxojTprgpYGpehrfmO8mOAuYA1y7s7wpDh7cfDdY575TNqXTzL25HO4EZf1m9IxPbqg6JrB7QKzLQ2Ykg0x0ff|d2ef1860bedb6263736d851c18dba3083066e43e44b529efc52b7c0e660465654d4c92dd97bc5468379d52c8bf0814850ab6f52126d7318d8498d49bad4a860e
+
+###
+
+POST api.sitetest4.robloxlabs.com/auth/v2/login
+Content-Type: application/json
+
+{
+	"username": "somewhatfag",
+	"password": "password"
+}
+
+###
+
+POST https://api.sitetest4.robloxlabs.com/auth/v2/logout
+Cookie: AuthToken=7c808f20db4b3cad19cb69e943d7db6a38abebf9f7dd4de12648ed242c64959a
+
+###
+
+POST https://www.sitetest4.robloxlabs.com/Authentication/Logout.ashx
+user-agent: robloxlabs-tests
+X-CSRF-TOKEN: token123
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Cookie: AuthToken=439b6795270193548e36e74e0324e8d3f55e28285cfd51aea7b473cc81bb15b0fdc5cd362f43f744ef2f0b8e0ce8dbee473bb28be1273bc1f660c9904e21e4cd
+
+###
+
+POST https://www.sitetest4.robloxlabs.com/Authentication/ClearAllSessionsAndReauthenticate.ashx
+user-agent: robloxlabs-tests
+X-CSRF-TOKEN: TestKey
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Cookie: AuthToken=4a821f2d78a519983f36334c6f3f6ef86e46759c71a1430ea448807e8357e1d320b1cb6c1f85fc5d5bbcb8a713f47def50d83943bcdda9118e77e3f28de61f03
+
+###
+
+POST https://api.sitetest4.robloxlabs.com/captcha/v1/get-image-hashes
+user-agent: robloxlabs-tests
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Cookie: AuthToken=89c4f01c7b45d9e394d4125cf78133a843d3cf760561585d0dda3b943f3c7ef21de4457566703362613af9e696044253110465d749dd6a413c2be6e098c09129
+
+captchaHash=p7iXXdp6YiGcfeUbQ3nenbJenCEO6baJw8WU48o0E_BwPyPUairj6nwUuNw06VvGeHD2aF44xr5TCaEtkOabw_7SYvnxojTprgpYGpehrfmO8mOAuYA1y7s7wpDh7cfDdY575TNqXTzL25HO4EZf1m9IxPbqg6JrB7QKzLQ2Ykg&captchaProvider=PROVIDER_MFD_LABS_300
+
+###
+
+GET https://ti.sitetest4.robloxlabs.com/1.png
+
+###
+
+GET https://clientsettings.api.sitetest4.robloxlabs.com/v1/get-flags?settingsGroup=Client
+
+###
+
+POST https://api.sitetest4.robloxlabs.com/csrf/v1/get-csrf-token
+
+###
+
+POST https://gamepersistence.roblox.com/v2/persistence/1/datastores
+
+###
+GET https://premiumfeatures.roblox.com/v1/users/1/validate-membership-rcc
+
+###
+
+GET https://www.robloxlabs.com/Logins
+
+###
+POST http://localhost:530
+Content-Type: text/xml;charset=utf-8
+SOAPAction: Execute
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="https://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="https://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="https://www.w3.org/2001/XMLSchema" xmlns:ns2="https://roblox.com/RCCServiceSoap" xmlns:ns1="https://roblox.com/" xmlns:ns3="https://roblox.com/RCCServiceSoap12">    
+<SOAP-ENV:Body>
+    <ns1:Execute>
+		<ns1:jobID>Test</ns1:jobID>
+	  	<ns1:Script>
+                <ns1:name>SOAP</ns1:name>
+                <ns1:script>return 1</ns1:script>
+                <ns1:argument></ns1:arguments>
+            </ns1:Script>
+	  </ns1:Execute>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+###
+
+POST /Thumbs/Asset.asmx HTTP/1.1
+host: www.sitetest2.robloxlabs.com
+Content-Type: text/xml; charset=utf-8
+SOAPAction: "https://roblox.com/RequestThumbnail"
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="https://www.w3.org/2001/XMLSchema" xmlns:soap="https://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <RequestThumbnail xmlns="https://roblox.com/">
+      <assetId>301549746</assetId>
+	  <assetVersionId></assetVersionId>
+      <width>100</width>
+      <height>100</height>
+      <imageFormat>Png</imageFormat>
+      <thumbnailFormatId>1</thumbnailFormatId>
+    </RequestThumbnail>
+  </soap:Body>
+</soap:Envelope>
+
+###
+
+POST https://api.roblox.com/reservedservers/create?placeId=5889263700 HTTP/1.1
+Accept: */*
+Cookie: .ROBLOSECURITY={{Token12}};
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+User-Agent: Roblox/WinHttp
+Origin: https://www.roblox.com
+Content-Type: application/x-www-form-urlencoded
+X-CSRF-TOKEN: apsooVAYhnmX
+Content-Length: 0
+
+###
+
+GET assetdelivery.sitetest4.robloxlabs.com/v1/asset?id=0 HTTP/1.1
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: Roblox/WinInet
+Requester: Server
+Roblox-Place-Id: 2537274968
+Roblox-Game-Id: Test
+
+###
+
+POST https://messagerouter.api.roblox.com/v1/router/signalr
+
+###
+
+POST https://abtesting.sitetest4.robloxlabs.com/v1/enrollments
+Content-Type: application/json
+X-CSRF-TOKEN: ufPaIWvguvaEkNVK7jHOgA==
+
+[
+	{
+		"SubjectType":"BrowserTracker",
+		"SubjectTargetId":"1",
+		"ExperimentName":"Roblox.Data.AbTesting.Experiments.BrowserTrackerExperiments"
+	},
+	{
+		"SubjectType":1,
+		"SubjectTargetId":312313123123,
+		"ExperimentName":"Roblox.Data.AbTesting.Experiments.UserExperiments"
+	}
+]
+
+###
+
+POST /Data/Upload.ashx?assetid=0&type=Lua&name=Lua&description=bruh&genreTypeId=1&ispublic=true&allowcomments=True HTTP/1.1
+Host: data.roblox.com
+User-Agent: Roblox/AspNet 4.8.4210.0 (https://www.sitetest4.robloxlabs.com v1.313.13.88764)
+X-Proxied-IP: 128.116.123.3
+Cookie: .ROBLOSECURITY={{Token12}};
+X-Csrf-Token: ArYokH3GTDng
+
+\0
+
+###
+GET https://data.sitetest3.robloxlabs.com:443/request-error?code=400&amp;400;https://data.sitetest3.robloxlabs.com:443/Data/Upload.ashx?assetid=0&amp;type=Shirt&amp;name=Shirt&amp;description=bruh&amp;genreTypeId=1&amp;ispublic=True&amp;allowcomments=True
+
+###
+
+POST /build/Upload? HTTP/1.1
+Host: www.roblox.com
+Content-Type: */*
+User-Agent: Roblox/AspNet 4.8.4210.0 (https://www.sitetest4.robloxlabs.com v1.313.13.88764)
+Cookie: .ROBLOSECURITY={{Token12}};
+referrer: https://www.roblox.com
+x-csrf-token: KSgzVzk7J1on
+
+<roblox xmlns:xmime=\"http://www.w3.org/2005/05/xmlmime\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.roblox.com/roblox.xsd\" version=\"1\"><External>null</External><External>nil</External><Item class=\"ShirtGraphic\" referent=\"RBX0\"><Properties><Content name=\"Graphic\"><url>http://www.roblox.com/asset/?id=6490572303</url></Content><string name=\"Name\">Shirt Graphic</string><bool name=\"archivable\">true</bool></Properties></Item></roblox>
+
+
+###
+
+GET assetdelivery.roblox.com/v1/asset?id=6490572303
+Cookie: .ROBLOSECURITY={{Token12}};
+
+###
+
+POST /build/upload HTTP/1.1
+Host: www.roblox.com
+authority: www.roblox.com
+content-length: 57422
+cache-control: max-age=0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+origin: https://www.roblox.com
+upgrade-insecure-requests: 1
+dnt: 1
+content-type: multipart/form-data; boundary=----WebKitFormBoundaryRsYAI4us6ThsaWpE
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4440.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: same-origin
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: iframe
+referer: https://www.roblox.com/build/upload?AssetTypeId=2&GroupId=
+accept-language: ru
+Cookie: .ROBLOSECURITY={{Token12}};
+Content-Length: 0
+
+###
+
+GET users.roblox.com/v1/users/authenticated
+Cookie: .ROBLOSECURITY={{Token12}};
+
+
+###
+
+GET https://api.sitetest3.robloxlabs.com/docs
+
+###
+
+POST https://virtualcurrencygateway.api.sitetest3.robloxlabs.com/v1/GetRobuxBalance?apiKey=********&userId=1
+cookie: .ROBLOSECURITY=SELECT FROM
+
+###
+
+
+OPTIONS https://catalog.sitetest3.robloxlabs.com/docs/json/v1?scope=132&key=213&pageSize=10&exclusiveStartKey=a HTTP/1.1
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Roblox
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Content-MD5: JRDDkBHFvnBBgkI+OmlekQ==
+Cookie: .ROBLOSECURITY={{Token12}};
+Roblox-Proxied-IP: 128.116.138.3
+Roblox-Proxied-Locale: 128.116.138.3
+Roblox-security-Token: 128.116.138.3
+
+h
+
+###
+
+POST https://localhost:44319/persistence/set?apiKey=8DAE2E89-BCFA-4735-AB79-D9A07ABA9263
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+Content-Type: application/x-www-form-urlencoded
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Content-MD5: JRDDkBHFvnBBgkI+OmlekQ==
+Cookie: .ROBLOSECURITY={{Token12}};
+If-None-Match: *
+
+value=1
+
+###
+
+POST /v1/persistence/standard?scope=132 HTTP/1.1
+Host: gamepersistence.sitetest3.robloxlabs.com
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Origin: https://gamepersistence.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://gamepersistence.sitetest3.robloxlabs.com/docs
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+
+###
+
+POST https://personalrecommendations.api.sitetest1.robloxlabs.com/v1/GetPerUserItemTypeRecommendations?apiKey=8DAE2E89-BCFA-4735-AB79-D9A07ABA9263
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Origin: https://gamepersistence.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://gamepersistence.sitetest3.robloxlabs.com/docs
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+
+###
+
+OPTIONS https://points.sitetest3.robloxlabs.com/docs/json/v1?apiKey=8DAE2E89-BCFA-4735-AB79-D9A07ABA9263&agentId=13333466037&assetId=2147921798
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Origin: https://gamepersistence.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://gamepersistence.sitetest3.robloxlabs.com/docs
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+
+
+###
+
+GET /www/e.png?evt=&ctx=&url=https%3A%2F%2Fwww.sitetest3.robloxlabs.com%2Fupgrades%2Fpaymentmethods%3Fap%3D215%26page%3DRobux&lt=2021-03-10T11%3A09%3A21.573Z&gid=-1727493985&sid=59d26845-cf61-4921-b1dd-5f6922c41981 HTTP/1.1
+Host: ecsv2.sitetest3.robloxlabs.com
+Connection: keep-alive
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: https://www.sitetest3.robloxlabs.com/
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+
+
+###
+
+POST itemconfiguration.roblox.com/v1/avatar-assets/-1238/get-upload-fee HTTP/1.1
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: */*
+DNT: 1
+X-CSRF-TOKEN:BbmSvQ1M4gRB
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryOaUEsk5vr6cx74rv
+Origin: https://www.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://www.sitetest3.robloxlabs.com/
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+
+
+
+###
+
+
+POST https://abtesting.roblox.com/v1/enrollments
+Cookie: .ROBLOSECURITY={{Token12}};
+Content-Type: application/json
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+x-csrf-token: YZzuGpsz+hYu
+
+{
+	["settingsGroup"] = "Roblox.Web"
+}
+
+###
+
+POST auth.sitetest1.robloxlabs.com/v2/signup HTTP/1.1
+Connection: keep-alive
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+DNT: 1
+x-csrf-token: YZzuGpsz+hYu
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Content-Type: application/json
+Accept: application/json
+X-Requested-With: XMLHttpRequest
+Origin: https://auth.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://auth.sitetest3.robloxlabs.com/docs
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+
+{
+	"username": "nsg6",
+	"password": "7123771923773",
+	"birthday": "1998-03-10T20:11:35.928Z",
+	"isTosAgreementBoxChecked": true,
+	"captchaToken": "68605e7ad5f3b510.4420073905|r=eu-west-1|metabgclr=%23ffffff|guitextcolor=%23000000|metaiconclr=%23757575|meta=3|lang=en-gb|pk=0F836D35-6646-1925-3D87-A75873F620DA|at=40|atp=2|cdn_url=https://cdn.arkoselabs.com/fc|lurl=https://audio-eu-west-1.arkoselabs.com|surl=https://client.arkoselabs.com",
+	"captchaProvider": "PROVIDER_ARKOSE_LABS"
+}
+
+###
+
+POST https://files.api.sitetest1.robloxlabs.com/v1/GetUri?apiKey=223101C8-6699-4F88-B1BF-E5381531ED27&Hash=857e58fa7ff717939519c5d13f3746c2&IsRequestSecure=True
+
+###
+
+GET clientsettings.api.sitetest3.robloxlabs.com/Setting/GetPage HTTP/1.1
+Content-Type: application/json
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+
+{
+	["settingsGroup"] = "Roblox.Web"
+}
+
+###
+
+POST https://files.api.sitetest1.robloxlabs.com/v1/GetUri?apiKey=223101C8-BCFA-4735-AB79-D9A07ABA9263&agentId=13333466037&assetId=1
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+Roblox-Place-Id: 2147921798
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4442.0 Safari/537.36
+Origin: https://gamepersistence.sitetest3.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://gamepersistence.sitetest3.robloxlabs.com/docs
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+Content-Type: application/json
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+
+{
+	["settingsGroup"] = "Roblox.Web"
+}
+
+###
+
+POST /v2/verification/send-test-notification HTTP/1.1
+Host: notifications.roblox.com
+authority: notifications.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4444.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+x-csrf-token: nXb4KTAOBKp7
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+origin: https://www.roblox.com
+
+###
+
+POST points.roblox.com/v1/universes/:universeId/users/:userId HTTP/1.1
+User-Agent: Roblox/WinInet
+Content-Type: application/json
+Accept: application/json
+Roblox-Place-Id: *
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-grid-proxied-ip: 128.116.123.3
+roblox-grid-proxied-locale: en-us
+roblox-grid-security-token: *
+Requester: Server
+
+{"amount": asax}
+
+
+###
+
+OPTIONS https://test.sitetest1.robloxlabs.com/
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+Accept: application/json
+DNT: 1
+sec-ch-ua-mobile: ?0
+pragma: no-cache
+cache-control: no-cache
+x-csrf-token: nNF+ll+DPXhm
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4444.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4444.0 Safari/537.36
+
+###
+
+POST points.api.sitetest4.robloxlabs.com/v1/GetUserAllTimePoints?ApiKey=E3C6F569-496C-47F4-A76E-4F699DF453C4 HTTP/1.1
+Accept: application/json, text/plain, */*
+Content-Type: application/json
+User-Agent: Roblox/ApiServiceClientAspNet 4.8.4210.0 (https://www.sitetest4.robloxlabs.com v1.313.13.88764)
+Roblox-Machine-Id: RA-14
+Roblox-Grid-Proxied-IP: 208.223.313.3
+X-Roblox-ChannelType: Roblox.Http.ServiceClient.Channel.Main
+X-Roblox-Is-ApiRequest: True
+Content-Length: 114
+Connection: close
+
+{"universe":{"Id":5000005631,"Name":"test"},"user":{"Id":1,"Name":"Test","DisplayName":"Test","MembershipType":0}}
+
+###
+
+GET points.sitetest4.robloxlabs.com/v1/universes/5000005631/users/1/all-time?_=1615684070497 HTTP/1.1
+authority: points.sitetest4.robloxlabs.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4445.0 Safari/537.36
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://points.sitetest4.robloxlabs.com/docs/
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+
+###
+
+GET https://contentstore.roblox.com/v1/content?hash=<script>
+
+###
+
+POST develop.roblox.com/v1/plugins/701506235/increment-install-count HTTP/1.1
+authority: develop.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4446.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+x-csrf-token: 5k4rRaMU5QWG
+
+###
+
+PATCH users.roblox.qq.com/v1/users/158190828/display-names HTTP/1.1
+authority: users.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+dnt: 1
+x-csrf-token: X7RyQQ5k2Nbn
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4446.3 Safari/537.36
+content-type: application/json
+accept: application/json
+x-requested-with: XMLHttpRequest
+origin: https://users.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://users.roblox.com/docs
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+Content-Length: 30
+
+{"newDisplayName": "nsg"}
+
+###
+
+POST https://virtualcurrencygateway.api.sitetest2.robloxlabs.com/v1/GetRobuxBalance?apiKey=<script>&userId=1
+
+
+###
+
+POST https://apis.sitetest3.robloxlabs.com/maintenance-status/v1/maintenance/bypass
+Accept: application/json
+Content-Type: application/json
+
+{button: "R", constraint: ""}
+
+###
+
+GET http://setup.sitetest1.robloxlabs.com/RCC-content.zip
+authority: users.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+dnt: 1
+x-csrf-token: X7RyQQ5k2Nbn
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4446.3 Safari/537.36
+content-type: application/json
+accept: application/json
+x-requested-with: XMLHttpRequest
+origin: https://users.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://users.roblox.com/docs
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+Content-Length: 30
+
+{"newDisplayName": "nsg"}
+
+###
+
+GET notificationssite.sitetest1.robloxlabs.com/MarketingConfig/GetConfigs/index.html HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Accept: application/json
+Cache-Control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4448.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+Content-Type: application/json
+
+###
+
+GET /v2/settings/application/Arbiter HTTP/1.1
+Host: clientsettingscdn.sitetest3.robloxlabs.com
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4448.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+True-Client-IP: 128.116.123.3
+
+###
+
+GET assetdelivery.roblox.com/v1/asset?id=180426354&clientInsert=0&serverplaceid=1&_=1616185540512 HTTP/1.1
+authority: assetdelivery.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4450.0 Safari/537.36
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://assetdelivery.roblox.com/docs
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+
+###
+
+POST http://localhost:530 HTTP/1.1
+Content-Type: text/xml;charset=utf-8
+SOAPAction: http://roblox.com/BatchJobEx
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns2="http://roblox.com/RCCServiceSoap"
+	xmlns:ns1="http://roblox.com/"
+	xmlns:ns3="http://roblox.com/RCCServiceSoap12">
+	<SOAP-ENV:Body>
+		<ns1:BatchJobEx>
+			<ns1:job>
+				<ns1:id>Thumbnailer</ns1:id>
+				<ns1:expirationInSeconds>10</ns1:expirationInSeconds>
+				<ns1:category>1</ns1:category>
+				<ns1:cores>104</ns1:cores>
+			</ns1:job>
+			<ns1:script>
+			<ns1:name>SOAP</ns1:name>
+			<ns1:script>game:ClearContent(true);local comment = 'Avatar thumbnail'
+asseturl, url, fileExtension, x, y = ...
+game:GetService('ScriptContext').ScriptsDisabled=true
+pcall(function() game:GetService('ContentProvider'):SetBaseUrl(url) end)
+player = game:GetService('Players'):CreateLocalPlayer(0)
+player.CharacterAppearance = asseturl
+player:LoadCharacter(false)
+
+if (player.Character ~= nil) then
+    local c = player.Character:GetChildren()
+    for i=1,#c do
+        if (c[i].className == 'Tool') then
+            player.Character.Torso['Right Shoulder'].CurrentAngle = 1.57
+            break
+        end
+    end
+end
+
+game:GetService('ThumbnailGenerator').GraphicsMode = 4
+return game:GetService('ThumbnailGenerator'):Click(fileExtension, x, y, true, true)</ns1:script>
+			<ns1:arguments>
+			<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>http://assetgame.sitetest4.robloxlabs.com/Asset/CharacterFetch.ashx</ns1:value>
+        		</ns1:LuaValue>
+			 	<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>http://www.sitetest4.robloxlabs.com/</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>PNG</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TNUMBER</ns1:type>
+              		<ns1:value>500</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TNUMBER</ns1:type>
+              		<ns1:value>500</ns1:value>
+        		</ns1:LuaValue>
+			</ns1:arguments>
+		</ns1:script>
+		</ns1:BatchJobEx>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+###
+
+POST http://0.0.0.0:42069 HTTP/1.1
+Content-Type: text/xml;charset=utf-8
+SOAPAction: http://roblox.com/OpenJobEx
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns2="http://roblox.com/RCCServiceSoap"
+	xmlns:ns1="http://roblox.com/"
+	xmlns:ns3="http://roblox.com/RCCServiceSoap12">
+	<SOAP-ENV:Body>
+		<ns1:OpenJobEx>
+			<ns1:jobID>Test</ns1:jobID>
+			<ns1:script>
+			<ns1:name>SOAP</ns1:name>
+			<ns1:script>game:ClearContent(true);local comment = 'Avatar thumbnail'
+asseturl, url, fileExtension, x, y = ...
+game:GetService('ScriptContext').ScriptsDisabled=true
+pcall(function() game:GetService('ContentProvider'):SetBaseUrl(url) end)
+player = game:GetService('Players'):CreateLocalPlayer(0)
+player.CharacterAppearance = asseturl
+player:LoadCharacter(false)
+
+if (player.Character ~= nil) then
+    local c = player.Character:GetChildren()
+    for i=1,#c do
+        if (c[i].className == 'Tool') then
+            player.Character.Torso['Right Shoulder'].CurrentAngle = 1.57
+            break
+        end
+    end
+end
+
+game:GetService('ThumbnailGenerator').GraphicsMode = 4
+return game:GetService('ThumbnailGenerator'):Click(fileExtension, x, y, true, true)</ns1:script>
+			<ns1:arguments>
+			<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>http://assetgame.gtoria.net/Asset/CharacterFetch.ashx</ns1:value>
+        		</ns1:LuaValue>
+			 	<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>http://www.gtoria.net/</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TSTRING</ns1:type>
+              		<ns1:value>PNG</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TNUMBER</ns1:type>
+              		<ns1:value>500</ns1:value>
+        		</ns1:LuaValue>
+				<ns1:LuaValue>
+              		<ns1:type>LUA_TNUMBER</ns1:type>
+              		<ns1:value>500</ns1:value>
+        		</ns1:LuaValue>
+			</ns1:arguments>
+		</ns1:script>
+		</ns1:OpenJobEx>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+###
+
+POST http://0.0.0.0:42069 HTTP/1.1
+Content-Type: text/xml;charset=utf-8
+SOAPAction: http://roblox.com/GetAllJobsEx
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns2="http://roblox.com/RCCServiceSoap"
+	xmlns:ns1="http://roblox.com/"
+	xmlns:ns3="http://roblox.com/RCCServiceSoap12">
+	<SOAP-ENV:Body>
+	<ns1:GetAllJobsEx>
+		<ns1:jobID>00000000-0000-0000-0000-000000000000</ns1:jobID>
+		<ns1:type>-1</ns1:type>
+		</ns1:GetAllJobsEx>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+###
+
+POST http://localhost:64989 HTTP/1.1
+Content-Type: text/xml;charset=utf-8
+SOAPAction: http://roblox.com/OpenJobEx
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns2="http://roblox.com/RCCServiceSoap"
+	xmlns:ns1="http://roblox.com/"
+	xmlns:ns3="http://roblox.com/RCCServiceSoap12">
+	<SOAP-ENV:Body>
+		<ns1:OpenJobEx>
+			<ns1:job>
+				<ns1:id>00000000-0000-0000-0000-000000000000</ns1:id>
+				<ns1:expirationInSeconds>20000</ns1:expirationInSeconds>
+				<ns1:category>1</ns1:category>
+				<ns1:cores>104</ns1:cores>
+			</ns1:job>
+			<ns1:script>
+				<ns1:name>start script</ns1:name>
+				<ns1:script>loadfile("http://assetgame.sitetest4.robloxlabs.com/game/gameserver.ashx")(70399968, 530, '00000000-0000-0000-0000-000000000000', 1, "hello", true, 0, "127.0.0.2", nil, "sitetest4.robloxlabs.com", 1, 1, nil, "hello", nil, nil, nil, 1, 0, 1, "hello", "assetgame", "http://")</ns1:script>
+				<ns1:arguments></ns1:arguments>
+			</ns1:script>
+		</ns1:OpenJobEx>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+###
+
+POST https://points.roblox.com/v1/universes/2280839168/users/1/
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4450.0 Safari/537.36
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://assetdelivery.roblox.com/docs
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+
+###
+
+# Cookie: .ROBLOSECURITY={{Token12}};
+
+
+###
+
+POST accountsettings.roblox.com/v1/app-chat-privacy HTTP/1.1
+x-csrf-token: u3qdH0ofasoB
+user-agent: Roblox/ApiServiceClient 4.8.4210.0 (https://www.sitetest2.robloxlabs.com+1.2)
+content-type: application/json
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.77.126
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Client
+
+{"\/": someThingThatDoesNotExist}
+
+###
+
+PUT https://userads.api.sitetest3.robloxlabs.com/GetUsersAds
+
+
+###
+
+
+GET sitetest1.robloxlabs.com
+User-Agent: Roblox/NomandPoP
+Cookie: .ROBLOSECURITY={{Token12}};
+Roblox-Proxied-Ip: 128.116.77.22
+Roblox-Proxied-Player-User-Agent: *
+Roblox-Game-Id: *
+RCC-Committer-User-Id: *
+RCC-Autosave: *
+RCC-Save-User-Id: *
+Roblox-Id: 1
+
+###
+
+POST https://ephemeralcounters.api.sitetest4.robloxlabs.com/v1.0/MultiIncrement?apiKey=76E5A40C-3AE1-4028-9F10-7C62520BD94F
+Content-Type: application/x-www-form-urlencoded
+
+&counterNamesCsv=a,a,x,r,k,v,a,m,o,t
+
+
+###
+
+
+POST /v1.1/Counters/increment/?apiKey=76E5A40C-3AE1-4028-9F10-7C62520BD94F&counterName=x&amount=12 HTTP/1.1
+Host: ephemeralcounters.api.sitetest4.robloxlabs.com
+Protocol: https
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+User-Agent: Roblox/WinInet
+Roblox-Game-Id: 74b224c8-e580-4b3e-8228-c99113a9aff2
+Roblox-Place-Id: 5889263700
+Requester: Client
+Origin: https:/www.roblox.com
+Referer: https:/www.roblox.com
+PlayerCount: 1
+Content-Type: application/json
+X-CSRF-TOKEN: xdT47NHGigfh
+Content-Length: 57
+
+
+
+###
+
+POST https://www.sitetest3.robloxlabs.com/not-approved/reactivate
+
+###
+
+POST https://api.roblox.com/v2/login
+
+###
+
+GET Https://auth.roblox.com/v1/usernames/validate?birthday=2018-02-03T00:00:00.000Z&context=Signup&username=James HTTP/1.1
+sec-ch-ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
+accept: application/json, text/plain, */*
+dnt: 1
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36
+origin: https://www.sitetest4.robloxlabs.com
+sec-fetch-site: same-site
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://www.sitetest4.robloxlabs.com/
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 193.120.1.11
+Content-Type: application/json
+x-csrf-token: zpAdP7rKW8Dm
+
+{"username":"asax"}
+
+###
+
+POST https://api.roblox.com/Persistence/GetSortedValues?placeId=&type=sorted&scope=&key=&pageSize=&ascending=
+
+###
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 06 Apr 2021 17:39:51 GMT
+Content-Length: 0
+Connection: keep-alive
+Cache-Control: no-cache
+Expires: -1
+P3p: CP="CAO DSP COR CURa ADMa DEVa OUR IND PHY ONL UNI COM NAV INT DEM PRE"
+Pragma: no-cache
+Roblox-Machine-Id: AWA-WEB970
+
+###
+
+POST https://ephemeralcounters.api.sitetest4.robloxlabs.com/v1.1/Counters/increment?counterName=a
+
+###
+
+POST /v1/Usernames/validate?ApiKey=E9DADB63-5BF6-42FF-A964-79D5E97E7068 HTTP/1.1
+Accept: application/json, text/plain, */*
+Content-Type: application/json
+User-Agent: Roblox/ApiServiceClient 4.8.4210.0 (https://www.sitetest3.robloxlabs.com+2.8)
+Roblox-Machine-Id: AWA-WEB141
+Roblox-Grid-Proxied-IP: 208.223.318.3
+X-Roblox-ChannelType: Roblox.Http.ServiceClient.Channel.Main
+X-Roblox-Is-ApiRequest: True
+Content-Length: 104
+Host: users.api.sitetest4.robloxlabs.com
+Connection: close
+
+{"IUser":"","Request":{}}
+
+###
+
+GET web251.ra.roblox.com/Scripts/a.css HTTP/1.1
+Host: metricsvisualization.sitetest1.robloxlabs.com
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.77.126
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Client
+true-client-ip: 128.116.77.126
+
+###
+
+POST /universe-history/commits/f01b9063-68ed-4362-8cdd-fbe0aeb6af0e/commit HTTP/1.1
+Host: apis.roblox.com
+authority: apis.roblox.com
+cache-control: max-age=0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Roblox/WinInet
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.72.114
+roblox-proxied-user-agent: Roblox/WinInet
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+roblox-place-id: 5889263700
+roblox-game-id: cad2623e-0dea-44a5-a8f6-503e7e620afb
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+X-CSRF-TOKEN: O+viB3lVdBI6
+true-client-ip: 128.116.72.114
+Content-Type: application/json
+
+[{"UniverseId": 2106638554, "PlaceId": 1, "Message": "a", "InstanceChangeRequests":[{"Name": "a"}]}]
+
+####
+
+OPTIONS https://gamepersistence.sitetest1.robloxlabs.com/docs/json/v1
+cache-control: max-age=0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Roblox/WinInet
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.72.114
+roblox-proxied-user-agent: Roblox/WinInet
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+roblox-place-id: 5889263700
+roblox-game-id: cad2623e-0dea-44a5-a8f6-503e7e620afb
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+X-CSRF-TOKEN: O+viB3lVdBI6
+true-client-ip: 128.116.72.114
+Content-Type: application/json
+
+[{"UniverseId": 2106638554, "PlaceId": 1, "Message": "a", "InstanceChangeRequests":[{"Name"}]}]
+
+###
+
+POST https://www.sitetest4.robloxlabs.com/ide/publish/UploadExistingAsset
+cache-control: max-age=0
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Roblox/WinInet
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.72.114
+roblox-proxied-user-agent: Roblox/WinInet
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+roblox-place-id: 5889263700
+roblox-game-id: cad2623e-0dea-44a5-a8f6-503e7e620afb
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+x-csrf-token: j5AHMkhsjdnO
+true-client-ip: 128.116.72.114
+Content-Type: application/json
+
+###
+
+POST https://versioncompatibility.api.sitetest1.robloxlabs.com/?apiKey=********
+X-CSRF-TOKEN: ns3FxoFjU8rM
+cache-control: max-age=0
+se: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.72.114
+roblox-proxied-user-agent: Roblox/WinInet
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+roblox-place-id: 5889263700
+roblox-game-id: cad2623e-0dea-44a5-a8f6-503e7e620afb
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+true-client-ip: 128.116.72.114
+content-type: text/json
+
+{daffawfawfawfad,/.a,d/a,d.a}a
+
+###
+
+OPTIONS https://economy.sitetest1.robloxlabs.com/docs/json/v1
+
+###
+
+
+POST https://gamepersistence.roblox.com/v2/persistence/1/datastores/
+
+###
+
+POST users.api.sitetest4.robloxlabs.com/api/reportScam HTTP/1.1
+authority: rbxscam.watch
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+dnt: 1
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4474.0 Safari/537.36
+content-type: application/json;charset=UTF-8
+accept: */*
+origin: https://rbxscam.watch
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://rbxscam.watch/
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Client
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+Content-Length: 134
+
+${}
+
+###
+
+POST https://apis.roblox.com/moderation-screenshot/v1/upload-screenshot/1 HTTP/1.1
+authority: gamepersistence.roblox.qq.com
+cache-control: max-age=0
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4474.0 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: tEIUuRDgsXBMZMZSRO8rdDvvX2ty8AWWfWsi0pHpEEbf1zvzdLO26PH1uBEWkziayqFAOewallC9btgyTiobAlUMZuLSuTuqaBNK/wFo
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Client
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+roblox-cnp-date: 2021-03-06T20:41:52 08:00
+roblox-cnp-secure: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-cnp-true-ip: 128.116.123.3
+Roblox-Place-Id: 6333045331
+Cookie: .ROBLOSECURITY={{Token12}};
+
+###
+
+POST /v1.1/Counters/BatchIncrement HTTP/1.1
+Host: ephemeralcounters.api.sitetest4.robloxlabs.com
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+Accept: */*
+Referer: https://ecs.api.sitetest4.robloxlabs.com/
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4475.0 Safari/537.36
+Content-Type: application/json
+Content-Length: 1
+
+{}
+
+###
+
+POST http://versioncompatibility.api.roblox.com/DeleteVersion?apiKey=2b4ba7fc-5843-44cf-b107-ba22d3319dcc
+Content-Type: application/json
+Cookie: .ROBLOSECURITY={{Token12}};
+
+
+{}
+
+###
+
+POST auth.roblox.qq.com/v1/authentication-ticket HTTP/1.1
+authority: auth.roblox.qq.com
+cache-control: max-age=0
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+dnt: 1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4479.3 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+sec-fetch-site: none
+sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-language: ru,en;q=0.9,en-US;q=0.8
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+referer: https://www.roblox.com
+roblox-machine-id: AWA-WEB671
+x-csrf-token: V6i8sbSskTSh
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+
+###
+
+GET http://e35093.b.akamaiedge.net/captcha/v1/metadata
+Host: clientsettingscdn.roblox.com
+
+###
+
+POST auth.roblox.com/v2/login HTTP/1.1
+authority: auth.roblox.com
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json, text/plain, */*
+dnt: 1
+x-csrf-token: VNVaZzsiJWvN
+sec-ch-ua-mobile: ?0
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4479.3 Safari/537.36
+content-type: application/json;charset=UTF-8
+origin: https://www.roblox.com
+sec-fetch-site: same-site
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://www.roblox.com/
+accept-language: ru
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+Content-Length: 457
+
+{"cvalue":"89235210401","ctype":"UserName","password":"131504er","captchaToken":"429607b7231670d62.9677262005|r=eu-west-1|metabgclr=transparent|guitextcolor=%23474747|maintxtclr=%23b8b8b8|metaiconclr=transparent|meta=6|lang=en|pk=476068BF-9607-4799-B53D-966BE98E2B81|at=40|rid=26|ht=1|atp=2|cdn_url=https://cdn.arkoselabs.com/fc|lurl=https://audio-eu-west-1.arkoselabs.com|surl=https://roblox-api.arkoselabs.com","captchaProvider":"PROVIDER_ARKOSE_LABS"}
+
+
+###
+
+OPTIONS https://api.roblox.com/
+Connection: keep-alive
+
+###
+
+POST data.sitetest1.robloxlabs.com/Data/Upload.ashx?assetid=0&type=TeeShirt&name=Lua&description=bruh&genreTypeId=1&ispublic=true&allowcomments=True HTTP/1.1
+User-Agent: Roblox/AspNet 4.8.4210.0 (https://www.sitetest4.robloxlabs.com v1.313.13.88764)
+Cookie: .ROBLOSECURITY={{Token12}};
+X-Csrf-Token: iyffJrDnREWk
+
+###
+
+GET http://localhost:8506/marketplace/productInfo
+
+###
+
+GET /MobileAPI/nul?version=nul HTTP/1.1
+Host: assetgame.sitetest3.robloxlabs.com
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (%@; %@; CPU iPhone OS %@ like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176 ROBLOX iOS App %@ %@
+Accept: application/json
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+
+###
+
+
+POST auth.sitetest1.robloxlabs.com/comments/delete?commentId=1866521918 HTTP/1.1
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Accept: image/apng
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Language: en,en-US;q=0.9
+Origin: a
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-security-token: ljWby+/HVsZXJLfRkoljWby+/HVsZXJLfRko9mPQ9mPQ==
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+
+{<script>alert(1)</script>}
+
+###
+
+
+GET points.sitetest4.robloxlabs.com/v1/universes/1/users/1/all-time?_=1619278547824 HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0
+Accept: application/json
+Accept-Language: en-US,en;q=0.5
+Origin: http://points.sitetest4.robloxlabs.com
+Connection: keep-alive
+Referer: http://points.sitetest4.robloxlabs.com/
+
+###
+
+GET https://api.improvmx.com/v3/domains
+Authorization: Basic api:sk_53ad1709342742299e0bae05275aed32
+
+###
+
+POST /Thumbs/Asset.asmx HTTP/1.1
+Host: 208.185.116.66
+Content-Type: text/xml; charset=utf-8
+Content-Length: length
+SOAPAction: http://roblox.com/RequestThumbnail_v2
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <RequestThumbnail_v2 xmlns="http://roblox.com/">
+      <assetId>1818</assetId>
+      <width>420</width>
+      <height>420</height>
+      <imageFormat>Png</imageFormat>
+    </RequestThumbnail_v2>
+  </soap:Body>
+
+###
+
+POST api.mfdlabs.cf/Services/Test.asmx HTTP/1.1
+Content-Type: text/xml; charset=utf-8
+Content-Length: length
+SOAPAction: "http://mfdlabs.cf/HelloWorld"
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <HelloWorld xmlns="http://mfdlabs.cf/" />
+  </soap:Body>
+</soap:Envelope>
+
+###
+
+POST itemconfiguration.roblox.com/v1/avatar-assets/Audio/upload HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+Accept: application/json
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4493.0 Safari/537.36
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryCtBxPCFWZQMnFfBz
+Origin: https://itemconfiguration.sitetest4.robloxlabs.com
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://itemconfiguration.sitetest4.robloxlabs.com/
+Accept-Language: en,en-US;q=0.9
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+Content-Length: 201
+x-csrf-token: /FOJF2XMFMP1
+
+$------WebKitFormBoundaryCtBxPCFWZQMnFfBzrnContent-Disposition: form-data; name="requestModel.files"; filename="untitled.mp3"rnContent-Type: audio/mpegrnrnrn------WebKitFormBoundaryCtBxPCFWZQMnFfBz--rn
+
+###
+
+OPTIONS https://usermoderation.sitetest3.robloxlabs.com/docs/json/v1
+
+###
+POST https://usermoderation.roblox.com/v1/not-approved/reactivate
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4493.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+Content-Type: application/json
+x-csrf-token: UX4pnKGPRQxb
+
+{"punishedUserId": 2360547710}
+
+
+###
+
+TRACE http://192.168.0.50/docs
+Host: gamepersistence.mfdlabs.cf
+
+###
+
+POST https://avatarcatalogsearch.api.sitetest3.robloxlabs.com/v1/Search
+
+###
+
+POST https://api.roblox.com/signup/v1
+
+###
+
+POST https://ephemeralcounters.mfdlabs.cf/v1.1/counters/increment/?countername=a
+
+###
+
+POST https://assetgame.roblox.com/Game/PlaceLauncher.ashx?request=RequestGame&placeId=1818&isPartyLeader=false&gender=-1&isTeleport=true&browserTrackerId=0
+User-Agent: xlxi but he is gay?
+Referer: https://negor.cum
+
+###
+
+POST https://avatar.api.sitetest1.robloxlabs.com/v1/GetAccoutrementsByUserIds?apiKey=********&userIds=1
+
+###
+
+OPTIONS gamejoin.roblox.qq.com/docs/json/v1 HTTP/1.1
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+content-type: application/json
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+Content-Length: 145
+
+###
+
+GET http://api.mfdlabs.cf/trolltime
+###
+
+POST https://notifications.roblox.qq.com//v2/verification/send-test-notification
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+content-type: application/json
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+Content-Length: 145
+x-csrf-token: +1X/ejPw/Ma5
+
+###
+
+PATCH localizationtables.roblox.com/v1/localization-table/tables/347f83b2-c435-4f54-91fa-fa430553ffc2 HTTP/1.1
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+x-csrf-token: d52rgwUa/8XL
+Content-Type: application/json
+Accept: application/json
+Content-Length: 563
+
+{  
+   "name": "Roblox",  
+   "entries": [  
+     {  
+       "delete": false  
+     }  
+   ]  
+ }
+
+###
+
+POST localizationtables.roblox.com/v1/localization-table/tables HTTP/1.1
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+x-csrf-token: +1X/ejPw/Ma5
+Content-Type: application/json
+Accept: application/json
+Content-Length: 563
+
+{  
+   "name": "Roblox",  
+   "ownerType": "User",  
+   "ownerId": 158190828  
+ }
+
+###
+
+POST itemconfiguration.roblox.com/v1/avatar-assets/Lua/upload-captcha-test?groupId=-1 HTTP/1.1
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+x-csrf-token: 4SJ6Eyq7cAsL
+Content-Type: application/json
+Accept: application/json
+Content-Length: 563
+
+{  
+   "captchaToken": "",  
+   "captchaProvider": "PROVIDER_ARKOSE_LABS"  
+ }
+
+###
+
+POST itemconfiguration.roblox.com/v1/avatar-assets/Lua/upload HTTP/1.1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4505.0 Safari/537.36
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryLI2fgPIuhK1B3OcW
+Origin: https://itemconfiguration.sitetest4.robloxlabs.com
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://itemconfiguration.sitetest4.robloxlabs.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en,en-US;q=0.9
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: idc3clpefw45ssefp6ktk2bvn7gdlud5
+Cookie: .ROBLOSECURITY={{Token12}};
+x-csrf-token: wHwyw3oebnft
+
+------WebKitFormBoundaryLI2fgPIuhK1B3OcW
+Content-Disposition: form-data; name="requestModel.files"; filename="config.json"
+Content-Type: application/json
+
+{"name":"Apple","description":"Its a fruit"}
+------WebKitFormBoundaryLI2fgPIuhK1B3OcW--
+
+###
+
+GET games.roblox.com/v1/games/2106638554/icon HTTP/1.1
+authority: gamejoin.roblox.com
+pragma: no-cache
+cache-control: no-cache
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+accept: application/json
+dnt: 1
+x-requested-with: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+user-agent: Roblox/AspNet
+origin: https://gamejoin.roblox.com
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+referer: https://gamejoin.roblox.com/docs
+accept-language: en,en-US;q=0.9
+Cookie: .ROBLOSECURITY={{Token12}};
+roblox-proxied-ip: 128.116.123.3
+roblox-proxied-locale: en-us
+roblox-machine-id: AWA-WEB671
+access_token: cnGgYV/BzUMyhjw3iIiKi0TD6Q0=
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Nigger
+true-client-ip: 128.116.123.3
+x-real-ip: 128.116.123.3
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: d21e1446d35b756fc37d40de7751edb91fd86c4fdaa9fcaf828a5b6459e1492a957bfd6e7a32d0180a45e5437324e69dc10dd97570b9b7e67411bba1ba44e517#
+x-csrf-token: 4SJ6Eyq7cAsL
+Content-Type: application/json
+Accept: application/json
+Content-Length: 563
+
+{  
+   "filteringEnabled": false  
+}
+
+###
+ 
+POST https://mfdlabs.okta.com/oauth2/v1/token
+Content-Type: application/json
+
+###
+
+POST mfdlabs.okta.com/oauth2/default/v1/token?client_id=0oaqj21g63hsZ3wYB5d6 HTTP/1.1
+authorization: Basic ltbNdv9sKLSg2zVQ3F4RBfmKkTuGnQVoRe2F5-he
+content-type: application/x-www-form-urlencoded
+
+&client_id=0oaqj21g63hsZ3wYB5d6
+&client_secret=client_secret
+&grant_type=authorization_code
+&redirect_uri=https://rcity.simulpong.com/authorization-code/callback
+&code=Phyks3du01va_ochhY10y40J_CIwszHEpYN4j9WvFWA
+
+###
+
+POST https://rcity.simulping.com/authorization-code/callback?code=Phyks3du01va_ochhY10y40J_CIwszHEpYN4j9WvFWA&state=NjM3NTY1MTY2NzY4Mzg2MzExCnsicmV0dXJuVXJsIjoiLyIsIm5vbmNlIjoiSDhGXy13VThoMHFnSS1ISTBRWTdpQSIsImlzc3VlciI6Imh0dHBzOi8vcmJ4Lm9rdGEuY29tIn0KUW10MkxHbHRMY0ZzL2swWUJGMDlSWVozcTQzdC9XVjJUN3lOY2QvVVRYczU3YXcvb29heldZUFowMnBDNjR2ZElRMThhRE0xdk5IcGhvcnFhTjQrN0ZrTUZKUzloUXkxM2p1UllzZE13ZEZ1RVlDTzJLSEtJbml2NHZIeHd1c2JoOUl6dW8rUmtEU3Y4SVpFVGE2WTk5Y2EvN1d4b3ZjaFJpcndNZ2F6UXJnPQ--
+
+###
+
+POST /oauth2/default/v1/token HTTP/1.1
+Host: www.a.com
+Content-type: application/x-www-form-urlencoded
+Content-Length: 113
+
+client_id=client_id&client_secret=client_secret&grant_type=authorization_code&redirect_uri=redirect_uri&code=code
+
+###
+
+GET https://www.roblox.com
+Roblox-Id: 0
+
+###
+
+POST auth.roblox.com/v1/xbox-live/signup HTTP/1.1
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+Accept: application/json
+Referer: http://auth.sitetest4.robloxlabs.com/
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4505.0 Safari/537.36
+Content-Type: application/json
+Content-Length: 58
+x-csrf-token: l9JDsM3sLfcr
+
+{"username": "nsg0213123", "password": "Io9/9DEF"}
+
+###
+
+POST auth.roblox.com/v1/wechat/roblox-account-create?apiKey=d631f3d9-fce0-4711-8cf4-6f9a9756638b HTTP/1.1
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+Accept: application/json
+Referer: http://auth.sitetest4.robloxlabs.com/
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4505.0 Safari/537.36
+Content-Type: application/json
+Content-Length: 89
+x-csrf-token: l9JDsM3sLfcr
+
+{"unionId": "nsg","displayName": "nsg","birthday": "2021-05-14T22:14:57.793Z"}
+
+###
+
+POST /v2/moderation/textfilter HTTP/1.1
+Host: textfilter.roblox.com
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+Accept: application/json
+Referer: http://textfilter.sitetest4.robloxlabs.com/
+DNT: 1
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4505.0 Safari/537.36
+Content-Type: application/json
+Content-Length: 56
+
+{"text": "string", "userId": 1,  "context": "Undefined"}
+
+###
+
+POST /Data/Upload.ashx?assetid=6816639554&issavedversiononly=true HTTP/1.1
+Host: data.roblox.com
+Accept: */*
+Cookie: .ROBLOSECURITY={{Token12}};
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+User-Agent: RobloxStudio/WinInet RobloxApp/0.478.1.422443 (GlobalDist; RobloxDirectDownload)
+Content-Encoding: gzip
+Content-Type: text/xml
+Roblox-Game-Id: 00000000-0000-0000-0000-000000000000
+Roblox-Place-Id: 6816639554
+Requester: Client
+PlayerCount: 0
+X-CSRF-TOKEN: U1/TAGMOREvg
+
+<roblox></roblox>
+
+###
+
+POST https://tracing.roblox.com/api/v2/reports?AccessToken=S3EXjCZQQr6OixnmKu+hoa3OSfpvPP5qgU0esiWgwreFUUMBnPhEaoS5yIIrf9bdYlSgW0XKCb1So9Rhtj1eMzt/MJWcyKZ4TwIckHVj
+LightStep-Access-Token: S3EXjCZQQr6OixnmKu+hoa3OSfpvPP5qgU0esiWgwreFUUMBnPhEaoS5yIIrf9bdYlSgW0XKCb1So9Rhtj1eMzt/MJWcyKZ4TwIckHVj
+
+{
+	"Access-Token": "S3EXjCZQQr6OixnmKu+hoa3OSfpvPP5qgU0esiWgwreFUUMBnPhEaoS5yIIrf9bdYlSgW0XKCb1So9Rhtj1eMzt/MJWcyKZ4TwIckHVj"
+}
+
+###
+
+POST https://accountinformation.roblox.com/v1/birthdate
+Cookie: .ROBLOSECURITY={{Token12}};
+Content-Type: application/json
+x-csrf-token: fAiYyHNVzYlT
+
+{}
+
+###
+
+POST https://usermoderation.roblox.com/v1/not-approved/reactivate
+Cookie: .ROBLOSECURITY={{Token12}}
+x-csrf-token: gSe1SpJ7NN3s
+
+{}
+
+###
+
+POST https://ephemeralcounters.mfdlabs.cf/v1.1/Counters/Increment?counterName=a
+
+###
+
+GET https://gameinstances.api.sitetest1.robloxlabs.com/v1/GetGame?GameID=df766502-3128-47c1-aee9-d14733caafc0&placeID=1818&apiKey=*****
+
+###
+
+POST https://metricsvisualization.sitetest3.robloxlabs.com/add-adhoc-event
+Authorization: Basic base64-user-password
+
+###
+
+POST https://sms.api.sitetest1.robloxlabs.com/%20/a?ApiKey='%20or%20'1'='1'
+Content-Type: application/json
+
+{nadf}
+
+###
+
+POST https://abtesting.roblox.com/v1/enrollments
+Cookie: .ROBLOSECURITY={{Token12}}
+x-csrf-token: q2E0YuU8F430
+Content-Type: application/json
+
+[
+	{
+		"SubjectType":"BrowserTracker",
+		"SubjectTargetId":"97755666041",
+		"ExperimentName":"Web.Login.AccountRecoveryPrompt"
+	}
+]
+
+###
+
+curl -X PATCH --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ \ 
+   "phoneDiscovery": "NoOne" \ 
+ }' 'https://accountsettings.roblox.com/v1/privacy'
+
+###
+
+PATCH https://accountsettings.roblox.com/v1/privacy
+Cookie: .ROBLOSECURITY={{Token12}}
+x-csrf-token: q2E0YuU8F430
+Content-Type: application/json
+
+###
+
+GET https://assetgame.roblox.qq.com/game/join.ashx
+X-Real-IP: 128.123.123.3
+User-Agent: Roblox/Linux
+Accept: application/json
+X-Forwarded-For: 128.123.123.3
+Roblox-CNP-True-IP: 128.123.123.3
+
+###
+
+OPTIONS https://usermoderation.sitetest3.robloxlabs.com/docs/json/v1
+x-csrf-token: ci2SZpmb6JqP
+Accept: application/json
+Content-Type: application/json
+Roblox-Proxied-IP: -100
+X-Real-IP: 128.123.123.3
+User-Agent: Roblox/Linux
+X-Forwarded-For: 128.123.123.3
+Roblox-CNP-True-IP: 128.123.123.3
+
+###
+
+GET 34.123.90.223
+
+###
+
+GET https://contentstore.roblox.qq.com/v1/content?hash=&&&
+Roblox-Proxied-IP: -100
+X-Real-IP: 128.123.123.3
+User-Agent: Roblox/Linux
+X-Forwarded-For: 128.123.123.3
+Roblox-CNP-True-IP: 128.123.123.3
+
+###
+
+POST https://api.roblox.com/assets/award-badge?userId=1
+
+
+###
+
+PUT http://29.94.122.34.bc.googleusercontent.com:4646/v1/system/gc
+
+###
+
+POST /speedtest/run HTTP/1.1
+Host: www.sjabbo.net
+Connection: keep-alive
+Content-Length: 709
+Pragma: no-cache
+Cache-Control: no-cache
+Origin: http://www.sjabbo.net
+Upgrade-Insecure-Requests: 1
+DNT: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryFmG86TBYAYQLNBQX
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.5 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://www.sjabbo.net/speedtest/index
+Accept-Encoding: gzip, deflate
+Accept-Language: en,en-US;q=0.9
+
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="emailSent"
+
+false
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="down1"
+
+4563
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="down2"
+
+999
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="up1"
+
+185
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="up2"
+
+100
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="ping"
+
+1
+------WebKitFormBoundaryFmG86TBYAYQLNBQX
+Content-Disposition: form-data; name="server"
+
+12972
+------WebKitFormBoundaryFmG86TBYAYQLNBQX--
+
+###
+
+GET  https://web251.ra.roblox.com/
+Host: test.sitetest1.robloxlabs.com
+
+###
+
+OPTIONS https://test.sitetest3.robloxlabs.com/docs/json/v1
+
+###
+
+GET http://www.sitetest3.jmklabs.com/
+
+###
+
+POST auth.roblox.com/v2/verified-signup/challenge HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"
+Accept: application/json
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Roblox/ApiClient 4.0.30319.42000 (https://www.roblox.com/ v1.1.2)
+Content-Type: application/json
+Origin: https://auth.sitetest4.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://www.facebook.com
+Accept-Language: en,en-US;q=0.9
+Cookie: __tid=7bab6b9d931f9014e3e763c6a8818f7504d32e224594012f7889e4b067a28bb0; gig_bootstrap_3_o9pIaHhVOdKXUl_EicMuJA7sx6rJ3-PiqWjhMTtOcHKvyroFTM6R8jHNNJNg_t3Q=_gigya_ver4; gig_bootstrap_3_OsvmtBbTg6S_EUbwTPtbbmoihFY5ON6v6hbVrTbuqpBs7SyF_LQaJwtwKJ60sY1p=_gigya_ver4; .RBXIDCHECK=d01251b6-2391-4857-9247-3db992456761; RobloxEventTrackerV2=CreateDate=29/3/2021 12:59:42 PM&rbxid=&browserid=1; .RBXID=_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3NTM5YzdjZC03YzMxLTRkOGYtYWRiYi02NjE2YjIzMmQ1NjIiLCJzdWIiOjY4MjE3MDR9.9DaHhc67XQARd3pA_f27AclpFjjJEq3P0bXlwSGUFyY; _evidon_consent_cookie={}; _ga=GA1.1.19487232.1619816028; RBXcb=11; GuestData=UserID=-352136386; RBXEventTrackerV2=CreateDate=1/5/2021 2:44:53 PM&rbxid=&browserid=1; RobloxSecurityToken=ljWby%2B%2FHVsZXJLfRkoljWby%2B%2FHVsZXJLfRko9mPQ9mPQ%3D%3D; AuthTokens=R; _ga_0E3DVKZFR1=GS1.1.1622512351.24.1.1622513974.0
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+x-real-ip: 209.206.42.16
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: idc3clpefw45ssefp6ktk2bvn7gdlud5
+x-csrf-token: m5reLJxC/VfE
+roblox-place-id: 5889263700
+Content-Length: 72
+
+{"deliveryMethod": "Email","deliveryTarget": "mfdnpm@gmail.com"}
+
+###
+
+POST  auth.roblox.com/v2/verified-signup/voucher HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"
+Accept: application/json
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Roblox/ApiClient 4.0.30319.42000 (https://www.roblox.com/ v1.1.2)
+Content-Type: application/json
+Origin: https://auth.sitetest4.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://www.facebook.com
+Accept-Language: en,en-US;q=0.9
+Cookie: __tid=7bab6b9d931f9014e3e763c6a8818f7504d32e224594012f7889e4b067a28bb0; gig_bootstrap_3_o9pIaHhVOdKXUl_EicMuJA7sx6rJ3-PiqWjhMTtOcHKvyroFTM6R8jHNNJNg_t3Q=_gigya_ver4; gig_bootstrap_3_OsvmtBbTg6S_EUbwTPtbbmoihFY5ON6v6hbVrTbuqpBs7SyF_LQaJwtwKJ60sY1p=_gigya_ver4; .RBXIDCHECK=d01251b6-2391-4857-9247-3db992456761; RobloxEventTrackerV2=CreateDate=29/3/2021 12:59:42 PM&rbxid=&browserid=1; .RBXID=_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3NTM5YzdjZC03YzMxLTRkOGYtYWRiYi02NjE2YjIzMmQ1NjIiLCJzdWIiOjY4MjE3MDR9.9DaHhc67XQARd3pA_f27AclpFjjJEq3P0bXlwSGUFyY; _evidon_consent_cookie={}; _ga=GA1.1.19487232.1619816028; RBXcb=11; GuestData=UserID=-352136386; RBXEventTrackerV2=CreateDate=1/5/2021 2:44:53 PM&rbxid=&browserid=1; RobloxSecurityToken=ljWby%2B%2FHVsZXJLfRkoljWby%2B%2FHVsZXJLfRko9mPQ9mPQ%3D%3D; AuthTokens=R; _ga_0E3DVKZFR1=GS1.1.1622512351.24.1.1622513974.0
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+x-real-ip: 209.206.42.16
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: idc3clpefw45ssefp6ktk2bvn7gdlud5
+roblox-place-id: 5889263700
+x-csrf-token: m5reLJxC/VfE
+Content-Length: 64
+
+{"challenge": "0OEVdWGy7UCU1hxtpbK7pQ", "code": "785780"}
+
+###
+
+POST auth.roblox.com/v2/verified-signup HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"
+Accept: application/json
+DNT: 1
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Roblox/ApiClient 4.0.30319.42000 (https://www.roblox.com/ v1.1.2)
+Content-Type: application/json
+Origin: https://auth.sitetest4.robloxlabs.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://www.facebook.com
+Accept-Language: en,en-US;q=0.9
+Cookie: __tid=7bab6b9d931f9014e3e763c6a8818f7504d32e224594012f7889e4b067a28bb0; gig_bootstrap_3_o9pIaHhVOdKXUl_EicMuJA7sx6rJ3-PiqWjhMTtOcHKvyroFTM6R8jHNNJNg_t3Q=_gigya_ver4; gig_bootstrap_3_OsvmtBbTg6S_EUbwTPtbbmoihFY5ON6v6hbVrTbuqpBs7SyF_LQaJwtwKJ60sY1p=_gigya_ver4; .RBXIDCHECK=d01251b6-2391-4857-9247-3db992456761; RobloxEventTrackerV2=CreateDate=29/3/2021 12:59:42 PM&rbxid=&browserid=1; .RBXID=_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3NTM5YzdjZC03YzMxLTRkOGYtYWRiYi02NjE2YjIzMmQ1NjIiLCJzdWIiOjY4MjE3MDR9.9DaHhc67XQARd3pA_f27AclpFjjJEq3P0bXlwSGUFyY; _evidon_consent_cookie={}; _ga=GA1.1.19487232.1619816028; RBXcb=11; GuestData=UserID=-352136386; RBXEventTrackerV2=CreateDate=1/5/2021 2:44:53 PM&rbxid=&browserid=1; RobloxSecurityToken=ljWby%2B%2FHVsZXJLfRkoljWby%2B%2FHVsZXJLfRko9mPQ9mPQ%3D%3D; AuthTokens=R; _ga_0E3DVKZFR1=GS1.1.1622512351.24.1.1622513974.0
+roblox-api-key: 2A04B993-BC10-40AB-B34D-E9FB80CCB34D
+requester: Server
+x-real-ip: 209.206.42.16
+xboxaccesskey: b9309a51-7b54-458c-ad73-7b2c287497e2
+accesskey: idc3clpefw45ssefp6ktk2bvn7gdlud5
+roblox-place-id: 5889263700
+Content-Length: 674
+x-csrf-token: k2P+5BJ9OiaL
+
+{"voucher": "MAp7Ik5vbmNlIjoiXzNkZ3BZeDhsMC1SdmVULXhRVkFSQSIsIkRlbGl2ZXJ5TWV0aG9kIjoxLCJEZWxpdmVyeVRhcmdldCI6Im1mZG5wbUBnbWFpbC5jb20ifQpHNjJWUHlkSVM3WGsrT2NIbWQ4em9mb0o4dGcxbHE1bEVOMnZaRS9UM1l1OFFvUDRCSUFBcUFxUXJEOEo1VithOEhENWYrN0tDL2lZVDFkVEdSSHlmalc3YU5adjlGcmQzZXJ6VjBIWkJ1eFdia1RWUkpDbklnYnVucWJvcWVKUGIxalRVSmlRTHkydi8vK3FEZlRBU044VTQxV1dzUXBsemRWT0ZMVFpta1hIeWQwSW5GMUFKbEsvK2tVZklHY2s0UWgwa3pRRUhJYkc5U1M3aTNmRjZ0OTZoUjdFUnpPUU15WTJ5cUxuS1E1RUxTZTVUZGZ3SVVmWWZTSUxJcDZ3THJidkREQXZkc2thVHY0aG5rcCtMdThmY0lRMVpNcXFWREFmbU1KRlRaTUtnczVpdUN0aDNFTlpmbGJPTW5LZ0ZRb0xNYzlIMm1uL3dIOVd4bzZ1K0E9PQ==","birthdate": "1998-06-04T18:15:10.902Z",  "password": "Io9/9DEF", "captchaProvider": "PROVIDER_ARKOSE_LABS", "captchaToken": ""}
+
+###
+
+POST https://voice.roblox.qq.com/v1/settings/user-opt-in
+Cookie: .ROBLOSECURITY={{Token12}}
+x-csrf-token: 9y/sYZ5Q64yK
+Content-Type: application/json
+Roblox-Proxied-IP: 128.116.123.3
+
+{}
+
+###
+
+OPTIONS https://apis.roblox.com/purchase-warning-service/v1/purchase-warnings/acknowledge

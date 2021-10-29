@@ -1,0 +1,51 @@
+<s:Envelope
+	xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+	<s:Body>
+		<s:Fault>
+			<faultcode
+				xmlns:a="http://schemas.microsoft.com/net/2005/12/windowscommunicationfoundation/dispatcher">a:InternalServiceFault
+      
+			</faultcode>
+			<faultstring xml:lang="en-IE">Error in deserializing body of request message for operation 'OpenJobEx'.</faultstring>
+			<detail>
+				<ExceptionDetail
+					xmlns="http://schemas.datacontract.org/2004/07/System.ServiceModel"
+					xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+					<HelpLink i:nil="true"/>
+					<InnerException>
+						<HelpLink i:nil="true"/>
+						<InnerException>
+							<HelpLink i:nil="true"/>
+							<InnerException i:nil="true"/>
+							<Message>End element 'cores' from namespace 'http://roblox.com/' expected. Found element 'ns1:cores' from namespace 'http://roblox.com/'. Line 17, position 17.</Message>
+							<StackTrace>   at System.Xml.XmlExceptionHelper.ThrowXmlException(XmlDictionaryReader reader, String res, String arg1, String arg2, String arg3)&#xD;
+   at System.Xml.XmlBaseReader.ReadEndElement()&#xD;
+   at System.Xml.XmlBaseReader.ReadElementString()&#xD;
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderRccService.Read2_Job(Boolean isNullable, Boolean checkType)&#xD;
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderRccService.Read28_OpenJobEx()&#xD;
+   at Microsoft.Xml.Serialization.GeneratedAssembly.ArrayOfObjectSerializer21.Deserialize(XmlSerializationReader reader)&#xD;
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)</StackTrace>
+							<Type>System.Xml.XmlException</Type>
+						</InnerException>
+						<Message>There is an error in XML document (17, 17).</Message>
+						<StackTrace>   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)&#xD;
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle)&#xD;
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)</StackTrace>
+						<Type>System.InvalidOperationException</Type>
+					</InnerException>
+					<Message>Error in deserializing body of request message for operation 'OpenJobEx'.</Message>
+					<StackTrace>   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)&#xD;
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)&#xD;
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)&#xD;
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeRequest(Message message, Object[] parameters)&#xD;
+   at System.ServiceModel.Dispatcher.DispatchOperationRuntime.DeserializeInputs(MessageRpc&amp; rpc)&#xD;
+   at System.ServiceModel.Dispatcher.DispatchOperationRuntime.InvokeBegin(MessageRpc&amp; rpc)&#xD;
+   at System.ServiceModel.Dispatcher.ImmutableDispatchRuntime.ProcessMessage5(MessageRpc&amp; rpc)&#xD;
+   at System.ServiceModel.Dispatcher.ImmutableDispatchRuntime.ProcessMessage4(MessageRpc&amp; rpc)&#xD;
+   at System.ServiceModel.Dispatcher.MessageRpc.Process(Boolean isOperationContextSet)</StackTrace>
+					<Type>System.ServiceModel.CommunicationException</Type>
+				</ExceptionDetail>
+			</detail>
+		</s:Fault>
+	</s:Body>
+</s:Envelope>

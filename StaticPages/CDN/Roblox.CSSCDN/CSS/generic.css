@@ -1,0 +1,145 @@
+﻿.SquareTabGray {
+	list-style: none;
+	float: left;
+	background-color: #d6d6d6;
+	padding: 7px;
+	border: 1px solid #9e9e9e;
+	font: bold 15px arial;
+	color: #363636;
+	margin: 4px 2px 0px 1px;
+	border-bottom-width: 0px;
+	position: relative;
+	top: 2px;
+}
+.SquareTabGray a {
+	text-decoration: none;
+	color: #363636;
+	cursor: pointer;
+}
+.SquareTabGray a:hover {
+	text-decoration: none;
+	background-color: #e9e9e9;
+}
+.SquareTabGray.selected a:hover,
+.SquareTabGray.ui-tabs-selected a:hover {
+	text-decoration: none;
+	background-color: #fcfcfc;
+}
+.SquareTabGray:hover {
+	background-color: #e9e9e9;
+	cursor: pointer;
+}
+.SquareTabGray.selected,
+.SquareTabGray.selected:hover,
+.SquareTabGray.ui-tabs-selected,
+.SquareTabGray.ui-tabs-selected:hover {
+	background-color: #fcfcfc;
+	margin-top: 0px;
+	padding: 9px 7px 12px 7px;
+	position: relative;
+	top: 1px;
+	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #fcfcfc;
+}
+.TabContent {
+	display: none;
+}
+.TabContent.selected {
+	display: block;
+}
+
+.StandardPanelContainer {
+	position: relative;
+	clear: both;
+	padding-left: 5px;
+}
+.StandardPanelContainer .StandardPanelWhite {
+	position: relative;
+	left: -5px;
+	top: -1px;
+	width: 100%;
+	padding: 6px;
+	margin-bottom: -6px;
+}
+.WhiteSquareTabsContainer {
+	background: url('/unsecurecontent/images/fakeborder.png') bottom repeat-x;
+	width: 100%;
+	position: relative;
+	padding: 0 0 0 5px;
+	display: inline-block;
+	margin: 0;
+}
+.SquareTabGray {
+	list-style: none;
+	float: left;
+	background-color: #d6d6d6;
+	padding: 7px;
+	border: 1px solid #9e9e9e;
+	font: bold 15px arial;
+	color: #363636;
+	margin: 4px 2px 0 1px;
+	border-bottom-width: 0;
+	position: relative;
+	top: 2px;
+}
+
+/*Modal Popup*/
+.modalBackground {
+	background-color: Gray;
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+
+.modalPopup {
+	background-color: #ffffdd;
+	border-width: 3px;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+}
+
+.simplemodal-container {
+	top: 200px !important;
+}
+.ImageButton {
+	cursor: pointer;
+	padding: 0;
+	border: 0;
+	text-decoration: none;
+	margin: 0;
+	display: inline-block;
+}
+
+.btn-submit {
+	height: 50px;
+	width: 134px;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	background: url(/unsecurecontent/images/btn-submit.png);
+}
+.btn-submit:hover {
+	background-position: 0 -50px;
+	cursor: pointer;
+}
+.btn-cancel {
+	width: 96px;
+	height: 50px;
+	background: url(/unsecurecontent/images/btn-cancel.png) no-repeat;
+}
+.btn-cancel:hover {
+	background-position: 0px -50px;
+}
+
+.StandardDividerTop {
+	border-top: 1px solid #ccc;
+}
+.StandardDividerBottom {
+	border-bottom: 1px solid #ccc;
+}
+.StandardDividerLeft {
+	border-left: 1px solid #ccc;
+}
+.StandardDividerRight {
+	border-right: 1px solid #ccc;
+}

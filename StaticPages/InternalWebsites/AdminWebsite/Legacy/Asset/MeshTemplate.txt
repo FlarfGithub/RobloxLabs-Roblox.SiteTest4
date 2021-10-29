@@ -1,0 +1,26 @@
+﻿<item class="SpecialMesh" referent="RBX2">
+	<properties>
+		<token name="LODX">2</token>
+		<token name="LODY">2</token>
+		<content name="MeshId"><url>&lt;&lt;&lt;&lt;<domain>&gt;&gt;&gt;&gt;/asset/?id=&lt;&lt;&lt;&lt;<meshassetid>&gt;&gt;&gt;&gt;</url></content>
+		<token name="MeshType">5</token>
+		<string name="Name">Mesh</string>
+		<vector3 name="Offset">
+			<x>0</x>
+			<y>0</y>
+			<z>0</z>
+		</vector3>
+		<vector3 name="Scale">
+			<x>1</x>
+			<y>1</y>
+			<z>1</z>
+		</vector3>
+		<content name="TextureId"><url>&lt;&lt;&lt;&lt;<textureasseturl>&gt;&gt;&gt;&gt;</url></content>
+		<vector3 name="VertexColor">
+			<x>1</x>
+			<y>1</y>
+			<z>1</z>
+		</vector3>
+		<bool name="archivable">true</bool>
+	</properties>
+</item>

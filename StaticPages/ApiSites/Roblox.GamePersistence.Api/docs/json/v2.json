@@ -1,0 +1,751 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v2",
+		"title": "GamePersistence Api v2"
+	},
+	"host": "gamepersistence.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v2/persistence/{universeId}/datastores": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Returns list of datastores.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "maxItemsToReturn",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "prefix",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "exclusiveStartKey",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:ListDatastoresAsync"]
+				}
+			}
+		},
+		"/v2/persistence/{universeId}/datastores/datastore": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Returns datastore information of the datastore given the name of the datastore and the universeId.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe Id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:GetDatastoreAsync"]
+				}
+			},
+			"put": {
+				"tags": ["Persistence"],
+				"summary": "Gets or creates a datastore by the given in the given universe Id.\r\nIf the datastore does not exist a datastore will be created with the same name and default configuration.\r\nNewly created datastore will have versioning disabled.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe Identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Name of the datastore.",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:GetOrCreateDatastoreAsync"]
+				}
+			},
+			"patch": {
+				"tags": ["Persistence"],
+				"summary": "Updates datastore configuration.\r\nUpdates the datastore with new configuration. Currently only versioning can be set.\r\nWhen verisoning is set, default set of policies are applied to the datastore.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe Identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Name of the datastore.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "{Roblox.GamePersistence.Api.Models.V2.UpdateDatastoreRequest}",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V2.UpdateDatastoreRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed.\r\n7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist.\r\n10: The data store does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:UpdateDatastoreAsync"]
+				}
+			}
+		},
+		"/v2/persistence/{universeId}/datastores/objects": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Enumerates objects in a data store.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "prefix",
+						"in": "query",
+						"description": "Optional key prefix of the keys to enumerate.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "maxItemsToReturn",
+						"in": "query",
+						"description": "Maximum number of items to return.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "exclusiveStartKey",
+						"in": "query",
+						"description": "Exclusive start key.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:ListObjectsAsync"]
+				}
+			}
+		},
+		"/v2/persistence/{universeId}/datastores/objects/object": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Returns an object version.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "objectKey",
+						"in": "query",
+						"description": "Object key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"description": "Optional version to return. If not provided, the latest version is returned.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid.\r\n3: The provided object key is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist.\r\n12: The requested object version does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:GetObjectAsync"]
+				}
+			},
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Updates the key with the provided value and metadata.",
+				"description": "<para>\r\n            The operation of this endpoint depends on the presence of If-Match and If-None-Match standard HTTP headers.\r\n            If neither of the headers is present, the operation is unconditional and the provided value replaces any existing\r\n            value of the key. The return status is 200 OK and the result object is an {Roblox.GamePersistence.Api.Models.V2.ObjectVersionInfo} instance\r\n            containing the new version number of the key.\r\n            </para>\r\n<para>\r\n            If the If-Match header is provided, it indicates the expected version number the key must have for the operation\r\n            to succeed. If the key does not exist or has a version different from the one indicated by the If-Match header,\r\n            the operation is aborted and a conflict response is produced.\r\n            </para>\r\n<para>\r\n            If the If-None-Match header is provided and has the value of '*', the operation succeeds if the key does not\r\n            already exist. If the key already exists, the operation is aborted and a conflict response is produced. Only\r\n            the wildcard value ('*') is accepted for the If-None-Match header. Any other value results in a 400 Bad Request\r\n            response.\r\n            </para>\r\n<para>\r\n            In either case, when a conflict is detected, the response status is 412 Precondition Failed and the response body\r\n            contains the current key value and additional object properties are returned in HTTP headers. This is exact same\r\n            response as from a GET operation on this key.\r\n            </para>\r\n<para>\r\n            Only one of If-Match or If-None-Match headers can be present. If both headers are present, a 400 Bad Request\r\n            response is produced.\r\n            </para>",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "objectKey",
+						"in": "query",
+						"description": "Object key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "Roblox-Object-Attributes",
+						"in": "header",
+						"description": "Optional metadata attributes in JSON format.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "Roblox-Object-UserIds",
+						"in": "header",
+						"description": "Optional user ids to associate with the value as a JSON array.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid.\r\n3: The provided object key is invalid.\r\n6: The size of the provided value exceeds the allowed maximum.\r\n13: The specified precondition is invalid\r\n14: The provided object attributes have invalid format.\r\n15: The provided user ids have invalid format."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:SetObjectAsync"]
+				}
+			},
+			"delete": {
+				"tags": ["Persistence"],
+				"summary": "Deletes an object version.",
+				"description": "<para>\r\n            The behavior of this operation depends on whether versioning is enabled for the data store and if the\r\n            {version} parameter is provided.\r\n            </para>\r\n<para>\r\n            If versioning is not enabled for the data store, the operation permanently deletes the provided key.\r\n            The {version} parameter is not supported; if provided, the operation results in an\r\n            error.\r\n            </para>\r\n<para>\r\n            If versioning is enabled and {version} is not provided, the operation adds a\r\n            tombstone marker as the latest version of the key.\r\n            </para>\r\n<para>\r\n            If versioning is enabled and {version} is provided, the operation permanently\r\n            deletes the specified version. If the operation succeeds, the response status is 204 No Content and\r\n            the response body is empty. If the requested version does not exist, the response status is 404 Not\r\n            Found.\r\n            </para>",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "objectKey",
+						"in": "query",
+						"description": "Object key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"description": "Optional version to delete (see Remarks).",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid.\r\n3: The provided object key is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist.\r\n12: The requested object version does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:DeleteObjectAsync"]
+				}
+			}
+		},
+		"/v2/persistence/{universeId}/datastores/objects/object/versions": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Enumerates object versions.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "objectKey",
+						"in": "query",
+						"description": "Object key whose versions to enumerate.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "maxItemsToReturn",
+						"in": "query",
+						"description": "The maximum number of items to return.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "sortOrder",
+						"in": "query",
+						"description": "Optional Sort order to sort the object versions. Can be either \"Ascending\" or \"Descending\". Defaults to \"Ascending\"",
+						"required": false,
+						"type": "string",
+						"enum": ["Ascending", "Descending"]
+					},
+					{
+						"name": "exclusiveStartKey",
+						"in": "query",
+						"description": "Exclusive start key.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "startTime",
+						"in": "query",
+						"description": "Optional lower bound, inclusive, for the creation time of the versions\r\n            to return.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "endTime",
+						"in": "query",
+						"description": "Optional upper bound, inclusive, for the creation time of the versions to\r\n            return.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid.\r\n3: The provided object key is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist.\r\n11: The requested key does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:ListObjectVersionsAsync"]
+				}
+			}
+		},
+		"/v2/persistence/{universeId}/datastores/objects/object/increment": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Increments the key value.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "Universe identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "datastore",
+						"in": "query",
+						"description": "Data store name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "objectKey",
+						"in": "query",
+						"description": "Object key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "incrementBy",
+						"in": "query",
+						"description": "The amount to increment by.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "Roblox-Object-Attributes",
+						"in": "header",
+						"description": "Optional metadata attributes in JSON format.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "Roblox-Object-UserIds",
+						"in": "header",
+						"description": "Optional user ids to associate with the value as a JSON array.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided data store name is invalid.\r\n3: The provided object key is invalid."
+					},
+					"403": {
+						"description": "7: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "10: The data store does not exist."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV2:IncrementObjectAsync"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"System.Threading.CancellationToken": {
+			"type": "object",
+			"properties": {
+				"IsCancellationRequested": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"CanBeCanceled": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"WaitHandle": {
+					"$ref": "#/definitions/System.Threading.WaitHandle",
+					"readOnly": true
+				}
+			}
+		},
+		"System.Threading.WaitHandle": {
+			"type": "object",
+			"properties": {
+				"Handle": {
+					"type": "object"
+				},
+				"SafeWaitHandle": {
+					"$ref": "#/definitions/Microsoft.Win32.SafeHandles.SafeWaitHandle"
+				}
+			}
+		},
+		"Microsoft.Win32.SafeHandles.SafeWaitHandle": {
+			"type": "object",
+			"properties": {
+				"IsInvalid": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsClosed": {
+					"type": "boolean",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V2.UpdateDatastoreRequest": {
+			"description": "Describes UpdateDatastoreRequest.For now versioning can only be enabled\r\nand the object lifecycle policies are automatically set for now.\r\nWe will enable setting object lifecycle policy later.",
+			"type": "object",
+			"properties": {
+				"versioningEnabled": {
+					"description": "Enable versioning on the datastore.",
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}

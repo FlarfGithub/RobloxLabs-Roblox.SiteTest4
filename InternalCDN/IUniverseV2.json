@@ -1,0 +1,21 @@
+{
+	"ID": 905119936,
+	"RootPlaceID": 2537274968,
+	"Name": "BetaTest7",
+	"Description": "Testing MfdCore --nocache on S3",
+	"Creator": { "ID": 158190828, "Name": "RakNetProtocol", "Type": 1 },
+	"Price": null,
+	"AllowedGearGenres": [9],
+	"AllowedGearCategories": [],
+	"Playing": 0,
+	"Visits": 5481,
+	"MaxPlayers": 500,
+	"Created": "2018-11-02T21:28:05.23Z",
+	"Updated": "2021-01-24T09:11:26.083Z",
+	"StudioAccessToApisAllowed": false,
+	"CreateVipServersAllowed": false,
+	"UniverseAvatarType": "PlayerChoice",
+	"Genre": "All",
+	"GameRating": null,
+	"IsFavoritedByUser": true
+}

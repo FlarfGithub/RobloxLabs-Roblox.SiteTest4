@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= pageMeta.Exception.What %></title>
+		<meta name="viewport" content="width=device-width" />
+		<style>
+			body {
+				font-family: 'Verdana';
+				font-weight: normal;
+				font-size: 0.7em;
+				color: black;
+			}
+			p {
+				font-family: 'Verdana';
+				font-weight: normal;
+				color: black;
+				margin-top: -5px;
+			}
+			b {
+				font-family: 'Verdana';
+				font-weight: bold;
+				color: black;
+				margin-top: -5px;
+			}
+			H1 {
+				font-family: 'Verdana';
+				font-weight: normal;
+				font-size: 18pt;
+				color: red;
+			}
+			H2 {
+				font-family: 'Verdana';
+				font-weight: normal;
+				font-size: 14pt;
+				color: maroon;
+			}
+			pre {
+				font-family: 'Consolas', 'Lucida Console', Monospace;
+				font-size: 11pt;
+				margin: 0;
+				padding: 0.5em;
+				line-height: 14pt;
+			}
+			.marker {
+				font-weight: bold;
+				color: black;
+				text-decoration: none;
+			}
+			.version {
+				color: gray;
+			}
+			.error {
+				margin-bottom: 10px;
+			}
+			.expandable {
+				text-decoration: underline;
+				font-weight: bold;
+				color: navy;
+				cursor: pointer;
+			}
+			@media screen and (max-width: 639px) {
+				pre {
+					width: 440px;
+					overflow: auto;
+					white-space: pre-wrap;
+					word-wrap: break-word;
+				}
+			}
+			@media screen and (max-width: 479px) {
+				pre {
+					width: 280px;
+				}
+			}
+		</style>
+	</head>
+
+	<body bgcolor="white">
+		<span
+			><h1>
+				Server Error in '/' Application.
+				<hr width="100%" size="1" color="silver" />
+			</h1>
+
+			<h2><i><%= pageMeta.Exception.What %></i></h2></span
+		>
+
+		<font face="Arial, Helvetica, Geneva, SunSans-Regular, sans-serif ">
+			<b> Description: </b>An unhandled exception occurred during the execution of the current web request. Please review the stack
+			trace for more information about the error and where it originated in the code.
+
+			<br /><br />
+
+			<b> Exception Details: </b><%= pageMeta.Exception.Type %>: <%= pageMeta.Exception.What %><br /><br />
+
+			<b>Source Error:</b> <br /><br />
+
+			<table width="100%" bgcolor="#ffffcc">
+				<tr>
+					<td>
+						<code>
+							<% if (!pageMeta.Exception.ShowCode) { %> The source code that generated this unhandled exception can only be
+							shown when compiled in debug mode. To enable this, please follow one of the below steps, then request the
+							URL:<br /><br />1. Add a "Debug=true" directive at the top of the file that generated the error. Example:<br /><br />
+							&lt;%@ Page Language="TS" Debug="true" %&gt;<br /><br />or:<br /><br />2) Add the following section to the
+							configuration file of your application:<br /><br />&lt;configuration&gt;<br />
+							&lt;system.web&gt;<br />
+							&lt;compilation debug="true"/&gt;<br />
+							&lt;/system.web&gt;<br />&lt;/configuration&gt;<br /><br />
+							Note that this second technique will cause all files within a given application to be compiled in debug mode.
+							The first technique will cause only that particular file to be compiled in debug mode.<br /><br />Important:
+							Running applications in debug mode does incur a memory/performance overhead. You should make sure that an
+							application has debugging disabled before deploying into production scenario. <% } else { %>
+							<pre><%= pageMeta.Exception.Code.CodeBefore %><font color=red><%= pageMeta.Exception.Code.CodeError %></font><%= pageMeta.Exception.Code.CodeAfter %></pre>
+							<% } %>
+						</code>
+					</td>
+				</tr>
+			</table>
+
+			<br />
+
+			<b> Source File: </b>
+			<%= pageMeta.Exception.SourceFile %><b> &nbsp;&nbsp; Line: </b> <%= pageMeta.Exception.SourceLine %> <br /><br />
+
+			<b>Stack Trace:</b> <br /><br />
+
+			<table width="100%" bgcolor="#ffffcc">
+				<tr>
+					<td>
+						<code>
+							<pre>
+
+[<%= pageMeta.Exception.Type %>: <%= pageMeta.Exception.What %>]
+<%= pageMeta.Exception.StackTrace  %> 
+</pre
+							>
+						</code>
+					</td>
+				</tr>
+			</table>
+
+			<br />
+
+			<hr width="100%" size="1" color="silver" />
+
+			<b>Version Information:</b> Microsoft Typescript Version:4.2.3; Express Version:4.17.1
+		</font>
+	</body>
+</html>
+<!-- 
+[<%= pageMeta.Exception.Type %>]: <%= pageMeta.Exception.What %>
+<%= pageMeta.Exception.StackTrace  %> 
+-->

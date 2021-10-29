@@ -1,0 +1,383 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v2",
+        "title": "ClientSettings Api v2"
+    },
+    "host": "clientsettings.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v2/client-version/{binaryType}": {
+            "get": {
+                "tags": ["VersionCheck"],
+                "summary": "Get client version information for specific binary type",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "binaryType",
+                    "in": "path",
+                    "description": "Platform(WindowsPlayer, WindowsStudio, MacPlayer or MacStudio) for which we want the latest version",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientVersionResponse"
+                        }
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["VersionCheckV2:GetClientVersion"]
+                }
+            }
+        },
+        "/v2/client-version/{binaryType}/channel/{channelName}": {
+            "get": {
+                "tags": ["VersionCheck"],
+                "summary": "Get client version information for specific binary type",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "binaryType",
+                    "in": "path",
+                    "description": "Platform(WindowsPlayer, WindowsStudio, MacPlayer or MacStudio) for which we want the latest version",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "channelName",
+                    "in": "path",
+                    "description": "Channel Name",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientVersionResponse"
+                        }
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["VersionCheckV2:GetClientVersionForChannel"]
+                }
+            }
+        },
+        "/v2/settings/application/{applicationName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a Roblox client application.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "True-Client-IP",
+                    "in": "header",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid."
+                    },
+                    "403": {
+                        "description": "1: The application name is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetClientApplicationSettings"]
+                }
+            }
+        },
+        "/v2/settings/application/{applicationName}/bucket/{bucketName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a Roblox client application.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "bucketName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "True-Client-IP",
+                    "in": "header",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid.\r\n5: The bucket name is invalid."
+                    },
+                    "403": {
+                        "description": "1: The application name is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetClientApplicationSettingsOverriddenByBucketName"]
+                }
+            }
+        },
+        "/v2/settings/secured-settings/{applicationName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a RCC-only Roblox client application.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Roblox-Api-Key",
+                    "in": "header",
+                    "description": "API Key for request",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid."
+                    },
+                    "403": {
+                        "description": "3: The api key is invalid.\r\n4: The Ip address is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetRccOnlyClientApplicationSettings"]
+                }
+            }
+        },
+        "/v2/settings/secured-settings/{applicationName}/bucket/{bucketName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a RCC-only Roblox client application.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "bucketName",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Roblox-Api-Key",
+                    "in": "header",
+                    "description": "API Key for request",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid."
+                    },
+                    "403": {
+                        "description": "3: The api key is invalid.\r\n4: The Ip address is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetRccOnlyClientApplicationSettingsWithBucketOverride"]
+                }
+            }
+        },
+        "/v2/settings/secured-settings-internal/{applicationName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a Roblox client application for internal dev use only.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Roblox-Api-Key",
+                    "in": "header",
+                    "description": "API Key for request",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid."
+                    },
+                    "403": {
+                        "description": "3: The api key is invalid.\r\n4: The Ip address is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetClientApplicationSettingsInternalOnly"]
+                }
+            }
+        },
+        "/v2/settings/secured-settings-internal/{applicationName}/bucket/{bucketName}": {
+            "get": {
+                "tags": ["ClientApplicationSettings"],
+                "summary": "Returns the complete settings dictionary for a Roblox client application for internal dev use only.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "applicationName",
+                    "in": "path",
+                    "description": "The name of the client application.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "bucketName",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Roblox-Api-Key",
+                    "in": "header",
+                    "description": "API Key for request",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The application name is invalid."
+                    },
+                    "403": {
+                        "description": "3: The api key is invalid.\r\n4: The Ip address is invalid."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["ClientApplicationSettingsV2:GetClientApplicationSettingsInternalOnly"]
+                }
+            }
+        },
+        "/v2/user-channel": {
+            "get": {
+                "tags": ["Channel"],
+                "summary": "Get channel name for currently logged in user",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ClientSettings.Api.Models.Response.UserChannelResponse"
+                        }
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["Channel:GetUserChannel"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.ClientSettings.Api.Models.Response.UserChannelResponse": {
+            "description": "Response data object for getting a user's channel information.",
+            "type": "object",
+            "properties": {
+                "channelName": {
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.ClientSettings.Api.Models.Response.ClientApplicationSettingsResponse": {
+            "type": "object",
+            "properties": {
+                "applicationSettings": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.ClientSettings.Api.Models.Response.ClientVersionResponse": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "clientVersionUpload": {
+                    "type": "string"
+                },
+                "bootstrapperVersion": {
+                    "type": "string"
+                },
+                "nextClientVersionUpload": {
+                    "type": "string"
+                },
+                "nextClientVersion": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

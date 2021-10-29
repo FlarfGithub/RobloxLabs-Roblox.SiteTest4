@@ -1,0 +1,82 @@
+import { dbInfo } from 'Assemblies/Common/Persistence/Roblox.Common.Persistence/dbInfo';
+import { EntityHelper } from 'Assemblies/Data/Roblox.Data/Entities/EntityHelper';
+import { SqlDataReader } from 'System/Data/SqlClient/SqlDataReader';
+import { SqlParameter } from 'System/Data/SqlClient/SqlParameter';
+import { SqlDbType } from 'System/Data/SqlDbType';
+
+export class <DALCLASSNAME> {
+	private _ID: <IDTYPE>;
+<DALFIELDS>
+
+	public get ID() {
+		return this._ID;
+	}
+	public set ID(value: <IDTYPE>) {
+		this._ID = value;
+	}
+<DALPROPERTIES>
+
+	private static get <CONNECTIONSTRING>() {
+		return <CONNECTIONSTRINGVALUE>;
+	}
+
+	public constructor() {}
+
+	public Delete() {
+		if (this._ID === null) throw new ReferenceError('Required value not specified: ID.');
+		const queryParameters: SqlParameter[] = [new SqlParameter('@ID', this._ID)];
+		const info = new dbInfo(<DALCLASSNAME>.<CONNECTIONSTRING>, '<DELETEPROCEDURE>', queryParameters);
+		EntityHelper.DoEntityDALDelete(info);
+	}
+	public Insert() {
+		const queryParameters: SqlParameter[] = [
+		<QUERYPARAMETERS>
+		];
+
+		const info = new dbInfo(<DALCLASSNAME>.<CONNECTIONSTRING>, '<INSERTPROCEDURE>', new SqlParameter('@ID', <IDSQLDBTYPE>), queryParameters);
+
+		this._ID = EntityHelper.DoEntityDALInsert<<IDTYPE>>(info);
+	}
+	public Update() {
+		const queryParameters: SqlParameter[] = [
+            new SqlParameter('@ID', this._ID),
+		<QUERYPARAMETERS>
+		];
+
+		const info = new dbInfo(<DALCLASSNAME>.<CONNECTIONSTRING>, '<UPDATEPROCEDURE>', queryParameters);
+		EntityHelper.DoEntityDALUpdate(info);
+	}
+
+	private static BuildDAL(reader: SqlDataReader): <DALCLASSNAME> {
+		const dal = new <DALCLASSNAME>();
+		{
+			dal.ID = <<IDTYPE>>reader['ID'];
+		<READERPARAMETERS>
+		}
+
+		if (dal.ID === null) return null;
+
+		return dal;
+	}
+
+	public static Get(id: <IDTYPE>): <DALCLASSNAME> {
+		if (id === null) return null;
+
+		const queryParameters: SqlParameter[] = [new SqlParameter('@ID', id)];
+
+		const info = new dbInfo(this.<CONNECTIONSTRING>, '<GETPROCEDURE>', queryParameters);
+
+		return EntityHelper.GetEntityDAL(info, this.BuildDAL);
+	}
+
+	public static Get<CLASSNAME>IDsByName(<FKPROPERTYNAME>: <FKIDTYPE>): <IDTYPE>[] {
+		if (<FKPROPERTYNAME> === null) throw new ReferenceError('Required value not specified: <FKPROPERTYNAME>.');
+		const queryParameters: SqlParameter[] = [];
+
+		queryParameters.push(new SqlParameter('@<FKPROPERTYNAME>', <FKPROPERTYNAME>));
+
+		return EntityHelper.GetDataEntityIDCollection<<IDTYPE>>(
+			new dbInfo(this.<CONNECTIONSTRING>, '<CLASSNAME>s_Get<CLASSNAME>IDsBy<FKPROPERTYNAME>', queryParameters),
+		);
+	}
+}

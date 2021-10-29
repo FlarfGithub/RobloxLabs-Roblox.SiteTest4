@@ -1,0 +1,402 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "Metrics Api v1"
+	},
+	"host": "metrics.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/games/join-rate": {
+			"get": {
+				"tags": ["GameMetrics"],
+				"summary": "Records game join rates.",
+				"description": "Replaces Game/JoinRate.ashx.\r\nUsed primarily to tell which games have high crash rates.",
+				"consumes": [],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "category",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "placeId",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "result",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameMetrics:RecordJoinRate"]
+				}
+			}
+		},
+		"/v1/thumbnails/metadata": {
+			"get": {
+				"tags": ["ThumbnailMetrics"],
+				"summary": "Get metadata related to logging thumbnail load metrics.\r\ne.g. ThumbnailLoadLoggingRatio",
+				"consumes": [],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Metrics.Api.ThumbnailLoadMetadataResponse"
+						}
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["ThumbnailMetrics:Metadata"]
+				}
+			}
+		},
+		"/v1/bundle-metrics/report": {
+			"post": {
+				"tags": ["BundleMetrics"],
+				"summary": "Records bundle load successes.",
+				"description": "Xsrf protection disabled because this endpoint is supposed to be used\r\nto record static content. It's possible XSRF can't be retried if:\r\n- The XSRF retry JavaScript fails to load (or fails to execute)\r\n- CSS fails to load before JavaScript finishes loading.",
+				"consumes": ["application/json", "text/json", "application/csp-report", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.Metrics.Api.RecordBundleLoadRequest}.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Metrics.Api.RecordBundleLoadRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "1: The bundle url is invalid."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["BundleMetrics:RecordBundleLoad"]
+				}
+			}
+		},
+		"/v1/csp/report": {
+			"post": {
+				"tags": ["ContentSecurityPolicyMetrics"],
+				"summary": "Handles content security policy reports.",
+				"description": "Xsrf protection disabled because this endpoint doesn't need it.",
+				"consumes": ["application/json", "text/json", "application/csp-report", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Metrics.Api.ContentSecurityPolicyRequest"
+						}
+					},
+					{
+						"name": "type",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "1: Missing report"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["ContentSecurityPolicyMetrics:ReportContentSecurityPolicyViolation"]
+				}
+			}
+		},
+		"/v1/performance/measurements": {
+			"post": {
+				"tags": ["Performance"],
+				"summary": "Sends a list of measurements to the counter.",
+				"consumes": ["application/json", "text/json", "application/csp-report", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "measures",
+						"in": "body",
+						"description": "The list of measurements to report.",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.Metrics.Api.MeasurementRequest"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Performance:SendMeasurementBatch"]
+				}
+			}
+		},
+		"/v1/performance/send-measurement": {
+			"post": {
+				"tags": ["Performance"],
+				"summary": "Sends a measurement to the counter.",
+				"consumes": ["application/json", "text/json", "application/csp-report", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "measure",
+						"in": "body",
+						"description": "The measurement to report.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Metrics.Api.MeasurementRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					}
+				},
+				"deprecated": true,
+				"properties": {
+					"internal": true,
+					"obsoleteMessage": "please use send-measurements-batch instead.",
+					"metricIds": ["Performance:SendMeasurement"]
+				}
+			}
+		},
+		"/v1/thumbnails/load": {
+			"post": {
+				"tags": ["ThumbnailMetrics"],
+				"summary": "Records the time it takes for a thumbnail to get loaded in the UI.",
+				"consumes": ["application/json", "text/json", "application/csp-report", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json", "application/csp-report"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The {Roblox.Metrics.Api.RecordThumbnailLoadRequest}.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Metrics.Api.RecordThumbnailLoadRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "2: A required parameter is missing from the request"
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["ThumbnailMetrics:RecordThumbnailLoad"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Metrics.Api.RecordBundleLoadRequest": {
+			"description": "Request parameters for tracking a bundle load.",
+			"type": "object",
+			"properties": {
+				"bundleUrl": {
+					"description": "The bundle url that loaded.",
+					"type": "string"
+				},
+				"bundleName": {
+					"description": "The name of the bundle.",
+					"type": "string"
+				},
+				"loadTimeInMilliseconds": {
+					"format": "int64",
+					"description": "How long it took to load.",
+					"type": "integer"
+				},
+				"cdnProviderName": {
+					"description": "The CDN that served the bundle.",
+					"type": "string"
+				},
+				"loadState": {
+					"description": "Whether or not the bundle loaded successfully.",
+					"enum": ["Unknown", "LoadSuccess", "LoadFailure", "ExecutionFailure"],
+					"type": "string"
+				},
+				"bundleContentType": {
+					"description": "The content type of the bundle.",
+					"enum": ["Unknown", "JavaScript", "Css"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.Metrics.Api.ContentSecurityPolicyRequest": {
+			"type": "object",
+			"properties": {
+				"csp-report": {
+					"$ref": "#/definitions/Roblox.Metrics.Api.ContentSecurityPolicyReport"
+				}
+			}
+		},
+		"Roblox.Metrics.Api.ContentSecurityPolicyReport": {
+			"description": "Standard content security policy report sent by browsers.\r\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only#Sample_violation_report",
+			"type": "object",
+			"properties": {
+				"document-uri": {
+					"description": "The URI of the document in which the violation occurred.",
+					"type": "string"
+				},
+				"referrer": {
+					"description": "The referrer of the document in which the violation occurred.",
+					"type": "string"
+				},
+				"blocked-uri": {
+					"description": "The URI of the resource that was blocked from loading by the Content Security Policy.\r\nIf the blocked URI is from a different origin than the document-uri, then the blocked URI is truncated to contain just the scheme, host, and port.",
+					"type": "string"
+				},
+				"effective-directive": {
+					"description": "The directive whose enforcement caused the violation.",
+					"type": "string"
+				},
+				"violated-directive": {
+					"description": "The name of the policy section that was violated.",
+					"type": "string"
+				},
+				"original-policy": {
+					"description": "The original policy as specified by the Content-Security-Policy-Report-Only HTTP header.",
+					"type": "string"
+				},
+				"disposition": {
+					"description": "Whether the Content-Security-Policy header or the Content-Security-Policy-Report-Only header is used.",
+					"type": "string"
+				},
+				"script-sample": {
+					"description": "The first 40 characters of the inline script, event handler, or style that caused the violation.",
+					"type": "string"
+				},
+				"status-code": {
+					"format": "int32",
+					"description": "The HTTP status code of the resource on which the global object was instantiated.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Metrics.Api.MeasurementRequest": {
+			"description": "Request to add measurement.",
+			"type": "object",
+			"properties": {
+				"featureName": {
+					"description": "The feature name to measure.",
+					"type": "string"
+				},
+				"measureName": {
+					"description": "The measure name to use.",
+					"type": "string"
+				},
+				"value": {
+					"format": "double",
+					"description": "The value to add.",
+					"type": "number"
+				},
+				"excludeCountry": {
+					"description": "Exclude country",
+					"type": "boolean"
+				},
+				"metricsType": {
+					"description": "Metrics type (default sequence)",
+					"enum": ["Sequence", "Counter"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Metrics.Api.RecordThumbnailLoadRequest": {
+			"description": "Request to add measurement.",
+			"type": "object",
+			"properties": {
+				"duration": {
+					"format": "int32",
+					"description": "The time it took in milliseconds for final thumbnail to load",
+					"type": "integer"
+				},
+				"loadState": {
+					"description": "The load state. {Roblox.Metrics.Api.ThumbnailLoadState}",
+					"enum": ["Unknown", "Complete", "Timeout"],
+					"type": "string"
+				},
+				"thumbnailType": {
+					"description": "The type of thumbnail.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Metrics.Api.ThumbnailLoadMetadataResponse": {
+			"description": "Response for thumbnail metrics related metadata.",
+			"type": "object",
+			"properties": {
+				"logRatio": {
+					"format": "double",
+					"description": "The probability that the metrics get logged",
+					"type": "number"
+				}
+			}
+		}
+	}
+}

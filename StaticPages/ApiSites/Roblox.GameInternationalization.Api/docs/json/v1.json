@@ -1,0 +1,4968 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "GameInternationalization Api v1"
+	},
+	"host": "gameinternationalization.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/autolocalization/games/{gameId}": {
+			"get": {
+				"tags": ["Autolocalization"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GameAutolocalizationInformationResponse"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:GetAutoLocalizationInformationForGame"]
+				}
+			},
+			"patch": {
+				"tags": ["Autolocalization"],
+				"summary": "Ingests entries for auto localization.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request body.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.IngestAutoScrapedContentForGameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "10: Maximum entries exceeded. Please keep the number of entries per request below the maximum.\r\n13: Request body can't be null\r\n16: Entries can't be null or empty"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:IngestAutoscrapedContentForGame"]
+				}
+			}
+		},
+		"/v1/autolocalization/metadata": {
+			"get": {
+				"tags": ["Autolocalization"],
+				"summary": "Metadata for AutoLocalization Configuration",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.AutoLocalizationMetadataResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:GetMetadata"]
+				}
+			}
+		},
+		"/v1/automatic-translation/games/{gameId}/feature-status": {
+			"get": {
+				"tags": ["AutomaticTranslation"],
+				"summary": "Checks if automatic translation can be enabled for a game.\r\nThe user must still have proper permissions for the game to get this info.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetAutomaticTranslationFeatureStatusForGameResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["AutomaticTranslation:GetAutomaticTranslationFeatureStatusForGame"]
+				}
+			}
+		},
+		"/v1/automatic-translation/games/{gameId}/quota": {
+			"get": {
+				"tags": ["AutomaticTranslation"],
+				"summary": "Returns the automatic translation quota info for a game.\r\nThe user must still have proper permissions for the game to get this info.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetAutomaticTranslationQuotaForGameResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["AutomaticTranslation:GetAutomaticTranslationQuotaForGame"]
+				}
+			}
+		},
+		"/v1/automatic-translation/languages/{languageCode}/target-languages": {
+			"get": {
+				"tags": ["AutomaticTranslation"],
+				"summary": "Checks if the requested target languages are allowed for automatic translation based on the source language.\r\nIf there are no requested target languages, then all allowed target languages for the source language will be returned.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The source language.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "targetLanguages",
+						"in": "query",
+						"description": "Optional target languages. If not passed in, all allowed target languages for the source language will be returned.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetAllowedAutomaticTranslationStatusForLanguagesResponse"
+						}
+					},
+					"400": {
+						"description": "73: Maximum languages exceeded. Please keep the number of languages per request below the maximum.\r\n74: A target language cannot be null or whitespace."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["AutomaticTranslation:GetAllowedAutomaticTranslationStatusForLanguages"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/icons": {
+			"get": {
+				"tags": ["Badge"],
+				"summary": "Get all icons for a badge",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The id of the badge",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "width",
+						"in": "query",
+						"description": "The width of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "height",
+						"in": "query",
+						"description": "The height of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetBadgeIconResponse]"
+						}
+					},
+					"400": {
+						"description": "52: Image dimensions are invalid\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:GetBadgeIcon"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/name-description": {
+			"get": {
+				"tags": ["Badge"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.NameDescription]"
+						}
+					},
+					"400": {
+						"description": "62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:GetNamesAndDescriptions"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/icons": {
+			"get": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Get all icons for a developer product",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The id of the developer product",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "width",
+						"in": "query",
+						"description": "The width of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "height",
+						"in": "query",
+						"description": "The height of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetDeveloperProductIconResponse]"
+						}
+					},
+					"400": {
+						"description": "52: Image dimensions are invalid\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:GetDeveloperProductIcon"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/name-description": {
+			"get": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Get all names and descriptions of a developer product",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The developer product Id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.NameDescription]"
+						}
+					},
+					"400": {
+						"description": "70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:GetNamesAndDescriptions"]
+				}
+			}
+		},
+		"/v1/game-icon/games/{gameId}": {
+			"get": {
+				"tags": ["GameIcon"],
+				"summary": "Get all icons for a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "width",
+						"in": "query",
+						"description": "The width of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "height",
+						"in": "query",
+						"description": "The height of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGameIconResponse]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n52: Image dimensions are invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameIcon:GetGameIcon"]
+				}
+			}
+		},
+		"/v1/game-localization-status/{gameId}/translation-counts": {
+			"get": {
+				"tags": ["GameLocalizationStatus"],
+				"summary": "Gets the language translation counts for all languages of a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "GameID of the game to get translation counts for",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTranslationCountsForGameResponse"
+						}
+					},
+					"400": {
+						"description": "4: Table does not exist.\r\n14: Invalid game id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameLocalizationStatus:GetTranslationCountsForGame"]
+				}
+			}
+		},
+		"/v1/game-localization-status/translation-counts-for-language-or-locale": {
+			"get": {
+				"tags": ["GameLocalizationStatus"],
+				"summary": "Gets the language translation counts for the specified table.\r\nThe languages to retrieve must be provided.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameIds",
+						"in": "query",
+						"description": "List of game ids to retrieve translation counts for.",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "languageOrLocaleCode",
+						"in": "query",
+						"description": "The code for the language or locale.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "languageOrLocaleType",
+						"in": "query",
+						"description": "Indicates whether the languageOrLocaleCode represents a language or locale.",
+						"required": true,
+						"type": "string",
+						"enum": ["Language", "Locale"]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTranslationCountsForLanguageOrLocaleResponse"
+						}
+					},
+					"400": {
+						"description": "66: Games can't be null or empty\r\n67: Maximum games exceeded. Please keep the number of games per request below the maximum.\r\n68: LanguageOrLocaleCode is null or whitespace"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameLocalizationStatus:GetTranslationCountsForLanguageOrLocale"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/icons": {
+			"get": {
+				"tags": ["GamePass"],
+				"summary": "Get all icons for a game pass",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "width",
+						"in": "query",
+						"description": "The width of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "height",
+						"in": "query",
+						"description": "The height of the icon to request",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGamePassIconResponse]"
+						}
+					},
+					"400": {
+						"description": "52: Image dimensions are invalid\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:GetIcon"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/name-description": {
+			"get": {
+				"tags": ["GamePass"],
+				"summary": "Get all names and descriptions of a game pass",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass Id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.NameDescription]"
+						}
+					},
+					"400": {
+						"description": "61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:GetNamesAndDescriptions"]
+				}
+			}
+		},
+		"/v1/game-thumbnails/games/{gameId}/images": {
+			"get": {
+				"tags": ["GameThumbnails"],
+				"summary": "Get the localized image ids in all languages for a game.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "width",
+						"in": "query",
+						"description": "The width.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "height",
+						"in": "query",
+						"description": "The height.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGameThumbnailsResponse]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n52: Image dimensions are invalid"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameThumbnails:GetGameThumbnails"]
+				}
+			}
+		},
+		"/v1/localizationtable/available-languages": {
+			"get": {
+				"tags": ["LocalizationTable"],
+				"summary": "Gets the supported language codes that can be used by localization tables",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.Language]"
+						}
+					}
+				},
+				"deprecated": true,
+				"properties": {
+					"internal": true,
+					"obsoleteMessage": "Use https://gameinternationalization.roblox.com/v1/supported-languages/games/{gameId} instead",
+					"metricIds": ["LocalizationTable:GetSupportedLocalizationTableLanguages"]
+				}
+			}
+		},
+		"/v1/localizationtable/tables": {
+			"get": {
+				"tags": ["LocalizationTable"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "assetId",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:GetTable"]
+				}
+			},
+			"post": {
+				"tags": ["LocalizationTable"],
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.CreateTableRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.CreateTableResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:CreateTable"]
+				}
+			}
+		},
+		"/v1/localizationtable/tables/{tableId}": {
+			"get": {
+				"tags": ["LocalizationTable"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "tableId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:GetTable"]
+				}
+			},
+			"patch": {
+				"tags": ["LocalizationTable"],
+				"summary": "Updates the tables contents based on what is provided.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "tableId",
+						"in": "path",
+						"description": "The table guid for the table to update.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The metadata object is optional.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateTableContentsRequest"
+						}
+					},
+					{
+						"name": "gameId",
+						"in": "query",
+						"description": "The game id.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateTableContentsResponse"
+						}
+					},
+					"400": {
+						"description": "3: Invalid table id.\r\n4: Table does not exist.\r\n6: You do not have permission to create this table.\r\n10: Maximum entries exceeded. Please keep the number of entries per request below the maximum.\r\n13: Request body can't be null"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:UpdateTableContents"]
+				}
+			}
+		},
+		"/v1/localizationtable/tables/{tableId}/entries": {
+			"get": {
+				"tags": ["LocalizationTable"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "tableId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "cursor",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "gameId",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableEntriesPagedResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:GetTableEntriesPaged"]
+				}
+			}
+		},
+		"/v1/localizationtable/tables/{tableId}/entry-count": {
+			"get": {
+				"tags": ["LocalizationTable"],
+				"summary": "Gets the number of entries in the specified table",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "tableId",
+						"in": "path",
+						"description": "The table id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "gameId",
+						"in": "query",
+						"description": "The game id",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableEntryCountResponse"
+						}
+					},
+					"400": {
+						"description": "2: You do not have permission to get this table.\r\n3: Invalid table id."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:GetTableEntryCount"]
+				}
+			}
+		},
+		"/v1/name-description/games/{gameId}": {
+			"get": {
+				"tags": ["NameDescription"],
+				"summary": "Gets a game's name and description in all supported languages",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.NameDescription]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["NameDescription:GetNameDescription"]
+				}
+			},
+			"patch": {
+				"tags": ["NameDescription"],
+				"summary": "Updates a game's name and description in multiple languages.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request body.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateNameDescriptionsRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateNameDescriptionsResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n23: You can't delete translations for source language\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["NameDescription:UpdateNameDescriptions"]
+				}
+			}
+		},
+		"/v1/name-description/metadata": {
+			"get": {
+				"tags": ["NameDescription"],
+				"summary": "Rollout settings for name/description migration to new page",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.Models.Response.GameNameDescriptionMetadataResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["NameDescription:GetMetadata"]
+				}
+			}
+		},
+		"/v1/player-policies/all-values": {
+			"get": {
+				"tags": ["PlayerPolicy"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetPlayerPoliciesResponse"
+						}
+					},
+					"403": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PlayerPolicy:GetPlayerPoliciesWithAllValues"]
+				}
+			}
+		},
+		"/v1/player-policies-client": {
+			"get": {
+				"tags": ["PlayerPolicy"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetPlayerPoliciesResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PlayerPolicy:GetPlayerPoliciesForClient"]
+				}
+			}
+		},
+		"/v1/player-policies-rcc": {
+			"get": {
+				"tags": ["PlayerPolicy"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "ipAddress",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "userAgent",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetPlayerPoliciesResponse"
+						}
+					},
+					"400": {
+						"description": "63: Invalid user id\r\n64: Invalid ip address\r\n65: Invalid user agent"
+					},
+					"403": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PlayerPolicy:GetPlayerPoliciesForRcc"]
+				}
+			}
+		},
+		"/v1/source-language/games/{gameId}": {
+			"get": {
+				"tags": ["SourceLanguage"],
+				"summary": "Gets the source language of a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.Language"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SourceLanguage:GetSourceLanguageFamily"]
+				}
+			},
+			"patch": {
+				"tags": ["SourceLanguage"],
+				"summary": "Sets the source language of a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "query",
+						"description": "",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "85: Failed to disable automatic translation status for languages"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SourceLanguage:SetSourceLanguageFamily"]
+				}
+			}
+		},
+		"/v1/supported-languages/games/{gameId}": {
+			"get": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Get the supported languages for a game.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.LanguageOrLocale]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:GetSupportedLanguagesForGame"]
+				}
+			},
+			"patch": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Add or remove supported languages for a game.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languages",
+						"in": "body",
+						"description": "The languages to add or remove. LanguageCodeType can be \"Language\" or \"Locale\".",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.GameInternationalization.Api.PatchLanguage"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n49: Duplicate language codes are not allowed."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:EditSupportedLanguagesForGame"]
+				}
+			}
+		},
+		"/v1/supported-languages/games/{gameId}/automatic-translation-status": {
+			"get": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Get the automatic translation status of supported languages for a game.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.LanguageOrLocaleSettings]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:GetAutomaticTranslationStatusOfSupportedLanguagesForGame"]
+				}
+			}
+		},
+		"/v1/supported-languages/games/{gameId}/universe-display-info-automatic-translation-settings": {
+			"get": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Get UniverseDisplayInfo automatic translation settings..",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.UniverseDisplayInfoAutomaticTranslationSettings]"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred.\r\n22: Invalid language code\r\n83: Failed to get UniverseDisplayInformation content instance auto translation settings\r\n84: Count of language code is larger than max batch get size"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:GetUniverseDisplayInfoAutomaticTranslationSettings"]
+				}
+			}
+		},
+		"/v1/supported-languages/metadata": {
+			"get": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Rollout settings for supported languages of a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.SupportedLanguagesMetadataResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:GetMetadata"]
+				}
+			}
+		},
+		"/v1/translation-analytics/games/{gameId}/download-translation-analytics-report": {
+			"get": {
+				"tags": ["TranslationAnalytics"],
+				"summary": "Download translation analytics report after the report is ready",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game's id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "startDateTime",
+						"in": "query",
+						"description": "The inclusive start dateTime of report in UTC",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "endDateTime",
+						"in": "query",
+						"description": "The exclusive end dateTime of report in UTC",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "reportType",
+						"in": "query",
+						"description": "The report type",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"GameTranslationStatus",
+							"GameTranslationStatusForTranslatorGroup",
+							"GameTranslationStatusForTranslator",
+							"Test"
+						]
+					},
+					{
+						"name": "reportSubjectTargetId",
+						"in": "query",
+						"description": "The translator group id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n56: You need to provide a valid translator group id to get report.\r\n58: Start datetime or end datetime is invlaid.\r\n59: Report type is invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "57: You do not have permission to request translation analytics report."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["TranslationAnalytics:DownloadTranslationAnalyticsReport"]
+				}
+			}
+		},
+		"/v1/translation-analytics/metadata": {
+			"get": {
+				"tags": ["TranslationAnalytics"],
+				"summary": "Get metadata related to UI and rollout settings",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationAnalyticsMetadataResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["TranslationAnalytics:GetMetadata"]
+				}
+			}
+		},
+		"/v1/ui-configurations": {
+			"get": {
+				"tags": ["UiConfigurations"],
+				"summary": "Get ui configurations for frontend to use.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetUiConfigurationsResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["UiConfigurations:GetUiConfigurations"]
+				}
+			}
+		},
+		"/v1/autolocalization/games/{gameId}/autolocalizationtable": {
+			"post": {
+				"tags": ["Autolocalization"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GameAutolocalizationInformationResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:GetOrCreateAutolocalizationTableForGame"]
+				}
+			},
+			"patch": {
+				"tags": ["Autolocalization"],
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.SetAutolocalizationTableForGameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:SetAutolocalizationTableForGame"]
+				}
+			}
+		},
+		"/v1/autolocalization/games/{gameId}/autoscrape-cleanup-request": {
+			"post": {
+				"tags": ["Autolocalization"],
+				"summary": "Enqueues an event to Flush the autoscraped entries which doesnt have translations",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.RaiseEventForAutoScrapedEntriesCleanupRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n31: You do not have permission to flush auto scraped entries asset for this game.\r\n32: LocalizationTable is not available for the game.\r\n34: Actor provided is invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					},
+					"429": {
+						"description": "33: Too many attempts to flush the game.Please try again later."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:RaiseEventForAutoScrapedEntriesCleanup"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/icons/language-codes/{languageCode}": {
+			"post": {
+				"tags": ["Badge"],
+				"summary": "Update a badge's icon",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The id of the badge",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of this icon to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request.files",
+						"in": "formData",
+						"required": false,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n26: You can't update translations for source language\r\n45: File uploaded does not match known image format\r\n46: File not present in request\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:UpdateBadgeIcon"]
+				}
+			},
+			"delete": {
+				"tags": ["Badge"],
+				"summary": "Delete a localized icon from a badge",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The id of the badge",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the localized icon to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:DeleteBadgeIcon"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/icons/language-codes/{languageCode}": {
+			"post": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Update a developer product's icon",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The id of the developer product",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of this icon to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request.files",
+						"in": "formData",
+						"required": false,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n26: You can't update translations for source language\r\n45: File uploaded does not match known image format\r\n46: File not present in request\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:UpdateDeveloperProductIcon"]
+				}
+			},
+			"delete": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Delete a localized icon from a developer product",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The id of the developer product",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the localized icon to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:DeleteDeveloperProductIcon"]
+				}
+			}
+		},
+		"/v1/game-icon/games/{gameId}/language-codes/{languageCode}": {
+			"post": {
+				"tags": ["GameIcon"],
+				"summary": "Update a game's icon",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of this icon to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request.files",
+						"in": "formData",
+						"required": false,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n45: File uploaded does not match known image format\r\n46: File not present in request\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameIcon:UpdateGameIcon"]
+				}
+			},
+			"delete": {
+				"tags": ["GameIcon"],
+				"summary": "Delete a localized icon from a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the localized icon to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameIcon:DeleteGameIcon"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/icons/language-codes/{languageCode}": {
+			"post": {
+				"tags": ["GamePass"],
+				"summary": "Update a game pass's icon",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of this icon to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request.files",
+						"in": "formData",
+						"required": false,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n26: You can't update translations for source language\r\n45: File uploaded does not match known image format\r\n46: File not present in request\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:UpdateIcon"]
+				}
+			},
+			"delete": {
+				"tags": ["GamePass"],
+				"summary": "Delete a localized icon from a game pass",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the localized icon to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:DeleteIcon"]
+				}
+			}
+		},
+		"/v1/game-thumbnails/games/{gameId}/language-codes/{languageCode}/image": {
+			"post": {
+				"tags": ["GameThumbnails"],
+				"summary": "Uploads the game thumbnail.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "gameThumbnailRequest.files",
+						"in": "formData",
+						"required": false,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.Models.Response.UploadImageForGameThumbnailResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameThumbnails:UploadImageForGameThumbnail"]
+				}
+			}
+		},
+		"/v1/game-thumbnails/games/{gameId}/language-codes/{languageCode}/images/order": {
+			"post": {
+				"tags": ["GameThumbnails"],
+				"summary": "Orders the specified image Ids for the game thumbnails.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.SortImageIdsRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameThumbnails:Order"]
+				}
+			}
+		},
+		"/v1/localizationtable/games/{gameId}/assets-generation-request": {
+			"post": {
+				"tags": ["LocalizationTable"],
+				"summary": "Generates localization asset of a game",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "3: Invalid table id.\r\n14: Invalid game id\r\n29: You do not have permission to generate asset for this table.\r\n32: LocalizationTable is not available for the game.\r\n34: Actor provided is invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:RaiseEventForAssetRegeneration"]
+				}
+			}
+		},
+		"/v1/localizationtable/tables/{tableId}/entries/translation-history": {
+			"post": {
+				"tags": ["LocalizationTable"],
+				"summary": "Gets the translation history for each entry passed in.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "tableId",
+						"in": "path",
+						"description": "The entries' tableId.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "A request body containing all relevant data for entry history lookup.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableEntriesTranslationHistoryRequest"
+						}
+					},
+					{
+						"name": "gameId",
+						"in": "query",
+						"description": "The game id.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetTableEntriesTranslationHistoryResponse"
+						}
+					},
+					"400": {
+						"description": "3: Invalid table id.\r\n13: Request body can't be null\r\n16: Entries can't be null or empty\r\n35: The entries provided are invalid\r\n37: Invalid locale code.\r\n38: Invalid entry identifier.\r\n39: Count should be at least 1.\r\n55: Invalid exclusive start Id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: You do not have permission to get this table."
+					},
+					"429": {
+						"description": "24: Too many attempts.Please try again later."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:GetTableEntriesTranslationHistory"]
+				}
+			}
+		},
+		"/v1/name-description/games/{gameId}/history": {
+			"post": {
+				"tags": ["NameDescription"],
+				"summary": "Gets the history for name or description in a provided language.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetNameDescriptionHistoryRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetNameDescriptionHistoryResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n14: Invalid game id\r\n18: You do not have permission to manage this game\r\n22: Invalid language code\r\n39: Count should be at least 1.\r\n53: Language is not supported for the game.\r\n54: No history available for source data\r\n55: Invalid exclusive start Id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["NameDescription:GetNameDescriptionHistory"]
+				}
+			}
+		},
+		"/v1/translation-analytics/games/{gameId}/request-translation-analytics-report": {
+			"post": {
+				"tags": ["TranslationAnalytics"],
+				"summary": "Request translation analytics report to be generated",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game's id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.RequestTranslationAnalyticsReportRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.RequestTranslationAnalyticsReportResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n56: You need to provide a valid translator group id to get report.\r\n58: Start datetime or end datetime is invlaid.\r\n59: Report type is invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n57: You do not have permission to request translation analytics report."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["TranslationAnalytics:RequestTranslationAnalyticsReport"]
+				}
+			}
+		},
+		"/v1/autolocalization/games/{gameId}/settings": {
+			"patch": {
+				"tags": ["Autolocalization"],
+				"summary": "Sets a game's auto-localization related settings",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request body.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.SetAutolocalizationSettingsForGameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Autolocalization:SetAutolocalizationSettingsForGame"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/description/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["Badge"],
+				"summary": "Update localized description of a badge",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The badge id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the description to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:UpdateDescription"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/name/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["Badge"],
+				"summary": "Update localized name of a badge",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The badge id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeNameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeNameResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:UpdateName"]
+				}
+			}
+		},
+		"/v1/badges/{badgeId}/name-description/language-codes/{languageCode}": {
+			"delete": {
+				"tags": ["Badge"],
+				"summary": "Delete localized name and description of a badge",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The badge id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name and description to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:DeleteNameAndDescription"]
+				}
+			},
+			"patch": {
+				"tags": ["Badge"],
+				"summary": "Update localized name and description of a badge",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "badgeId",
+						"in": "path",
+						"description": "The badge id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name and description to Update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeNameDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateBadgeNameDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n62: Invalid game badge id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Badge:UpdateNameAndDescription"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/description/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Update localized description of a developer product",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The developer product id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the description to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:UpdateDescription"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/name/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Update localized name of a developer product",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The developer product id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductNameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductNameResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:UpdateName"]
+				}
+			}
+		},
+		"/v1/developer-products/{developerProductId}/name-description/language-codes/{languageCode}": {
+			"delete": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Delete localized name and description of a developer product",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The developer product id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name and description to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:DeleteNameAndDescription"]
+				}
+			},
+			"patch": {
+				"tags": ["DeveloperProduct"],
+				"summary": "Update localized name and description of a developer product",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "developerProductId",
+						"in": "path",
+						"description": "The developer product id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name and description to Update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductNameDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateDeveloperProductNameDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n70: Invalid developer product id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "0: An unknown error occurred."
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["DeveloperProduct:UpdateNameAndDescription"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/description/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["GamePass"],
+				"summary": "Update localized description of a game pass",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of description to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:UpdateDescription"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/name/language-codes/{languageCode}": {
+			"patch": {
+				"tags": ["GamePass"],
+				"summary": "Update localized name of a game pass",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassNameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassNameResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:UpdateName"]
+				}
+			}
+		},
+		"/v1/game-passes/{gamePassId}/name-description/language-codes/{languageCode}": {
+			"delete": {
+				"tags": ["GamePass"],
+				"summary": "Delete localized name and description of a game pass",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name and description to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:DeleteNameAndDescription"]
+				}
+			},
+			"patch": {
+				"tags": ["GamePass"],
+				"summary": "Update localized name and description of a game pass",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gamePassId",
+						"in": "path",
+						"description": "The game pass id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code of the name/description to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassNameDescriptionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateGamePassNameDescriptionResponse"
+						}
+					},
+					"400": {
+						"description": "13: Request body can't be null\r\n19: New name is null or whitespaces or new name/description is too long\r\n20: New name or description is moderated\r\n22: Invalid language code\r\n26: You can't update translations for source language\r\n53: Language is not supported for the game.\r\n61: Invalid game pass id"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GamePass:UpdateNameAndDescription"]
+				}
+			}
+		},
+		"/v1/localizationtable/gametables/{gameId}": {
+			"patch": {
+				"tags": ["LocalizationTable"],
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.AssociateLocalizationTablesToGameRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.AssociateLocalizationTablesToGameResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["LocalizationTable:AssociateLocalizationTablesToGame"]
+				}
+			}
+		},
+		"/v1/supported-languages/games/{gameId}/languages/{languageCode}/automatic-translation-status": {
+			"patch": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Enable or disable automatic translation for a game and language.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The id of the game.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language to enable or disable for automatic translation.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "enableAutomaticTranslation",
+						"in": "body",
+						"description": "Flag to indicate if automatic translation should be enabled or disabled.",
+						"required": true,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.EditAutomaticTranslationStatusForGameAndLanguageResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n53: Language is not supported for the game.\r\n72: Automatic translation cannot be enabled for game.\r\n75: Automatic translation cannot be enabled for language."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:EditAutomaticTranslationStatusForGameAndLanguage"]
+				}
+			}
+		},
+		"/v1/supported-languages/games/{gameId}/languages/{languageCode}/universe-display-info-automatic-translation-settings": {
+			"patch": {
+				"tags": ["SupportedLanguages"],
+				"summary": "Update the switch which controls if the UniverseDisplayInformation should be automatically translated.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "enableUniverseDisplayInfoAutomaticTranslation",
+						"in": "body",
+						"description": "",
+						"required": true,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GameInternationalization.Api.UpdateUniverseDisplayInfoAutomaticTranslationSettingsResponse"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n72: Automatic translation cannot be enabled for game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"500": {
+						"description": "77: Content localization set settings return error code invalid\r\n79: Invalid content instance settings\r\n80: Invalid quota settings\r\n81: Invalid change agent\r\n82: Failed to update UniverseDisplayInformation content instance auto translation settings"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["SupportedLanguages:UpdateUniverseDisplayInfoAutomaticTranslationSettings"]
+				}
+			}
+		},
+		"/v1/game-thumbnails/games/{gameId}/language-codes/{languageCode}/images/{imageId}": {
+			"delete": {
+				"tags": ["GameThumbnails"],
+				"summary": "Deletes the game thumbnail.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "gameId",
+						"in": "path",
+						"description": "The game identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "languageCode",
+						"in": "path",
+						"description": "The language code.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "imageId",
+						"in": "path",
+						"description": "The image identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "14: Invalid game id\r\n22: Invalid language code\r\n23: You can't delete translations for source language\r\n53: Language is not supported for the game."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n18: You do not have permission to manage this game"
+					},
+					"503": {
+						"description": "17: Feature is disabled"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["GameThumbnails:DeleteGameThumbnailImage"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.GameInternationalization.Api.IngestAutoScrapedContentForGameRequest": {
+			"type": "object",
+			"properties": {
+				"entries": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.AutoscrapeEntry"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.AutoscrapeEntry": {
+			"type": "object",
+			"properties": {
+				"context": {
+					"type": "string"
+				},
+				"source": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GameAutolocalizationInformationResponse": {
+			"type": "object",
+			"properties": {
+				"isAutolocalizationEnabled": {
+					"type": "boolean"
+				},
+				"shouldUseLocalizationTable": {
+					"type": "boolean"
+				},
+				"autoLocalizationTableId": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"assetId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.SetAutolocalizationTableForGameRequest": {
+			"type": "object",
+			"properties": {
+				"tableId": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.GameInternationalization.Api.SetAutolocalizationSettingsForGameRequest": {
+			"type": "object",
+			"properties": {
+				"isAutolocalizationEnabled": {
+					"type": "boolean"
+				},
+				"shouldUseLocalizationTable": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.RaiseEventForAutoScrapedEntriesCleanupRequest": {
+			"type": "object",
+			"properties": {
+				"maxAgeForFlush": {
+					"description": "The time range to remove entries from. Following ISO 8601 Durations format",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.AutoLocalizationMetadataResponse": {
+			"type": "object",
+			"properties": {
+				"isReactVersionEnabledForAutoLocalizationSettings": {
+					"description": "Is React Implementation of AutoLocalization Settings Enabled",
+					"type": "boolean"
+				},
+				"isTabbedUIEnabledForConfigureLocalizationPage": {
+					"description": "Is Tabbed UI Enabled for Configure Localization Page",
+					"type": "boolean"
+				},
+				"isAutomaticTranslationToggleUIEnabled": {
+					"description": "Is Toggle UI Enabled for Automatic Translations",
+					"type": "boolean"
+				},
+				"isAutomaticTranslationQuotaUIEnabled": {
+					"description": "Is Quota UI Enabled for Automatic Translations",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetAutomaticTranslationFeatureStatusForGameResponse": {
+			"description": "A response model for getting the automatic translation allowed status of a game.",
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"format": "int64",
+					"description": "The game id.",
+					"type": "integer"
+				},
+				"isAutomaticTranslationAllowed": {
+					"description": "Indicates whether or not automatic translation is allowed for the game.",
+					"type": "boolean"
+				},
+				"isAutomaticTranslationSwitchesUIEnabled": {
+					"description": "Indicates whether or not automatic translation switches are enabled for the game.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetAllowedAutomaticTranslationStatusForLanguagesResponse": {
+			"description": "A response model for getting the automatic translation allowed status of target languages.",
+			"type": "object",
+			"properties": {
+				"sourceLanguage": {
+					"description": "The source language.",
+					"type": "string"
+				},
+				"targetLanguages": {
+					"description": "The target languages with the automatic translation allowed status.\r\nThe status basically says if automatic translation can be enabled for the source and target.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.AutomaticTranslationStatusTargetLanguage"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.AutomaticTranslationStatusTargetLanguage": {
+			"type": "object",
+			"properties": {
+				"languageCode": {
+					"description": "The language code.",
+					"type": "string"
+				},
+				"isAutomaticTranslationAllowed": {
+					"description": "Indicates whether or not automatic translation is allowed for the target language.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetAutomaticTranslationQuotaForGameResponse": {
+			"description": "A response model for getting the automatic translation quota info of a game.",
+			"type": "object",
+			"properties": {
+				"monthlyQuota": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.MonthlyQuotaModel"
+				},
+				"bankQuota": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.QuotaModel"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.MonthlyQuotaModel": {
+			"type": "object",
+			"properties": {
+				"previousRefreshDate": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"nextRefreshDate": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"remaining": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"capacity": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.QuotaModel": {
+			"type": "object",
+			"properties": {
+				"remaining": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"capacity": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.NameDescription]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.NameDescription"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.NameDescription": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeNameDescriptionRequest": {
+			"description": "A request model for updating badge name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Badge name",
+					"type": "string"
+				},
+				"description": {
+					"description": "Badge description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeNameDescriptionResponse": {
+			"description": "A response model for updating badge name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Badge name saved",
+					"type": "string"
+				},
+				"description": {
+					"description": "Badge description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeNameRequest": {
+			"description": "A request model for updating badge name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Badge name",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeNameResponse": {
+			"description": "A response model for updating badge name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Badge name saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeDescriptionRequest": {
+			"description": "A request model for updating badge description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Badge description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateBadgeDescriptionResponse": {
+			"description": "A response model for updating badge description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Badge description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetBadgeIconResponse]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetBadgeIconResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetBadgeIconResponse": {
+			"type": "object",
+			"properties": {
+				"imageId": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"state": {
+					"enum": ["Approved", "PendingReview", "UnAvailable", "Rejected", "Error"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Models.Request.UploadFileRequest": {
+			"description": "A request model for updating a localized icon.",
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductNameDescriptionRequest": {
+			"description": "A request model for updating developer product name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Developer product name",
+					"type": "string"
+				},
+				"description": {
+					"description": "Developer product description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductNameDescriptionResponse": {
+			"description": "A response model for updating developer product name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Developer product name saved",
+					"type": "string"
+				},
+				"description": {
+					"description": "Developer product description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductNameRequest": {
+			"description": "A request model for updating developer product name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Developer product name",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductNameResponse": {
+			"description": "A response model for updating developer product name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Developer product name saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductDescriptionRequest": {
+			"description": "A request model for updating developer product description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Developer product description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateDeveloperProductDescriptionResponse": {
+			"description": "A response model for updating developer product description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Developer product description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetDeveloperProductIconResponse]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetDeveloperProductIconResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetDeveloperProductIconResponse": {
+			"description": "A response model for getting developer product icon",
+			"type": "object",
+			"properties": {
+				"imageId": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"state": {
+					"enum": ["Approved", "PendingReview", "UnAvailable", "Rejected", "Error"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGameIconResponse]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetGameIconResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetGameIconResponse": {
+			"type": "object",
+			"properties": {
+				"imageId": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"state": {
+					"enum": ["Approved", "PendingReview", "UnAvailable", "Rejected", "Error"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTranslationCountsForLanguageOrLocaleResponse": {
+			"description": "A response model for getting translation counts for a language or locale.",
+			"type": "object",
+			"properties": {
+				"languageOrLocaleCode": {
+					"description": "The code of the language or locale.",
+					"type": "string"
+				},
+				"languageOrLocaleType": {
+					"description": "An indicator that says whether the passed in language/locale code represents a language or locale.",
+					"enum": ["Language", "Locale"],
+					"type": "string"
+				},
+				"games": {
+					"description": "Info for the requested games, including their translation counts for the specified language or locale.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationCountGameInfoResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationCountGameInfoResponse": {
+			"description": "A response model that contains game info for getting a translation count.",
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"format": "int64",
+					"description": "The game id.",
+					"type": "integer"
+				},
+				"status": {
+					"description": "The status of the response for the requested game.",
+					"enum": [
+						"LanguageOrLocaleSupportedForGame",
+						"LanguageOrLocaleNotSupportedForGame",
+						"LanguageOrLocaleIsSource",
+						"InsufficientPermission",
+						"GameDoesNotExist",
+						"GameDoesNotHaveTable",
+						"UnknownError"
+					],
+					"type": "string"
+				},
+				"categories": {
+					"description": "Categories of translation counts.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationCountCategoryInfoResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationCountCategoryInfoResponse": {
+			"description": "A response model that contains category info for getting a translation count.",
+			"type": "object",
+			"properties": {
+				"category": {
+					"description": "The category of the translation counts.",
+					"enum": ["InGameContent"],
+					"type": "string"
+				},
+				"translationCounts": {
+					"description": "The translation counts.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationCount"
+					}
+				},
+				"totalTranslatableItemCount": {
+					"format": "int32",
+					"description": "The total number of translatable items.\r\nThe translation count percentage can be calculated by doing translationCounts / totalTranslatableItemCount.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationCount": {
+			"description": "A model that contains the count value of a translation count and relevant metadata.",
+			"type": "object",
+			"properties": {
+				"count": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"translationStatus": {
+					"enum": ["Approved"],
+					"type": "string"
+				},
+				"translatorType": {
+					"description": "Gets or sets the type of the translator associated with the count, or null if the count is not associated with a specific type of translator.",
+					"enum": ["Automation", "User"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTranslationCountsForGameResponse": {
+			"description": "A response model that contains game info for getting a translation count.",
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"format": "int64",
+					"description": "The game id.",
+					"type": "integer"
+				},
+				"languagesOrLocales": {
+					"description": "The list of languages/locales of the game.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationCountLanguageOrLocaleResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationCountLanguageOrLocaleResponse": {
+			"type": "object",
+			"properties": {
+				"status": {
+					"description": "The status of the response for the requested game.",
+					"enum": ["Success", "LanguageOrLocaleNotSupportedForGame"],
+					"type": "string"
+				},
+				"categories": {
+					"description": "Categories of translation counts.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationCountCategoryInfoResponse"
+					}
+				},
+				"name": {
+					"type": "string"
+				},
+				"languageCodeType": {
+					"enum": ["Language", "Locale"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassNameDescriptionRequest": {
+			"description": "A request model for updating game pass name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Game pass name",
+					"type": "string"
+				},
+				"description": {
+					"description": "Game pass description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassNameDescriptionResponse": {
+			"description": "A response model for updating game pass name and description",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Game pass name saved",
+					"type": "string"
+				},
+				"description": {
+					"description": "Game pass description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassNameRequest": {
+			"description": "A request model for updating game pass name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Game pass name",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassNameResponse": {
+			"description": "A response model for updating game pass name",
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "Game pass name saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassDescriptionRequest": {
+			"description": "A request model for updating game pass description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Game pass description",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateGamePassDescriptionResponse": {
+			"description": "A response model for updating game pass description",
+			"type": "object",
+			"properties": {
+				"description": {
+					"description": "Game pass description saved",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGamePassIconResponse]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetGamePassIconResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetGamePassIconResponse": {
+			"description": "A response model for getting game pass icon",
+			"type": "object",
+			"properties": {
+				"imageId": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"state": {
+					"enum": ["Approved", "PendingReview", "UnAvailable", "Rejected", "Error"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.GetGameThumbnailsResponse]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.GetGameThumbnailsResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetGameThumbnailsResponse": {
+			"type": "object",
+			"properties": {
+				"languageCode": {
+					"type": "string"
+				},
+				"mediaAssets": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.MediaAssetResponse"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.MediaAssetResponse": {
+			"type": "object",
+			"properties": {
+				"mediaAssetId": {
+					"type": "string"
+				},
+				"state": {
+					"enum": ["Approved", "PendingReview", "UnAvailable", "Rejected", "Error"],
+					"type": "string"
+				},
+				"mediaAssetUrl": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Models.Response.UploadImageForGameThumbnailResponse": {
+			"type": "object",
+			"properties": {
+				"mediaAssetId": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.SortImageIdsRequest": {
+			"description": "A request model for sorting of image Ids for game thumbnails",
+			"type": "object",
+			"properties": {
+				"mediaAssetIds": {
+					"description": "List of thumbnail ids in desired order.",
+					"type": "array",
+					"items": {
+						"format": "int64",
+						"type": "integer"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.CreateTableRequest": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"ownerType": {
+					"enum": ["User", "Group"],
+					"type": "string"
+				},
+				"ownerId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.CreateTableResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"assetId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTableResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"name": {
+					"type": "string"
+				},
+				"ownerType": {
+					"enum": ["User", "Group"],
+					"type": "string"
+				},
+				"ownerId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"assetId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateTableContentsRequest": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"entries": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.PatchEntry"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.PatchEntry": {
+			"type": "object",
+			"properties": {
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier"
+				},
+				"metadata": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryMetadata"
+				},
+				"translations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.PatchTranslation"
+					}
+				},
+				"delete": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.EntryIdentifier": {
+			"type": "object",
+			"properties": {
+				"key": {
+					"type": "string"
+				},
+				"context": {
+					"type": "string"
+				},
+				"source": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.EntryMetadata": {
+			"type": "object",
+			"properties": {
+				"example": {
+					"type": "string"
+				},
+				"gameLocations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.InGameContentTables.Client.GameLocation"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.PatchTranslation": {
+			"type": "object",
+			"properties": {
+				"locale": {
+					"type": "string"
+				},
+				"translationText": {
+					"type": "string"
+				},
+				"delete": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.InGameContentTables.Client.GameLocation": {
+			"type": "object",
+			"properties": {
+				"path": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateTableContentsResponse": {
+			"type": "object",
+			"properties": {
+				"failedEntriesAndTranslations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.FailedEntry"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.FailedEntry": {
+			"type": "object",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.Error"
+				},
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier"
+				},
+				"metadata": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryMetadata"
+				},
+				"translations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.Translation"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Error": {
+			"type": "object",
+			"properties": {
+				"errorCode": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"errorMessage": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Translation": {
+			"type": "object",
+			"properties": {
+				"locale": {
+					"type": "string"
+				},
+				"translationText": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTableEntriesPagedResponse": {
+			"type": "object",
+			"properties": {
+				"previousPageCursor": {
+					"type": "string"
+				},
+				"nextPageCursor": {
+					"type": "string"
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.Entry"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Entry": {
+			"type": "object",
+			"properties": {
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier"
+				},
+				"metadata": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryMetadata"
+				},
+				"translations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.Translation"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTableEntriesTranslationHistoryRequest": {
+			"type": "object",
+			"properties": {
+				"locale": {
+					"type": "string"
+				},
+				"entries": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.CursorEntryIdentifier"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.CursorEntryIdentifier": {
+			"description": "A model that contains an entry identifier and an associated cursor for paged lookups.",
+			"type": "object",
+			"properties": {
+				"cursor": {
+					"description": "The location to begin our query.",
+					"type": "string"
+				},
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier",
+					"description": "An identifier for an entry."
+				},
+				"count": {
+					"format": "int32",
+					"description": "The translation history count to get.",
+					"type": "integer"
+				},
+				"sortOrder": {
+					"description": "In which order the data is sorted.",
+					"enum": ["Asc", "Desc"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTableEntriesTranslationHistoryResponse": {
+			"description": "A response model for GetTableEntriesTranslationHistory.",
+			"type": "object",
+			"properties": {
+				"tableId": {
+					"format": "uuid",
+					"description": "The entries' tableId.",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"locale": {
+					"description": "The locale of the translations.",
+					"type": "string"
+				},
+				"entries": {
+					"description": "The entries with their identifier, translation history, and next cursor.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryTranslationHistoryPaged"
+					}
+				},
+				"failedEntries": {
+					"description": "The failed entries.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.FailedEntryTranslationHistoryPaged"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.EntryTranslationHistoryPaged": {
+			"type": "object",
+			"properties": {
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier",
+					"description": "The identifier for the entry whose history was served."
+				},
+				"history": {
+					"description": "A batch of TranslationHistory for the given entry identifier.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationHistory"
+					}
+				},
+				"nextCursor": {
+					"description": "The cursor to send up on the next request if more history data is required.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.FailedEntryTranslationHistoryPaged": {
+			"type": "object",
+			"properties": {
+				"identifier": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.EntryIdentifier"
+				},
+				"count": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"error": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.Error"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationHistory": {
+			"description": "A model containing a translation, translator, and translation time.",
+			"type": "object",
+			"properties": {
+				"translationText": {
+					"description": "The translation provided by the translator.",
+					"type": "string"
+				},
+				"translator": {
+					"$ref": "#/definitions/Roblox.GameInternationalization.Api.Translator",
+					"description": "The agent that provided the translation. Can be null if recorded before history auditing was enabled."
+				},
+				"created": {
+					"format": "date-time",
+					"description": "The time the translation was provided.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Translator": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"agentType": {
+					"enum": ["User", "Automation"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.AssociateLocalizationTablesToGameRequest": {
+			"type": "object",
+			"properties": {
+				"tables": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.LocalizationTableGameAssociation"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.LocalizationTableGameAssociation": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"dissociate": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.AssociateLocalizationTablesToGameResponse": {
+			"type": "object",
+			"properties": {
+				"success": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetTableEntryCountResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "uuid",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"entryCount": {
+					"format": "int32",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.Language]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.Language"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Language": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"nativeName": {
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.Models.Response.GameNameDescriptionMetadataResponse": {
+			"type": "object",
+			"properties": {
+				"isNameDescriptionMigrationEnabled": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateNameDescriptionsRequest": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.NameDescription"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateNameDescriptionsResponse": {
+			"type": "object",
+			"properties": {
+				"successOperations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.NameDescription"
+					}
+				},
+				"failedOperations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.FailedNameDescription"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.FailedNameDescription": {
+			"type": "object",
+			"properties": {
+				"languageCode": {
+					"type": "string"
+				},
+				"errorCode": {
+					"format": "int32",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetNameDescriptionHistoryRequest": {
+			"description": "A model containing request for getting history of name or description.",
+			"type": "object",
+			"properties": {
+				"requestType": {
+					"enum": ["Name", "Description"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				},
+				"cursor": {
+					"type": "string"
+				},
+				"count": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"sortOrder": {
+					"enum": ["Asc", "Desc"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetNameDescriptionHistoryResponse": {
+			"type": "object",
+			"properties": {
+				"history": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.TranslationHistory"
+					}
+				},
+				"lastEvaluatedId": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetPlayerPoliciesResponse": {
+			"type": "object",
+			"properties": {
+				"isSubjectToChinaPolicies": {
+					"type": "boolean"
+				},
+				"arePaidRandomItemsRestricted": {
+					"type": "boolean"
+				},
+				"isPaidItemTradingAllowed": {
+					"type": "boolean"
+				},
+				"allowedExternalLinkReferences": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.SupportedLanguagesMetadataResponse": {
+			"type": "object",
+			"properties": {
+				"isFeatureEnabled": {
+					"type": "boolean"
+				},
+				"areAllLanguagesEnabled": {
+					"type": "boolean"
+				},
+				"minimumUniverseIdForFeature": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"isHumanTranslationProgressUIEnabled": {
+					"description": "Is translation progress for human translations enabled on UI",
+					"type": "boolean"
+				},
+				"isAutomaticTranslationProgressUIEnabled": {
+					"description": "Is translation progress for automatic translations enabled on UI",
+					"type": "boolean"
+				},
+				"isSupportedLanguagesChildLocalesUIEnabled": {
+					"description": "Is Language Locales UI Enabled for Supported Languages",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.LanguageOrLocale]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.LanguageOrLocale"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.LanguageOrLocale": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"languageCodeType": {
+					"enum": ["Language", "Locale"],
+					"type": "string"
+				},
+				"languageCode": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.PatchLanguage": {
+			"type": "object",
+			"properties": {
+				"languageCodeType": {
+					"description": "The language code type.",
+					"enum": ["Language", "Locale"],
+					"type": "string"
+				},
+				"languageCode": {
+					"description": "The language code for the language to edit.",
+					"type": "string"
+				},
+				"delete": {
+					"description": "An optional field used to indicate whether a language should be deleted from this game's list of supported languages.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.LanguageOrLocaleSettings]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.LanguageOrLocaleSettings"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.LanguageOrLocaleSettings": {
+			"type": "object",
+			"properties": {
+				"languageCodeType": {
+					"description": "The language code type.",
+					"enum": ["Language", "Locale"],
+					"type": "string"
+				},
+				"languageCode": {
+					"description": "The language code.",
+					"type": "string"
+				},
+				"isAutomaticTranslationEnabled": {
+					"description": "Indicates whether or not automatic translation is currently enabled for the game and language.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.EditAutomaticTranslationStatusForGameAndLanguageResponse": {
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"format": "int64",
+					"description": "The game id.",
+					"type": "integer"
+				},
+				"languageCode": {
+					"description": "The language code.",
+					"type": "string"
+				},
+				"isAutomaticTranslationEnabled": {
+					"description": "Indicates whether or not automatic translation is currently enabled for the game and language.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.GameInternationalization.Api.UniverseDisplayInfoAutomaticTranslationSettings]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GameInternationalization.Api.UniverseDisplayInfoAutomaticTranslationSettings"
+					}
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UniverseDisplayInfoAutomaticTranslationSettings": {
+			"type": "object",
+			"properties": {
+				"languageCode": {
+					"description": "The language code.",
+					"type": "string"
+				},
+				"isUniverseDisplayInfoAutomaticTranslationEnabled": {
+					"description": "Indicates whether or not automatic translation is currently enabled for Game and Place Information for a game and language.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.UpdateUniverseDisplayInfoAutomaticTranslationSettingsResponse": {
+			"description": "A response model for getting the automatic translation allowed status for game information.",
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"format": "int64",
+					"description": "The game id.",
+					"type": "integer"
+				},
+				"languageCode": {
+					"description": "The language code.",
+					"type": "string"
+				},
+				"isUniverseDisplayInfoAutomaticTranslationEnabled": {
+					"description": "Indicates universeDisplayInformation automatic translation is enabled.",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.TranslationAnalyticsMetadataResponse": {
+			"type": "object",
+			"properties": {
+				"isFeatureEnabledOnUI": {
+					"description": "Is Translation Analytics feature enabled on UI",
+					"type": "boolean"
+				},
+				"reportRequestPollingIntervalSeconds": {
+					"format": "int32",
+					"description": "Number of seconds to poll the server for report availability",
+					"type": "integer"
+				},
+				"minimumDateTimeForAnalyticsReport": {
+					"format": "date-time",
+					"description": "Date-Time since the Analytics Reports can be downloaded",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.RequestTranslationAnalyticsReportRequest": {
+			"type": "object",
+			"properties": {
+				"startDateTime": {
+					"format": "date-time",
+					"description": "The inclusive start dateTime of report in UTC",
+					"type": "string"
+				},
+				"endDateTime": {
+					"format": "date-time",
+					"description": "The exclusive end dateTime of report in UTC",
+					"type": "string"
+				},
+				"reportType": {
+					"description": "The report type",
+					"enum": [
+						"GameTranslationStatus",
+						"GameTranslationStatusForTranslatorGroup",
+						"GameTranslationStatusForTranslator",
+						"Test"
+					],
+					"type": "string"
+				},
+				"reportSubjectTargetId": {
+					"format": "int64",
+					"description": "The report subject target id",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.RequestTranslationAnalyticsReportResponse": {
+			"type": "object",
+			"properties": {
+				"reportGenerationStatus": {
+					"enum": ["inProgress", "ready", "unavailable"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GameInternationalization.Api.GetUiConfigurationsResponse": {
+			"type": "object",
+			"properties": {
+				"isGameProductsEnabled": {
+					"description": "Game products translation management page is enabled or not.",
+					"type": "boolean"
+				},
+				"isBadgeIconEnabled": {
+					"description": "Badge Icon translation management is enabled or not.",
+					"type": "boolean"
+				},
+				"isGamePassEnabled": {
+					"description": "Game pass translation management is enabled or not.",
+					"type": "boolean"
+				},
+				"isDeveloperProductEnabled": {
+					"description": "Developer product translation management is enabled or not.",
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}

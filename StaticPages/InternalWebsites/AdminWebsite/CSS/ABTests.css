@@ -1,0 +1,80 @@
+﻿.experiment {
+    clear: both;
+    font-weight: bold;
+}
+.experiment-details {
+    float: left;
+}
+.experiment-details span.name {
+    font-weight: bold;
+    font-size: 14px;
+}
+.versions {
+    clear: both;
+}
+.versions .version {
+    margin-top: 10px;
+}
+
+.eligibility-criteria-box {
+    min-height: 300px;
+}
+.eligibility-control-button {
+    width: 100px;
+}
+
+.new-version {
+    margin-right: 10px;
+}
+input.short {
+    width: 60px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.dialog-label {
+    font-weight:normal;   
+}
+.varation_percentage_container {
+    width: 100px;
+    display: inline-block;
+}
+.border-bottom {
+    border-bottom: 1px solid #ccc;
+}
+.clear {
+    clear: both;
+    font-weight: normal;
+}
+
+.ContentPaneFloat {
+    min-width: 1000px;
+}
+.hint {
+    font-size: 11px;
+    color: #666;
+}
+.hide-version {
+    display: none;
+}
+.hide {
+    display: none;
+}
+.label {
+    font-weight: normal;
+}
+.labelheader {
+    width: 170px;
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 3px;
+}
+.labelheader.details {
+    font-weight: normal;
+}
+.version-details {
+    font-weight: normal;
+}
+.buttons span {
+    float: left;
+    display: block;
+}

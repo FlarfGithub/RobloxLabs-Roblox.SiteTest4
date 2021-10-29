@@ -1,0 +1,241 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v2",
+    "title": "Badges Api v2"
+  },
+  "host": "badges.sitetest3.robloxlabs.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v2/universes/{universeId}/badges": {
+      "get": {
+        "tags": [
+          "Badges"
+        ],
+        "summary": "Gets badges by their awarding game.",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "universeId",
+            "in": "path",
+            "description": "The universe Id.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "The order the results are sorted in.",
+            "required": false,
+            "type": "string",
+            "default": "Asc",
+            "enum": [
+              "Asc",
+              "Desc"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The amount of results per request.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "enum": [
+              10,
+              25,
+              50,
+              100
+            ]
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "The paging cursor for the previous or next page.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Badges.Api.BadgeResponse]"
+            }
+          },
+          "404": {
+            "description": "3: The game is invalid or does not exist."
+          }
+        },
+        "properties": {
+          "internal": true,
+          "metricIds": [
+            "BadgesV2:GetBadgesByAwarderOrderByNameAndId"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Roblox.Web.WebAPI.ExclusiveStartRequest[System.Int64]": {
+      "type": "object",
+      "properties": {
+        "ExclusiveStartKeyInfo": {
+          "$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]",
+          "readOnly": true
+        },
+        "CursorRecipe": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]": {
+      "type": "object",
+      "properties": {
+        "SortOrder": {
+          "enum": [
+            "Asc",
+            "Desc"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "PagingDirection": {
+          "enum": [
+            "Forward",
+            "Backward"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Count": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        }
+      }
+    },
+    "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Badges.Api.BadgeResponse]": {
+      "type": "object",
+      "properties": {
+        "previousPageCursor": {
+          "type": "string"
+        },
+        "nextPageCursor": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Roblox.Badges.Api.BadgeResponse"
+          }
+        }
+      }
+    },
+    "Roblox.Badges.Api.BadgeResponse": {
+      "description": "A response containing badge information.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "description": "The badge Id.",
+          "type": "integer"
+        },
+        "name": {
+          "description": "The name of the badge.",
+          "type": "string"
+        },
+        "description": {
+          "description": "The badge description.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "The localized name of the badge.",
+          "type": "string"
+        },
+        "displayDescription": {
+          "description": "The localized badge description.",
+          "type": "string"
+        },
+        "enabled": {
+          "description": "Whether or not the badge is enabled.",
+          "type": "boolean"
+        },
+        "iconImageId": {
+          "format": "int64",
+          "description": "The badge icon asset Id.",
+          "type": "integer"
+        },
+        "displayIconImageId": {
+          "format": "int64",
+          "description": "The localized badge icon asset Id.",
+          "type": "integer"
+        },
+        "created": {
+          "format": "date-time",
+          "description": "When the badge was created.",
+          "type": "string"
+        },
+        "updated": {
+          "format": "date-time",
+          "description": "When the badge was updated.",
+          "type": "string"
+        },
+        "statistics": {
+          "$ref": "#/definitions/Roblox.Web.Responses.Badges.BadgeAwardStatisticsResponse",
+          "description": "Badge award statisics."
+        },
+        "awardingUniverse": {
+          "$ref": "#/definitions/Roblox.Badges.Api.UniverseResponse",
+          "description": "The universe the badge is being awarded from."
+        }
+      }
+    },
+    "Roblox.Web.Responses.Badges.BadgeAwardStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "pastDayAwardedCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "awardedCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "winRatePercentage": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "Roblox.Badges.Api.UniverseResponse": {
+      "description": "A response containing universe information.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "description": "The universe Id.",
+          "type": "integer"
+        },
+        "name": {
+          "description": "The universe name.",
+          "type": "string"
+        },
+        "rootPlaceId": {
+          "format": "int64",
+          "description": "The description of the universe.",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

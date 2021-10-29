@@ -1,0 +1,231 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "WWW Auth Api v1" },
+	"host": "www.sitetest4.robloxlabs.com",
+	"schemes": ["http", "https"],
+	"paths": {
+		"/Authentication/Login.ashx": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "Used to Login and register new AuthToken csrf sessions.",
+				"consumes": ["application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"in": "formData",
+						"name": "cvalue",
+						"type": "string",
+						"required": true,
+						"description": "The credential value, right now it's only username as this is all we support"
+					},
+					{
+						"in": "formData",
+						"name": "password",
+						"type": "string",
+						"required": true,
+						"description": "The password for the required credential."
+					},
+					{
+						"in": "formData",
+						"name": "captchaToken",
+						"type": "string",
+						"required": false,
+						"description": "This will only be required when DFFlagIsCaptchaV2Enabled"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.WWW.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required.\nCaptcha Validation Failed.\nIncorrect Password."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "No body provided.\nThe Content-Type {request.headers['content-type']} is not supported.\nThe body provided was invalid."
+					},
+					"404": {
+						"description": "User not found."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Authentication:Login"]
+				}
+			}
+		},
+		"/Authentication/Logout.ashx": {
+			"post": {
+				"tags": ["Authentication"],
+				"consumes": [],
+				"summary": "Used to logout and destroy Csrf Sessions, along with AuthTokens",
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.WWW.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "AuthToken was not supplied."
+					},
+					"404": {
+						"description": "AuthToken not found."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Authentication:Logout"]
+				}
+			}
+		},
+		"/Authentication/ClearAllSessionsAndReauthenticate.ashx": {
+			"post": {
+				"tags": ["Authentication"],
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"summary": "Used to clear all sessions of a specific account and give a fresh AuthToken",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.WWW.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "AuthToken not supplied"
+					},
+					"404": {
+						"description": "AuthToken not found"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Authentication:ClearAllSessionsAndReauthenticate"]
+				}
+			}
+		},
+		"/Authentication/Signup.ashx": {
+			"post": {
+				"tags": ["Authentication"],
+				"consumes": ["application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"summary": "Used to create a brand new account, and authenticate that account, while making a CSRF session",
+				"parameters": [
+					{
+						"in": "formData",
+						"name": "username",
+						"type": "string",
+						"required": true,
+						"description": "The username to give"
+					},
+					{
+						"in": "formData",
+						"name": "password",
+						"type": "string",
+						"required": true,
+						"description": "The password for the required credential."
+					},
+					{
+						"in": "formData",
+						"name": "birthday",
+						"type": "string",
+						"required": true,
+						"description": "The birthday of the account"
+					},
+					{
+						"in": "formData",
+						"name": "isTosAgreementBoxChecked",
+						"type": "boolean",
+						"required": true,
+						"description": "isTheAgreementBoxChecked?"
+					},
+					{
+						"in": "formData",
+						"name": "email",
+						"type": "string",
+						"required": true,
+						"description": "The email of the account"
+					},
+					{
+						"in": "formData",
+						"name": "captchaToken",
+						"type": "string",
+						"required": false,
+						"description": "This will only be required when DFFlagIsCaptchaV2Enabled"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.WWW.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required.\nCaptcha Validation Failed.\nThe ToS Agreement Box wasn't ticked."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "AuthToken was not supplied."
+					},
+					"404": {
+						"description": "No body provided.\nThe Content-Type {request.headers['content-type']} is not supported.\nThe body provided was invalid.\nThe password provided was not accepted."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Authentication:Signup"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Mfd.WWW.Api.Models.Success": {
+			"description": "A model containing information on whether or not the api is up.",
+			"type": "object",
+			"properties": {
+				"Success": {
+					"description": "Was the request successful?",
+					"type": "boolean"
+				},
+				"message": {
+					"description": "Whether the server is having issues or not.",
+					"type": "string",
+					"example": "Success"
+				},
+				"userfacingmessage": {
+					"description": "Whether the server is having issues or not, this will be shown to the client on completion.",
+					"type": "string",
+					"example": "Success"
+				}
+			}
+		}
+	}
+}

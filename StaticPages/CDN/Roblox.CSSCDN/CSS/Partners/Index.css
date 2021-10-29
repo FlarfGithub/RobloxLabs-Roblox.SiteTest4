@@ -1,0 +1,24 @@
+table {
+	margin: 20px;
+}
+
+input[type='submit'] {
+	margin-top: 15px;
+}
+
+table,
+tr,
+td {
+	border: 1px solid;
+	text-align: center;
+}
+
+#NameCell {
+	width: 250px;
+	font-weight: bold;
+}
+
+#ActiveCell {
+	font-weight: bold;
+	width: 75px;
+}

@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"experimentalDecorators": true,
+		"target": "es2020",
+		"module": "commonjs",
+		"jsx": "react",
+		"outDir": "Source/Bin",
+		"rootDir": "Source",
+		"noUnusedLocals": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"preserveSymlinks": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"stripInternal": true,
+		"removeComments": true,
+		"declaration": true,
+		"declarationDir": "Source/Bin/PDB"
+	},
+	"include": ["Source/"]
+}

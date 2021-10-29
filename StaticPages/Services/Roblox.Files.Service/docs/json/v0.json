@@ -1,0 +1,86 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v0", "title": "Files Service v0" },
+	"host": "files.api.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v0/Upload": {
+			"post": {
+				"tags": ["Legacy.Upload"],
+				"summary": "Uploads the given file in request.files to S3",
+				"description": "<para>\r\n\tThere is an optional {Roblox.Files.Service.Models.Request.UploadLegacyRequest} request here,\r\n\tyou can specify things such as AssetId, AssetHash, UserAssetId etc.\r\n\tThe only thing that is required here is the request.files\r\n\t</para>",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "request.files",
+						"in": "formData",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"name": "request.model",
+						"in": "body",
+						"required": false,
+						"type": "object",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Files.Service.Models.Request.UploadLegacyRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Files.Service.Models.Response.UploadLegacyResponse"
+						}
+					},
+					"500": {
+						"description": "An error has occured"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Files:Upload"],
+					"obsoleteMessage": "Use POST /v2/UploadToS3 instead"
+				},
+				"deprecated": true
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Files.Service.Models.Response.UploadLegacyResponse": {
+			"type": "object",
+			"properties": {
+				"Date": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"AssetId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"AssetHash": {
+					"type": "string",
+					"example": "857e58fa7ff717939519c5d13f3746c2"
+				}
+			}
+		},
+		"Roblox.Files.Service.Models.Request.UploadLegacyRequest": {
+			"type": "object",
+			"properties": {
+				"UseAdditionalOptions": {
+					"type": "boolean"
+				},
+				"AssetId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"AssetHash": {
+					"type": "string",
+					"example": "857e58fa7ff717939519c5d13f3746c2"
+				}
+			}
+		}
+	}
+}

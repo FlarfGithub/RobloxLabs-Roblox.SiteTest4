@@ -1,0 +1,108 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1.1", "title": "Ephemeral Counters Api v1.1" },
+	"host": "ephemeralcounters.api.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1.1/Counters/BatchIncrement": {
+			"post": {
+				"tags": ["Counters"],
+				"summary": "Batch Increments counters.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "model",
+						"in": "body",
+						"description": "An object that requires a Key Value pair system, eg. {\"Counter1\": 1234, \"Counter2\": 5678}",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ServiceError"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Counters:BatchIncrement"]
+				}
+			}
+		},
+		"/v1.1/Counters/Increment": {
+			"post": {
+				"tags": ["Counters"],
+				"summary": "Increments the given counter.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "counterName",
+						"in": "query",
+						"description": "The name of the counter to inrement.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "amount",
+						"in": "query",
+						"description": "The name of the counter to inrement.",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "double"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"404": {
+						"description": "Not Found",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.Error"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Enrollments:Increment"],
+					"obsoleteMessage": "Use POST /v1.1/Counters/MultiIncrement instead"
+				},
+				"deprecated": true
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Web.WebAPI.Models.ServiceError": {
+			"type": "object",
+			"properties": {
+				"Message": {
+					"example": "An error has occurred.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.Error": {
+			"type": "object",
+			"properties": {
+				"Message": {
+					"example": "No HTTP resource was found that matches the request URI '{Request.Uri}'.",
+					"type": "string"
+				}
+			}
+		}
+	}
+}

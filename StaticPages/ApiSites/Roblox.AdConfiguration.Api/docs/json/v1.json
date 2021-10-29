@@ -1,0 +1,414 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "AdConfiguration Api v1"
+    },
+    "host": "adconfiguration.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v1/sponsored-games/create-ad/metadata": {
+            "get": {
+                "tags": ["SponsoredGames"],
+                "summary": "To get the metadata for create a sponsored-game Ad",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "query",
+                    "description": "The universe Id to be sponsored",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Response.CreateSponsoredGameMetadataResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "6: The request data format is incorrect."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["SponsoredGames:GetCreateSponsoredGameMetadata"]
+                }
+            }
+        },
+        "/v1/sponsored-games/sponsored-games": {
+            "get": {
+                "tags": ["SponsoredGames"],
+                "summary": "Retrieves a page of sponsored games.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "query",
+                    "description": "The group Id, can be null.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int32"
+                }, {
+                    "name": "startRowIndex",
+                    "in": "query",
+                    "description": "The start row index, default to 0.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32"
+                }, {
+                    "name": "count",
+                    "in": "query",
+                    "description": "The maximum number of items to retrieve, default to 50.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Response.SponsoredGamesResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "503": {
+                        "description": "1: This feature is disabled."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["SponsoredGames:SponsoredGames"]
+                }
+            }
+        },
+        "/v1/sponsored-games/create-ad": {
+            "post": {
+                "tags": ["SponsoredGames"],
+                "summary": "Creates new native ads.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "request",
+                    "in": "body",
+                    "description": "{Roblox.AdConfiguration.Api.Models.Request.CreateSponsoredGamesRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Request.CreateSponsoredGamesRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "6: The request data format is incorrect."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n8: Insufficient permission\r\n9: The game has not been approved."
+                    },
+                    "503": {
+                        "description": "1: This feature is disabled.\r\n5: The user ads service is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["SponsoredGames:CreateAd"]
+                }
+            }
+        },
+        "/v1/sponsored-games/run": {
+            "post": {
+                "tags": ["SponsoredGames"],
+                "summary": "Runs the specified ad.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "request",
+                    "in": "body",
+                    "description": "See {Roblox.AdConfiguration.Api.Models.Request.RunSponsoredGamesRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Request.RunSponsoredGamesRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "6: The request data format is incorrect."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n8: Insufficient permission\r\n9: The game has not been approved.\r\n10: The bid is lower than minimum bid.\r\n11: This sponsorship is already running.\r\n12: Insufficient funds."
+                    },
+                    "503": {
+                        "description": "1: This feature is disabled.\r\n5: The user ads service is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["SponsoredGames:Run"]
+                }
+            }
+        },
+        "/v1/sponsored-games/stop": {
+            "post": {
+                "tags": ["SponsoredGames"],
+                "summary": "Stops the specified ad.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "request",
+                    "in": "body",
+                    "description": "See {Roblox.AdConfiguration.Api.Models.Request.StopSponsoredGameRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Request.StopSponsoredGameRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n8: Insufficient permission"
+                    },
+                    "404": {
+                        "description": "3: The sponsored game code is invalid\r\n4: The ad campaign is non-existent"
+                    },
+                    "503": {
+                        "description": "1: This feature is disabled.\r\n5: The user ads service is currently unavailable."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["SponsoredGames:Stop"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.AdConfiguration.Api.Models.Request.CreateSponsoredGamesRequest": {
+            "description": "A request model for creating a sponsored-game Ad.",
+            "type": "object",
+            "properties": {
+                "universeId": {
+                    "format": "int64",
+                    "description": "The ID of the universe to create the ads for.",
+                    "type": "integer"
+                },
+                "targetDeviceTypes": {
+                    "description": "The {Roblox.Platform.Devices.DeviceType}s at which to target the ads. An ad will be created for each type.",
+                    "type": "array",
+                    "items": {
+                        "enum": ["Computer", "Phone", "Tablet", "Console"],
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.AdConfiguration.Api.Models.Response.CreateSponsoredGameMetadataResponse": {
+            "description": "A response model for create sponsored-game metadata",
+            "type": "object",
+            "properties": {
+                "universeId": {
+                    "format": "int64",
+                    "description": "Id of the universe that is being sponsored.",
+                    "type": "integer"
+                },
+                "universeCreatorType": {
+                    "description": "Creator type of the universe being sponsored.",
+                    "type": "string"
+                },
+                "universeCreatorTargetId": {
+                    "format": "int64",
+                    "description": "Creator target id of the universe being sponsored.",
+                    "type": "integer"
+                },
+                "areNativeAdsForPhoneEnabled": {
+                    "description": "Whether NativeAds are enabled for mobile.",
+                    "type": "boolean"
+                },
+                "areNativeAdsForTabletEnabled": {
+                    "description": "Whether NativeAds are enabled for tablet.",
+                    "type": "boolean"
+                },
+                "areNativeAdsForDesktopEnabled": {
+                    "description": "Whether NativeAds are enabled for desktop.",
+                    "type": "boolean"
+                },
+                "areNativeAdsForConsoleEnabled": {
+                    "description": "Whether NativeAds are enabled for console.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.AdConfiguration.Api.Models.Request.RunSponsoredGamesRequest": {
+            "description": "A request model for running a sponsored-game Ad.",
+            "type": "object",
+            "properties": {
+                "adId": {
+                    "format": "int64",
+                    "description": "The ID of the ad to run.",
+                    "type": "integer"
+                },
+                "bid": {
+                    "format": "int32",
+                    "description": "The amount, in Robux, to bid.",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.AdConfiguration.Api.Models.Request.StopSponsoredGameRequest": {
+            "description": "A model represents a request to stop an Ad campaign.",
+            "type": "object",
+            "properties": {
+                "adId": {
+                    "format": "int64",
+                    "description": "The ID of the ad to stop.",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.AdConfiguration.Api.Models.Response.SponsoredGamesResponse": {
+            "description": "The response model for retrieving a page of sponsored-game Ads.",
+            "type": "object",
+            "properties": {
+                "sponsoredGames": {
+                    "description": "A collection of {Roblox.AdConfiguration.Api.Models.Response.SponsoredGameModel}.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Response.SponsoredGameModel"
+                    }
+                },
+                "nextPageStartRowIndex": {
+                    "format": "int32",
+                    "description": "The next page start row index, if present.",
+                    "type": "integer"
+                },
+                "creatorType": {
+                    "description": "The creator type.",
+                    "enum": ["User", "Group"],
+                    "type": "string"
+                },
+                "isErroneous": {
+                    "description": "Whether an error has occured while performing the action.",
+                    "type": "boolean"
+                },
+                "minimumBidAmount": {
+                    "format": "int64",
+                    "description": "The minimum bid amount in Robux.",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.AdConfiguration.Api.Models.Response.SponsoredGameModel": {
+            "description": "A model represents a sponsored-game Ad.",
+            "type": "object",
+            "properties": {
+                "adId": {
+                    "format": "int64",
+                    "description": "The id of the Ad.",
+                    "type": "integer"
+                },
+                "universeName": {
+                    "description": "The name of the universe.",
+                    "type": "string"
+                },
+                "universeRootPlaceId": {
+                    "format": "int64",
+                    "description": "The root place Id of the universe, if present.",
+                    "type": "integer"
+                },
+                "targetDeviceType": {
+                    "description": "The target {Roblox.Platform.Devices.DeviceType}.",
+                    "enum": ["Computer", "Phone", "Tablet", "Console"],
+                    "type": "string"
+                },
+                "totalBid": {
+                    "format": "int32",
+                    "description": "The total bid in Robux.",
+                    "type": "integer"
+                },
+                "totalImpressions": {
+                    "format": "int32",
+                    "description": "The total impressions.",
+                    "type": "integer"
+                },
+                "totalClicks": {
+                    "format": "int32",
+                    "description": "The total clicks.",
+                    "type": "integer"
+                },
+                "campaign": {
+                    "$ref": "#/definitions/Roblox.AdConfiguration.Api.Models.Response.SponsoredGameCampaignModel",
+                    "description": "The {Roblox.AdConfiguration.Api.Models.Response.SponsoredGameCampaignModel} of the Ad."
+                },
+                "gameIconUrl": {
+                    "description": "The game icon url.",
+                    "type": "string"
+                },
+                "costPerImpressionEstimate": {
+                    "format": "double",
+                    "description": "The cost per impression estimate, if present.",
+                    "type": "number"
+                }
+            }
+        },
+        "Roblox.AdConfiguration.Api.Models.Response.SponsoredGameCampaignModel": {
+            "description": "A model represents a sponsored-game Ad campaign.",
+            "type": "object",
+            "properties": {
+                "bid": {
+                    "format": "int32",
+                    "description": "The bid in Robux.",
+                    "type": "integer"
+                },
+                "clicks": {
+                    "format": "int32",
+                    "description": "The number of clicks.",
+                    "type": "integer"
+                },
+                "impressions": {
+                    "format": "int32",
+                    "description": "The number of impressions.",
+                    "type": "integer"
+                },
+                "isRunning": {
+                    "description": "Whether the campaign is running.",
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

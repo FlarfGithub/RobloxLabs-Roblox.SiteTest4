@@ -1,0 +1,41 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "CSRF Api v1" },
+	"host": "api.sitetest4.robloxlabs.com",
+	"schemes": ["http", "https"],
+	"paths": {
+		"/csrf/v1/get-csrf-token": {
+			"post": {
+				"tags": ["CSRF"],
+				"summary": "Get the CSRF token based on IP or AuthToken.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.Csrf.Api.Models.CSRF" }
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["CSRF:getToken"]
+				},
+				"deprecated": false
+			}
+		}
+	},
+	"definitions": {
+		"Mfd.Csrf.Api.Models.CSRF": {
+			"description": "A model containing information on whether or not the api is up.",
+			"type": "object",
+			"properties": {
+				"message": {
+					"description": "Whether the server is having issues or not.",
+					"type": "string",
+					"example": "OK"
+				}
+			}
+		}
+	}
+}

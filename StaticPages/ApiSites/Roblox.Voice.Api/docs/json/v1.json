@@ -1,0 +1,1224 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Voice Api v1"
+    },
+    "host": "voice.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v1/calls/{channelId}/users": {
+            "get": {
+                "tags": ["Voice"],
+                "summary": "Returns a list of the ids for all users active/publishing in a call (except for the user making the request).",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "channelId",
+                    "in": "path",
+                    "description": "The unique channel Id of the call",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.CallUsersListResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:ListCallActiveUsers"]
+                }
+            }
+        },
+        "/v1/settings": {
+            "get": {
+                "tags": ["Voice"],
+                "summary": "Returns voice chat settings details for the requesting user.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceSettingsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:GetVoiceSettings"]
+                }
+            }
+        },
+        "/v1/turn/auth": {
+            "get": {
+                "tags": ["Turn"],
+                "summary": "Returns turn server auth details for the requesting user.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Platform.Voice.TurnServers.TurnServerAuth"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Turn:GetTurnServerAuth"]
+                }
+            }
+        },
+        "/v1/calls/{channelId}/leave": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Leave a named voice channel",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "channelId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Please use /calls/leave",
+                    "metricIds": ["Voice:LeaveVoiceCall"]
+                }
+            }
+        },
+        "/v1/calls/chat/{conversationId}/join": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Join voice call for a chat conversation user is part of",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "conversationId",
+                    "in": "path",
+                    "description": "chat conversation Id",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceBaseRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceChannelResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Please use /calls/join",
+                    "metricIds": ["Voice:JoinChatConversationVoiceCall"]
+                }
+            }
+        },
+        "/v1/calls/chat/join": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Join voice call for a chat conversation user is part of",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "{Roblox.Voice.Api.Models.JoinVoiceCallRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceCallRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceChannelResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Please use /calls/join",
+                    "metricIds": ["Voice:JoinChatConversationVoiceCall"]
+                }
+            }
+        },
+        "/v1/calls/group/{groupId}/join": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Join voice call for an internal group Id",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "{Roblox.Voice.Api.Models.VoiceBaseRequest}\r\n{Roblox.Voice.Api.Models.VoiceBaseRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceBaseRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "{Roblox.Voice.Api.Models.JoinVoiceChannelResponse}",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceChannelResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Please use /calls/join",
+                    "metricIds": ["Voice:JoinVoiceGroupCall"]
+                }
+            }
+        },
+        "/v1/calls/join": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Join voice call from either chat conversation or group",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "{Roblox.Voice.Api.Models.JoinVoiceCallRequest}",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceCallRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.JoinVoiceChannelResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:JoinVoiceCall"]
+                }
+            }
+        },
+        "/v1/calls/leave": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Leave voice call for a channel",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceCallLifecycleRequestBase"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:LeaveVoiceCall"]
+                }
+            }
+        },
+        "/v1/calls/publish/pause": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Pause publishing voice in an existing voice call",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceCallLifecycleRequestBase"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:PausePublishInCall"]
+                }
+            }
+        },
+        "/v1/calls/publish/resume": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Resume publishing voice in an existing voice call",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceCallLifecycleRequestBase"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:ResumePublishInCall"]
+                }
+            }
+        },
+        "/v1/calls/publish/start": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Start publishing voice in an existing voice call",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.PublishInCallRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:PublishInCall"]
+                }
+            }
+        },
+        "/v1/calls/publish/trickle": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Trickles ICE candidates for a call's publishing peer connection\r\nhttps://webrtcglossary.com/trickle-ice/",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.TrickleIceRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:CallTrickleIce"]
+                }
+            }
+        },
+        "/v1/calls/publish/trickle/end": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Finish the trickle ICE candidate process\r\nhttps://webrtcglossary.com/trickle-ice/",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.VoiceCallLifecycleRequestBase"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:FinishCallTrickleIce"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/cancel": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Cancel (and close) an user's subscription to a voice feed of another user",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseSubscriptionsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:CancelSubscriptions"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/complete": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Completes an user's subscription to a voice feed of another user",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.CompleteSubscriptionsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseSubscriptionsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:CompleteSubscriptions"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/pause": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Pause an user's subscription to a voice feed of another user",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseSubscriptionsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:PauseSubscriptions"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/resume": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Resume an user's subscription to a voice feed of another user",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseSubscriptionsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:ResumeSubscriptions"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/start": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Initiates an user's subscription to a voice feed of another user",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseSubscriptionsResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:InitiateSubscriptions"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/trickle": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Trickles ICE candidates for a subscription's peer connection\r\nhttps://webrtcglossary.com/trickle-ice/",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionTrickleIceRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:SubscriptionTrickleIce"]
+                }
+            }
+        },
+        "/v1/calls/subscriptions/trickle/end": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Finish the trickle ICE candidate process.\r\nhttps://webrtcglossary.com/trickle-ice/",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.SubscriptionTrickleIceRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:FinishSubscriptionTrickleIce"]
+                }
+            }
+        },
+        "/v1/clientlog": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Log a debug message from the client.\r\nTHIS IS NOT A LONG TERM SOLUTION AND WILL BE REMOVED BEFORE GOING INTO PRODUCTION!",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.ClientLogRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "{Roblox.Voice.Api.Models.BaseStatusResponse}",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:ClientLog"]
+                }
+            }
+        },
+        "/v1/groups": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Create voice group for internal use",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "{Roblox.Voice.Api.Models.CreateGroupResponse}",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.CreateGroupResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:CreateGroup"]
+                }
+            }
+        },
+        "/v1/groups/bulk": {
+            "post": {
+                "tags": ["Voice"],
+                "summary": "Create multiple voice groups for internal use",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "requestModel",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.BulkCreateGroupsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "{Roblox.Voice.Api.Models.BaseStatusResponse}",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Voice.Api.Models.BaseStatusResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Voice:BulkCreateGroups"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Platform.Voice.TurnServers.TurnServerAuth": {
+            "type": "object",
+            "properties": {
+                "uris": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "ttl": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.VoiceSettingsResponse": {
+            "description": "Response model for voice settings associated with the user",
+            "type": "object",
+            "properties": {
+                "isVoiceEnabled": {
+                    "description": "Gets or sets a value indicating whether this user is eligible for voice chat",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.VoiceBaseRequest": {
+            "description": "Base request class for VoiceController",
+            "type": "object",
+            "properties": {
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.JoinVoiceChannelResponse": {
+            "description": "response model for try join voice channel request",
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.JoinVoiceCallRequest": {
+            "description": "Request model to join voice call for a chat conversation",
+            "type": "object",
+            "properties": {
+                "callReferenceId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Gets or sets the type of joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.VoiceCallLifecycleRequestBase": {
+            "description": "Request model to start publishing to voice call",
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.BaseStatusResponse": {
+            "description": "base response model for voice apis",
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "Gets or sets status of response",
+                    "enum": ["Success"],
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.PublishInCallRequest": {
+            "description": "Request model to start publishing to voice call",
+            "type": "object",
+            "properties": {
+                "offerSdp": {
+                    "description": "Gets or sets sdp offer to start publishing",
+                    "type": "string"
+                },
+                "isMuted": {
+                    "description": "Gets or sets a value indicating whether to start as muted or not",
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.CallUsersListResponse": {
+            "description": "Response model for users in voice call",
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "Gets or sets the unique id of the call",
+                    "type": "string"
+                },
+                "ownState": {
+                    "$ref": "#/definitions/Roblox.Voice.Api.CallParticipantState",
+                    "description": "Gets or sets the requesting user's state in the channel"
+                },
+                "publishers": {
+                    "description": "Gets or sets the user Id",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Platform.Voice.CallPublisherInfo"
+                    }
+                }
+            }
+        },
+        "Roblox.Voice.Api.CallParticipantState": {
+            "description": "Wraps a call participant's state",
+            "type": "object",
+            "properties": {
+                "isMuted": {
+                    "description": "Gets or sets if the user is muted",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Platform.Voice.CallPublisherInfo": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "feedReferenceId": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "isMuted": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.TrickleIceRequest": {
+            "description": "Request model for Trickle ICE request for a completing a subscription/peer connection",
+            "type": "object",
+            "properties": {
+                "candidates": {
+                    "description": "Gets or sets Web-RTC ICE candidates",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Platform.Voice.IceCandidate"
+                    }
+                },
+                "isLast": {
+                    "description": "Gets or sets a value indicating whether this is the last candidate.\r\nThis allows combining the last candidate trickle request with signaling trickle end.",
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Platform.Voice.IceCandidate": {
+            "type": "object",
+            "properties": {
+                "sdpMid": {
+                    "type": "string"
+                },
+                "sdpMLineIndex": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "candidate": {
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.SubscriptionsRequest": {
+            "description": "Request model for user feed subscription operations",
+            "type": "object",
+            "properties": {
+                "subscribedUsers": {
+                    "description": "Gets or sets the publisher infos for all users to be subscribed by the subscription request",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.CallPublisherInfoRequest"
+                    }
+                },
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.CallPublisherInfoRequest": {
+            "description": "Request model for a call publisher's details, does not include the publishing state (muted/unmuted)",
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "format": "int64",
+                    "description": "Gets or sets the user Id",
+                    "type": "integer"
+                },
+                "feedReferenceId": {
+                    "format": "int64",
+                    "description": "Gets or sets the unique identifier for a publisher's feed (timestamp user finished publishing handshake)\r\nThis is used to identify the latest feed associated with a publisher",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.BaseSubscriptionsResponse": {
+            "description": "Base Response model for subscription operations",
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "failures": {
+                    "description": "Gets or sets the reason, for each publisher the subscription operation failed",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.CompleteSubscriptionsRequest": {
+            "description": "Request model to complete subscribing to user feeds in voice call",
+            "type": "object",
+            "properties": {
+                "sdpAnswersList": {
+                    "description": "Gets or sets publisher userIds to subscribe to",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Voice.Api.Models.CallPublisherSdpRequest"
+                    }
+                },
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.CallPublisherSdpRequest": {
+            "description": "Request model for a call publisher's details, does not include the publishing state (muted/unmuted)",
+            "type": "object",
+            "properties": {
+                "publisher": {
+                    "$ref": "#/definitions/Roblox.Voice.Api.Models.CallPublisherInfoRequest",
+                    "description": "Gets or sets the publisher's info"
+                },
+                "sdp": {
+                    "description": "Gets or sets an sdp message representing either an offer from or an answer to the publisher.",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.SubscriptionTrickleIceRequest": {
+            "description": "Request model for Trickle",
+            "type": "object",
+            "properties": {
+                "subscribedUser": {
+                    "$ref": "#/definitions/Roblox.Voice.Api.Models.CallPublisherInfoRequest",
+                    "description": "Gets or sets the publisher info for the user being subscribed to"
+                },
+                "candidates": {
+                    "description": "Gets or sets Web-RTC ICE candidates",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Platform.Voice.IceCandidate"
+                    }
+                },
+                "isLast": {
+                    "description": "Gets or sets a value indicating whether this is the last candidate.\r\nThis allows combining the last candidate trickle request with signaling trickle end.",
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "type": "string"
+                },
+                "sessionId": {
+                    "description": "Gets or sets unique id of the joined call",
+                    "maxLength": 65,
+                    "minLength": 0,
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.CreateGroupResponse": {
+            "description": "The response model for the CreateGroup endpoint",
+            "type": "object",
+            "properties": {
+                "channelIdentifier": {
+                    "description": "Gets or sets the channel identifier",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Voice.Api.Models.BulkCreateGroupsRequest": {
+            "description": "Request for creating group channels in bulk",
+            "type": "object",
+            "properties": {
+                "groupIds": {
+                    "description": "Gets or sets the group ids to create.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.Voice.Api.ClientLogRequest": {
+            "description": "Holds a client log message to be stored in the server logs",
+            "type": "object",
+            "properties": {
+                "messages": {
+                    "description": "Gets or sets the logs messages.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Voice.ClientLogMessage"
+                    }
+                }
+            }
+        },
+        "Roblox.Voice.ClientLogMessage": {
+            "description": "Wraps a single log message from the client",
+            "type": "object",
+            "properties": {
+                "isError": {
+                    "description": "Gets or sets a value indicating whether this is a client-side error level log. All other logs will be treated as info level.",
+                    "type": "boolean"
+                },
+                "message": {
+                    "description": "Gets or sets the logs message content.",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

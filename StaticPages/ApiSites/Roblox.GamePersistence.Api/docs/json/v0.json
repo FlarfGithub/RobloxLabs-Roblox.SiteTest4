@@ -1,0 +1,644 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v0",
+		"title": "GamePersistence Api v0"
+	},
+	"host": "gamepersistence.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/persistence/getSortedValues": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Gets the sorted persistence values.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "The scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "The key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "exclusiveStartKey",
+						"in": "query",
+						"description": "The exclusive start key.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Size of the page.",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "ascending",
+						"in": "query",
+						"description": "if set to true [ascending].",
+						"required": true,
+						"type": "boolean"
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "inclusiveMinValue",
+						"in": "query",
+						"description": "The inclusive minimum value.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "inclusiveMaxValue",
+						"in": "query",
+						"description": "The inclusive maximum value.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:GetSorted"]
+				}
+			},
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Get's the sorted values with a POST.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.scope",
+						"in": "query",
+						"description": "The scope of the key to return.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.key",
+						"in": "query",
+						"description": "The key to return.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.exclusiveStartKey",
+						"in": "query",
+						"description": "Exclusive start key for pagination.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.pageSize",
+						"in": "query",
+						"description": "Page size.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "request.ascending",
+						"in": "query",
+						"description": "Whether to return items in ascending or descending order.",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "request.inclusiveMinValue",
+						"in": "query",
+						"description": "If provided, specifies the minimum value to include.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.inclusiveMaxValue",
+						"in": "query",
+						"description": "If provided, specifies the maximum value to include.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:GetSortedPost"]
+				}
+			}
+		},
+		"/persistence/getV2": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Gets the specified persistence record.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "type",
+						"in": "query",
+						"description": "The type.",
+						"required": true,
+						"type": "string",
+						"enum": ["Standard", "Sorted"]
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "The request.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.GetRequest"
+						}
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:Get"]
+				}
+			}
+		},
+		"/persistence/increment": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Increments the specified data persistence.\r\nNote, many parameters are sent in the uri, they should be in the body.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.type",
+						"in": "query",
+						"description": "Storage type.",
+						"required": false,
+						"type": "string",
+						"enum": ["Standard", "Sorted"]
+					},
+					{
+						"name": "request.scope",
+						"in": "query",
+						"description": "Key scope.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.target",
+						"in": "query",
+						"description": "Key target.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.key",
+						"in": "query",
+						"description": "Key name.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.value",
+						"in": "query",
+						"description": "Value to increment by.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:Increment"]
+				}
+			}
+		},
+		"/persistence/remove": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Removes the specified request.\r\nNote, many parameters are sent in the uri, they should be in the body.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.type",
+						"in": "query",
+						"description": "Storage type.",
+						"required": false,
+						"type": "string",
+						"enum": ["Standard", "Sorted"]
+					},
+					{
+						"name": "request.scope",
+						"in": "query",
+						"description": "Key scope.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.target",
+						"in": "query",
+						"description": "Key target.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.key",
+						"in": "query",
+						"description": "Key name.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:Remove"]
+				}
+			}
+		},
+		"/persistence/set": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Sets the specified persistence values.\r\nNote, many parameters are sent in the uri, they should be in the body.\r\nValue is the one parameter send in the post body.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "valueRequest",
+						"in": "body",
+						"description": "The value request. Required because this comes from the body (as it should) while the rest do not.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.ValueRequest"
+						}
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The place identifier.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "request.type",
+						"in": "query",
+						"description": "Storage type.",
+						"required": false,
+						"type": "string",
+						"enum": ["Standard", "Sorted"]
+					},
+					{
+						"name": "request.scope",
+						"in": "query",
+						"description": "Key scope.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.target",
+						"in": "query",
+						"description": "Key target.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.key",
+						"in": "query",
+						"description": "Key name.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "request.valueLength",
+						"in": "query",
+						"description": "Length of the value being set, in UTF8 bytes.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "request.expectedValueLength",
+						"in": "query",
+						"description": "Length of the expected value, in UTF8 bytes.",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.IResponseBase"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Persistence:Set"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.GamePersistence.Api.GetRequest": {
+			"description": "Get request body.",
+			"type": "object",
+			"properties": {
+				"qkeys": {
+					"description": "Gets or sets the qualified keys to return.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GamePersistence.Api.QualifiedKey"
+					}
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.QualifiedKey": {
+			"description": "Represents a key in a datastore. Contains all information required to identify the key.",
+			"type": "object",
+			"properties": {
+				"Scope": {
+					"description": "The key's scope.",
+					"type": "string"
+				},
+				"Target": {
+					"description": "The key's target.",
+					"type": "string"
+				},
+				"Key": {
+					"description": "The key's name.",
+					"type": "string"
+				}
+			}
+		},
+		"System.Threading.CancellationToken": {
+			"type": "object",
+			"properties": {
+				"IsCancellationRequested": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"CanBeCanceled": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"WaitHandle": {
+					"$ref": "#/definitions/System.Threading.WaitHandle",
+					"readOnly": true
+				}
+			}
+		},
+		"System.Threading.WaitHandle": {
+			"type": "object",
+			"properties": {
+				"Handle": {
+					"type": "object"
+				},
+				"SafeWaitHandle": {
+					"$ref": "#/definitions/Microsoft.Win32.SafeHandles.SafeWaitHandle"
+				}
+			}
+		},
+		"Microsoft.Win32.SafeHandles.SafeWaitHandle": {
+			"type": "object",
+			"properties": {
+				"IsInvalid": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsClosed": {
+					"type": "boolean",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.IResponseBase": {
+			"description": "This exists because GamePersistence used to be MVC and returned custom JSON\r\nbuilt in the response methods. We do NOT want to follow this pattern.\r\nResponse methods should be of the type of the response model being returned.",
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.GamePersistence.Api.GetSortedRequest": {
+			"description": "GetSorted request URI parameters.",
+			"type": "object",
+			"properties": {
+				"scope": {
+					"description": "The scope of the key to return.",
+					"type": "string"
+				},
+				"key": {
+					"description": "The key to return.",
+					"type": "string"
+				},
+				"exclusiveStartKey": {
+					"description": "Exclusive start key for pagination.",
+					"type": "string"
+				},
+				"pageSize": {
+					"format": "int32",
+					"description": "Page size.",
+					"type": "integer"
+				},
+				"ascending": {
+					"description": "Whether to return items in ascending or descending order.",
+					"type": "boolean"
+				},
+				"inclusiveMinValue": {
+					"format": "int64",
+					"description": "If provided, specifies the minimum value to include.",
+					"type": "integer"
+				},
+				"inclusiveMaxValue": {
+					"format": "int64",
+					"description": "If provided, specifies the maximum value to include.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.SetRequest": {
+			"description": "Set request URI parameters.",
+			"type": "object",
+			"properties": {
+				"type": {
+					"description": "Storage type.",
+					"enum": ["Standard", "Sorted"],
+					"type": "string"
+				},
+				"scope": {
+					"description": "Key scope.",
+					"type": "string"
+				},
+				"target": {
+					"description": "Key target.",
+					"type": "string"
+				},
+				"key": {
+					"description": "Key name.",
+					"type": "string"
+				},
+				"valueLength": {
+					"format": "int32",
+					"description": "Length of the value being set, in UTF8 bytes.",
+					"type": "integer"
+				},
+				"expectedValueLength": {
+					"format": "int32",
+					"description": "Length of the expected value, in UTF8 bytes.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.ValueRequest": {
+			"description": "Set request body.",
+			"type": "object",
+			"properties": {
+				"value": {
+					"description": "The value to set.",
+					"type": "string"
+				},
+				"expectedValue": {
+					"description": "Expected key value for conditional set.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.IncrementRequest": {
+			"description": "Increment request URI parameters.",
+			"type": "object",
+			"properties": {
+				"type": {
+					"description": "Storage type.",
+					"enum": ["Standard", "Sorted"],
+					"type": "string"
+				},
+				"scope": {
+					"description": "Key scope.",
+					"type": "string"
+				},
+				"target": {
+					"description": "Key target.",
+					"type": "string"
+				},
+				"key": {
+					"description": "Key name.",
+					"type": "string"
+				},
+				"value": {
+					"format": "int64",
+					"description": "Value to increment by.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.RemoveRequest": {
+			"description": "Remove request URI parameters.",
+			"type": "object",
+			"properties": {
+				"type": {
+					"description": "Storage type.",
+					"enum": ["Standard", "Sorted"],
+					"type": "string"
+				},
+				"scope": {
+					"description": "Key scope.",
+					"type": "string"
+				},
+				"target": {
+					"description": "Key target.",
+					"type": "string"
+				},
+				"key": {
+					"description": "Key name.",
+					"type": "string"
+				}
+			}
+		}
+	}
+}

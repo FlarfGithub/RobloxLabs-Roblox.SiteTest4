@@ -1,0 +1,38 @@
+﻿.country-option {
+    float: left;
+    width: 33%;
+}
+.takeover-item-textarea {
+    width: 80px;
+    height: 200px;
+}
+.takeover-max-views {
+    width: 40px;
+}
+.age-textbox {
+    width: 50px;
+}
+.generic-form {
+    width: 600px;
+}
+.generic-form .label {
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    left: 0px;
+    color: black;
+    font-size: 100%;
+}
+.generic-form .row {
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 160px;
+}
+.takeover-message {
+    background-color: #9BC4E2;
+    border: 2px inset #0D4F8B;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+}

@@ -1,0 +1,212 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "GroupsModeration Api v1"
+    },
+    "host": "groupsmoderation.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v1/groups/{groupId}/wall/posts": {
+            "get": {
+                "tags": ["Wall"],
+                "summary": "Gets a list of wall posts from a specific group",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "description": "The group id.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "Sorted by group wall post Id",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.GroupsModeration.Api.GroupWallPostModel]"
+                        }
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Wall:GetWallPosts"]
+                }
+            },
+            "post": {
+                "tags": ["Wall"],
+                "summary": "Deletes a list of wall posts from a specific group",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "description": "The group id.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "deleteWallPostsRequest",
+                    "in": "body",
+                    "description": "{Roblox.GroupsModeration.Api.DeleteWallPostsRequest}.",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.GroupsModeration.Api.DeleteWallPostsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Wall:DeleteWallPosts"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Web.WebAPI.ExclusiveStartRequest[System.Int64]": {
+            "type": "object",
+            "properties": {
+                "ExclusiveStartKeyInfo": {
+                    "$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]",
+                    "readOnly": true
+                },
+                "CursorRecipe": {
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]": {
+            "type": "object",
+            "properties": {
+                "SortOrder": {
+                    "enum": ["Asc", "Desc"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "PagingDirection": {
+                    "enum": ["Forward", "Backward"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "Count": {
+                    "format": "int32",
+                    "type": "integer",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.GroupsModeration.Api.GroupWallPostModel]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.GroupsModeration.Api.GroupWallPostModel"
+                    }
+                }
+            }
+        },
+        "Roblox.GroupsModeration.Api.GroupWallPostModel": {
+            "description": "A response model for group wall post information",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int64",
+                    "description": "The group wall post Id.",
+                    "type": "integer"
+                },
+                "poster": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Users.SkinnyUserResponse",
+                    "description": "The user that posted the group wall post."
+                },
+                "body": {
+                    "description": "The group wall post body.",
+                    "type": "string"
+                },
+                "created": {
+                    "format": "date-time",
+                    "description": "When the group wall post was posted.",
+                    "type": "string"
+                },
+                "updated": {
+                    "format": "date-time",
+                    "description": "When the group wall post was last updated.",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Web.Responses.Users.SkinnyUserResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.GroupsModeration.Api.DeleteWallPostsRequest": {
+            "type": "object",
+            "properties": {
+                "WallPostIds": {
+                    "description": "Collection of wall post ids from a group",
+                    "type": "array",
+                    "items": {
+                        "format": "int64",
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+            "type": "object",
+            "properties": {}
+        }
+    }
+}

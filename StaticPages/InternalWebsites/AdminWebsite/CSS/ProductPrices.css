@@ -1,0 +1,148 @@
+﻿.StandardDividerBottom {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.form-create-price label {
+    width: 150px;
+    text-align: right;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.form-create-price .input-group {
+    margin-bottom: 2px;
+}
+
+.tableheader {
+    font-weight: bold;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+    height: 1em;
+    display: table-header-group;
+}
+
+.tableheader div {
+    display: table-cell;
+    margin-right: 2px;
+    padding: 2px 2px;
+}
+
+.table-row {
+    display: table-row-group;
+}
+
+.table-row .display-row {
+    height: 26px;
+    line-height: 26px;
+}
+
+.table-row .display-row,
+.table-row .edit-row {
+    display: table-row;
+}
+
+.table-row div {
+    margin-right: 2px;
+    padding: 1px 2px;
+}
+
+
+.table-row .edit-row .input-group select,
+.table-row .edit-row .input-group input {
+    width: inherit;
+}
+
+.table-row div {
+    display: table-cell;
+}
+
+.table-row div [name='price'] {
+    width: 150px;
+    padding: 1px 0px;
+}
+
+.table-row div [name='edit'],
+.table-row div [name='delete'],
+.table-row div [name='submit'],
+.table-row div [name='cancel'] {
+    text-align: center;
+    width: 50px;
+}
+
+.table-row div a {
+    color: #333333;
+    text-align: center;
+    width: 50px;
+}
+
+.table-row div a:hover {
+    cursor: pointer;
+}
+
+.table-grid {
+    display: table;
+    width: 100%;
+}
+
+#update-product-prices-panel {
+    margin: 10px;
+}
+
+.error-message {
+    display: block;
+    background-color: #FFBABA;
+    color: #D8000C;
+    margin: 10px;
+    padding: 5px;
+    border: #D8000C solid 1px;
+}
+
+.error-message .icon {
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.error-message .error-text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+
+.form-control.dropdown,
+.form-control.text {
+    display: inline-block;
+    max-width: 300px
+}
+
+.form-control.dropdown {
+    margin-left: 4px;
+}
+
+.form-create-price .form-group {
+    margin-bottom: 5px;
+}
+
+.product-sheet.container {
+    padding-top: 15px;
+    max-width: none;
+}
+
+.product-sheet-submit {
+    margin: 10px 0;
+}
+
+.handsontable table thead th {
+    white-space: pre-line;
+}
+
+table.htCore tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}

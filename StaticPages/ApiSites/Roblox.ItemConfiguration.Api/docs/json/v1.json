@@ -1,0 +1,1362 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "ItemConfiguration Api v1"
+    },
+    "host": "itemconfiguration.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v1/assets/{assetId}/get-selling-fee": {
+            "get": {
+                "tags": ["Release"],
+                "summary": "Gets the selling fee required to release the given asset",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.GetSellingFeeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "10: Missing/Null request parameters"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "500": {
+                        "description": "31: Failed to fetch selling fee"
+                    },
+                    "503": {
+                        "description": "17: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Release:GetSellingFee"]
+                }
+            }
+        },
+        "/v1/creations/get-assets": {
+            "get": {
+                "tags": ["Item"],
+                "summary": "Gets the user created asset information filtered by the given asset type",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetType",
+                    "in": "query",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "isArchived",
+                    "in": "query",
+                    "description": "",
+                    "required": false,
+                    "type": "boolean"
+                }, {
+                    "name": "groupId",
+                    "in": "query",
+                    "description": "",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ItemConfiguration.Api.AssetCreationsResponse]"
+                        }
+                    },
+                    "400": {
+                        "description": "5: Invalid assetType"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "7: User does not have necessary permissions for group\r\n8: Asset type does not have necessary permissions for group"
+                    },
+                    "429": {
+                        "description": "9: Flood Limit Exceeded"
+                    },
+                    "503": {
+                        "description": "6: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["Item:GetAssetCreationsByAssetType"]
+                }
+            }
+        },
+        "/v1/get-commission-rates": {
+            "get": {
+                "tags": ["Item"],
+                "summary": "Gets the commission rates related to assetTypes",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Roblox.ItemConfiguration.Api.CommissionRatesResponse"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "503": {
+                        "description": "6: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Item:GetCommissionRates"]
+                }
+            }
+        },
+        "/v1/item-tags": {
+            "get": {
+                "tags": ["ItemTags"],
+                "summary": "Gets all related item tags for each item id listed",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "itemIds",
+                    "in": "query",
+                    "description": "",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "collectionFormat": "csv"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.ItemConfiguration.Api.ItemWithTags]"
+                        }
+                    },
+                    "400": {
+                        "description": "1: No item tag Ids requested\r\n2: Too many item tag Ids requested\r\n3: Invalid item id\r\n6: Invalid item namespace"
+                    },
+                    "429": {
+                        "description": "7: Too many requests"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["ItemTags:MultiGetItemsWithTags"]
+                }
+            },
+            "post": {
+                "tags": ["ItemTags"],
+                "summary": "Creates a new item tag",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "request",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.CreateItemTagRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemTagDetails"
+                        }
+                    },
+                    "400": {
+                        "description": "3: Invalid item id\r\n4: Invalid tag id\r\n6: Invalid item namespace\r\n8: The given item is ineligible for item tags\r\n9: The given item has already reached its maximum item tag count"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n5: The current user is missing permissions for the endpoint"
+                    },
+                    "429": {
+                        "description": "7: Too many requests"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["ItemTags:CreateItemTag"]
+                }
+            }
+        },
+        "/v1/item-tags/metadata": {
+            "get": {
+                "tags": ["ItemTags"],
+                "summary": "Gets the metadata related to item tags",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemTagsMetadataResponse"
+                        }
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["ItemTags:ItemMetadata"]
+                }
+            }
+        },
+        "/v1/metadata": {
+            "get": {
+                "tags": ["Item"],
+                "summary": "Gets the metadata related to assets and bundles",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemMetadataResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Item:ItemMetadata"]
+                }
+            }
+        },
+        "/v1/tags": {
+            "get": {
+                "tags": ["Tags"],
+                "summary": "Gets the information for a list of tag Ids",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "tagIds",
+                    "in": "query",
+                    "description": "",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "collectionFormat": "csv"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.ItemConfiguration.Api.TagDetails]"
+                        }
+                    },
+                    "400": {
+                        "description": "1: No tag Ids requested\r\n2: Too many tag Ids requested"
+                    },
+                    "429": {
+                        "description": "3: Too many requests"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["Tags:MultiGetTags"]
+                }
+            }
+        },
+        "/v1/tags/prefix-search": {
+            "get": {
+                "tags": ["Tags"],
+                "summary": "Searches for up to {numberOfResults} tags based on the given {prefix}",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "prefix",
+                    "in": "query",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "numberOfResults",
+                    "in": "query",
+                    "description": "Must be 1, 5, 10, or 25",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int32"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.ItemConfiguration.Api.TagDetails]"
+                        }
+                    },
+                    "400": {
+                        "description": "5: The given prefix is invalid\r\n6: The number of results requested is invalid"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "4: This endpoint is not yet enabled for the current user"
+                    },
+                    "429": {
+                        "description": "3: Too many requests"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["Tags:PrefixTagSearch"]
+                }
+            }
+        },
+        "/v1/assets/{assetId}/release": {
+            "post": {
+                "tags": ["Release"],
+                "summary": "Release the asset with the given price",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "releaseAssetRequest",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ReleaseAssetRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "1: Asset price is too high\r\n2: Invalid asset Id\r\n8: User does not own the asset\r\n9: Asset price is too low\r\n10: Missing/Null request parameters\r\n27: Premium price not enabled for asset type\r\n28: Premium discount percentage is not one of the allowed values\r\n29: Pricing configuration combination is invalid\r\n30: Price is missing"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n3: Cannot release the associated asset type\r\n4: Cannot release asset that is pending review\r\n5: Asset is moderated\r\n6: Asset is released\r\n7: User does not have permission to release\r\n18: AssetType Cannot Be Free\r\n19: Asset is Free\r\n20: Cannot set the associated asset type to remove-from-release\r\n24: Cannot release asset that is pending validation\r\n25: Cannot release asset that contains invalid content\r\n26: User does not have permission for the group owned asset"
+                    },
+                    "429": {
+                        "description": "16: Flood Limit Exceeded"
+                    },
+                    "500": {
+                        "description": "31: Failed to fetch selling fee\r\n32: Failed to pay the associated fees"
+                    },
+                    "503": {
+                        "description": "17: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Release:ReleaseAsset"]
+                }
+            }
+        },
+        "/v1/assets/{assetId}/update": {
+            "post": {
+                "tags": ["Release"],
+                "summary": "Update parameters for the given asset",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "updateAssetRequest",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.UpdateAssetRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "2: Invalid asset Id\r\n8: User does not own the asset\r\n10: Missing/Null request parameters"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n3: Cannot release the associated asset type\r\n4: Cannot release asset that is pending review\r\n5: Asset is moderated\r\n7: User does not have permission to release\r\n26: User does not have permission for the group owned asset"
+                    },
+                    "429": {
+                        "description": "16: Flood Limit Exceeded"
+                    },
+                    "503": {
+                        "description": "17: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Release:Update"]
+                }
+            }
+        },
+        "/v1/assets/{assetId}/update-price": {
+            "post": {
+                "tags": ["Release"],
+                "summary": "Update the price for the given asset",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "updatePriceForAssetRequest",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.UpdatePriceForAssetRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "1: Asset price is too high\r\n2: Invalid asset Id\r\n8: User does not own the asset\r\n9: Asset price is too low\r\n10: Missing/Null request parameters\r\n27: Premium price not enabled for asset type\r\n28: Premium discount percentage is not one of the allowed values\r\n29: Pricing configuration combination is invalid\r\n30: Price is missing"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n3: Cannot release the associated asset type\r\n4: Cannot release asset that is pending review\r\n5: Asset is moderated\r\n7: User does not have permission to release\r\n26: User does not have permission for the group owned asset"
+                    },
+                    "429": {
+                        "description": "16: Flood Limit Exceeded"
+                    },
+                    "503": {
+                        "description": "17: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Release:UpdatePrice"]
+                }
+            }
+        },
+        "/v1/avatar-assets/{assetType}/get-upload-fee": {
+            "post": {
+                "tags": ["AvatarAssetsUpload"],
+                "summary": "Cheaply checking if the upload is guaranteed to fail and getting the price in Robux needed in order to do the upload",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetType",
+                    "in": "path",
+                    "description": "The asset type being uploaded",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Image", "TShirt", "Audio", "Mesh", "Lua", "HTML", "Text", "Hat", "Place", "Model", "Shirt", "Pants", "Decal", "Avatar", "Head", "Face", "Gear", "Badge", "GroupEmblem", "Animation", "Arms", "Legs", "Torso", "RightArm", "LeftArm", "LeftLeg", "RightLeg", "Package", "YouTubeVideo", "GamePass", "App", "Code", "Plugin", "SolidModel", "MeshPart", "HairAccessory", "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory", "BackAccessory", "WaistAccessory", "ClimbAnimation", "DeathAnimation", "FallAnimation", "IdleAnimation", "JumpAnimation", "RunAnimation", "SwimAnimation", "WalkAnimation", "PoseAnimation", "LocalizationTableManifest", "LocalizationTableTranslation", "EmoteAnimation", "Video", "TexturePack"]
+                }, {
+                    "name": "requestModel.files",
+                    "in": "formData",
+                    "required": false,
+                    "type": "file"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "If the upload would be successful without taking into account upload fees, then a response model is returned with the upload fee information",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.GetAvatarAssetUploadFeeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The given asset type is not allowed for upload through the given endpoint\r\n3: The given creator Id is invalid\r\n4: The given creator type is invalid\r\n5: No file was found with the request\r\n7: The uploaded file did not contain valid contents for the given asset type\r\n8: The uploaded file did not have a valid extension for the given asset type"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n9: The user does not have permission to upload"
+                    },
+                    "500": {
+                        "description": "10: There was a problem while trying to get the details for the upload fee\r\n13: There was a problem while trying to get the user's Robux balance"
+                    },
+                    "503": {
+                        "description": "1: The endpoint is unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["AvatarAssetsUpload:GetUploadFee"]
+                }
+            }
+        },
+        "/v1/avatar-assets/{assetType}/upload": {
+            "post": {
+                "tags": ["AvatarAssetsUpload"],
+                "summary": "Attempts to upload the new asset and charges any upload fees necessary in the process",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetType",
+                    "in": "path",
+                    "description": "The asset type being uploaded",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Image", "TShirt", "Audio", "Mesh", "Lua", "HTML", "Text", "Hat", "Place", "Model", "Shirt", "Pants", "Decal", "Avatar", "Head", "Face", "Gear", "Badge", "GroupEmblem", "Animation", "Arms", "Legs", "Torso", "RightArm", "LeftArm", "LeftLeg", "RightLeg", "Package", "YouTubeVideo", "GamePass", "App", "Code", "Plugin", "SolidModel", "MeshPart", "HairAccessory", "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory", "BackAccessory", "WaistAccessory", "ClimbAnimation", "DeathAnimation", "FallAnimation", "IdleAnimation", "JumpAnimation", "RunAnimation", "SwimAnimation", "WalkAnimation", "PoseAnimation", "LocalizationTableManifest", "LocalizationTableTranslation", "EmoteAnimation", "Video", "TexturePack"]
+                }, {
+                    "name": "requestModel.files",
+                    "in": "formData",
+                    "required": false,
+                    "type": "file"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "A model containing information about the amount of Robux paid and the new asset's Id",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.UploadAvatarAssetResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The given asset type is not allowed for upload through the given endpoint\r\n3: The given creator Id is invalid\r\n4: The given creator type is invalid\r\n5: No file was found with the request\r\n7: The uploaded file did not contain valid contents for the given asset type\r\n8: The uploaded file did not have a valid extension for the given asset type"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "402": {
+                        "description": "6: The creator does not have enough Robux to pay for the upload fees"
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n9: The user does not have permission to upload\r\n15: Captcha required"
+                    },
+                    "500": {
+                        "description": "10: There was a problem while trying to get the details for the upload fee\r\n11: There was a problem while trying to filter the name and description for the asset\r\n12: There was a problem while trying to upload the new asset"
+                    },
+                    "503": {
+                        "description": "1: The endpoint is unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["AvatarAssetsUpload:UploadAvatarAsset"]
+                }
+            }
+        },
+        "/v1/avatar-assets/{assetType}/upload-captcha-test": {
+            "post": {
+                "tags": ["AvatarAssetsUpload"],
+                "summary": "An endpoint to check if captcha is needed for an upload of the given asset type",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "assetType",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Image", "TShirt", "Audio", "Mesh", "Lua", "HTML", "Text", "Hat", "Place", "Model", "Shirt", "Pants", "Decal", "Avatar", "Head", "Face", "Gear", "Badge", "GroupEmblem", "Animation", "Arms", "Legs", "Torso", "RightArm", "LeftArm", "LeftLeg", "RightLeg", "Package", "YouTubeVideo", "GamePass", "App", "Code", "Plugin", "SolidModel", "MeshPart", "HairAccessory", "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory", "BackAccessory", "WaistAccessory", "ClimbAnimation", "DeathAnimation", "FallAnimation", "IdleAnimation", "JumpAnimation", "RunAnimation", "SwimAnimation", "WalkAnimation", "PoseAnimation", "LocalizationTableManifest", "LocalizationTableTranslation", "EmoteAnimation", "Video", "TexturePack"]
+                }, {
+                    "name": "groupId",
+                    "in": "query",
+                    "description": "",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "captchaTokenRequest",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Web.Captcha.Models.Request.CaptchaTokenRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AvatarAssetUploadCaptchaCheckResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["AvatarAssetsUpload:IsCaptchaNeeded"]
+                }
+            }
+        },
+        "/v1/creations/get-asset-details": {
+            "post": {
+                "tags": ["Item"],
+                "summary": "Gets the asset status and other configuration details for the given assetIds list",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "request",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AssetCreationsDetailsRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AssetCreationsDetailsResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "1: Missing AssetIds parameters\r\n2: Invalid asset Ids"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    },
+                    "414": {
+                        "description": "3: Too many asset Ids"
+                    },
+                    "429": {
+                        "description": "9: Flood Limit Exceeded"
+                    },
+                    "503": {
+                        "description": "6: Service Unavailable"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["Item:GetAssetDetails"]
+                }
+            }
+        },
+        "/v1/item-tags/{itemTagId}": {
+            "delete": {
+                "tags": ["ItemTags"],
+                "summary": "Deletes an item tag from an item",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "itemTagId",
+                    "in": "path",
+                    "description": "",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n5: The current user is missing permissions for the endpoint"
+                    },
+                    "429": {
+                        "description": "7: Too many requests"
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["ItemTags:DeleteItemTag"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Web.Captcha.Models.Request.CaptchaTokenRequest": {
+            "type": "object",
+            "properties": {
+                "captchaToken": {
+                    "type": "string"
+                },
+                "captchaProvider": {
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AvatarAssetUploadCaptchaCheckResponse": {
+            "description": "The response model for checking if captcha is needed for uploading an avatar asset",
+            "type": "object",
+            "properties": {
+                "success": {
+                    "description": "Whether the check was successful",
+                    "type": "boolean"
+                },
+                "message": {
+                    "description": "The message field for running the captcha prompt on the client",
+                    "type": "string"
+                },
+                "fieldData": {
+                    "description": "An arbitrary string of field data for use with the given captcha provider",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.GetAvatarAssetUploadFeeRequest": {
+            "description": "Defines the request model for getting the upload fee for creating an avatar asset",
+            "type": "object",
+            "properties": {
+                "files": {
+                    "description": "The actual file being uploaded",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Roblox.Web.WebApi.FormData.IUploadedFile"
+                    },
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Web.WebApi.FormData.IUploadedFile": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "Stream": {
+                    "$ref": "#/definitions/System.IO.Stream",
+                    "readOnly": true
+                },
+                "ContentEncoding": {
+                    "enum": ["None", "GZip", "Deflate"],
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "System.IO.Stream": {
+            "type": "object",
+            "properties": {
+                "CanRead": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "CanSeek": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "CanTimeout": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "CanWrite": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "Length": {
+                    "format": "int64",
+                    "type": "integer",
+                    "readOnly": true
+                },
+                "Position": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "ReadTimeout": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "WriteTimeout": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.GetAvatarAssetUploadFeeResponse": {
+            "description": "Defines the response model for the v1/avatar-assets/{assetType}/get-upload-fee endpoint",
+            "type": "object",
+            "properties": {
+                "price": {
+                    "format": "int64",
+                    "description": "Gets the price in Robux required to be paid in order to upload",
+                    "type": "integer"
+                },
+                "canAfford": {
+                    "description": "Indicates whether the creator can afford the upload price",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.UploadAvatarAssetRequest": {
+            "description": "Defines the request model for uploading a new avatar asset",
+            "type": "object",
+            "properties": {
+                "files": {
+                    "description": "The actual file being uploaded",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Roblox.Web.WebApi.FormData.IUploadedFile"
+                    },
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.UploadAvatarAssetResponse": {
+            "description": "Defines the response model for the v1/avatar-assets/{assetType}/upload endpoint",
+            "type": "object",
+            "properties": {
+                "robuxAmountPaid": {
+                    "format": "int64",
+                    "description": "Gets the amount of Robux paid as an upload fee",
+                    "type": "integer"
+                },
+                "assetId": {
+                    "format": "int64",
+                    "description": "Gets the new asset's Id",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ItemMetadataResponse": {
+            "description": "Item related metadata response model",
+            "type": "object",
+            "properties": {
+                "allowedAssetTypeForUpload": {
+                    "description": "Gets Dictionary of all allowed assetTypes that can be uploaded, along with the relevant upload related metadata",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AllowedAssetTypeForUploadMetadata"
+                    }
+                },
+                "allowedAssetTypesForRelease": {
+                    "description": "Gets Dictionary of all allowed assetTypes that can be released, along with the relevant release related metadata",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AllowedAssetTypeForReleaseMetadata"
+                    }
+                },
+                "allowedAssetTypesForFree": {
+                    "description": "Gets Array of all allowed assetTypes that can be free",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "allowedAssetTypesForSaleAvailabilityLocations": {
+                    "description": "Gets Array of all allowed assetTypes that have the custom sale availability locations feature enabled",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AllowedAssetTypeForUploadMetadata": {
+            "type": "object",
+            "properties": {
+                "allowedFileExtensions": {
+                    "description": "List of string specifiying allowed file extentions for upload",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AllowedAssetTypeForReleaseMetadata": {
+            "type": "object",
+            "properties": {
+                "allowedPriceRange": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AllowedPriceRange",
+                    "description": "Allowed Price Range for release"
+                },
+                "marketplaceFeesPercentage": {
+                    "format": "int32",
+                    "description": "Commission fees percentage for marketplace",
+                    "type": "integer"
+                },
+                "premiumPricing": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AllowedPremiumPricingMetadata",
+                    "description": "The rules for premium pricing"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AllowedPriceRange": {
+            "type": "object",
+            "properties": {
+                "minRobux": {
+                    "format": "int64",
+                    "description": "Minimum price in Robux to release the asset",
+                    "type": "integer"
+                },
+                "maxRobux": {
+                    "format": "int64",
+                    "description": "Maximum price in Robux to release the asset",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AllowedPremiumPricingMetadata": {
+            "description": "Defines the metadata for reading about allowed premium pricing rules",
+            "type": "object",
+            "properties": {
+                "allowedDiscountPercentages": {
+                    "description": "The allowed discount percentages for a Premium discount",
+                    "type": "array",
+                    "items": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "allowedPriceRange": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AllowedPriceRange",
+                    "description": "The allowed price range for Premium-only pricing"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.CommissionRatesResponse": {
+            "type": "object",
+            "properties": {
+                "itemTypeDetails": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemTypeDetails"
+                },
+                "commissionRates": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.CommissionRatesModel"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ItemTypeDetails": {
+            "type": "object",
+            "properties": {
+                "itemType": {
+                    "enum": ["Undefined", "Asset"],
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.CommissionRatesModel": {
+            "type": "object",
+            "properties": {
+                "marketplaceFeesPercentage": {
+                    "format": "int32",
+                    "description": "Commission fees percentage for marketplace",
+                    "type": "integer"
+                },
+                "creatorFeesPercentage": {
+                    "format": "int32",
+                    "description": "Commission fees percentage for creators",
+                    "type": "integer"
+                },
+                "affiliateFeesPercentage": {
+                    "format": "int32",
+                    "description": "Commission fees percentage for Affiliate",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AssetCreationsDetailsRequest": {
+            "type": "object",
+            "properties": {
+                "assetIds": {
+                    "type": "array",
+                    "items": {
+                        "format": "int64",
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AssetCreationsDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "assetId": {
+                    "format": "int64",
+                    "description": "The asset Id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "The asset name",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "The asset status",
+                    "enum": ["Unknown", "ReviewPending", "Moderated", "ReviewApproved", "OnSale", "OffSale", "DelayedRelease", "Free"],
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The asset description",
+                    "type": "string"
+                },
+                "creatorType": {
+                    "description": "The creator type",
+                    "enum": ["Unknown", "User", "Group"],
+                    "type": "string"
+                },
+                "creatorTargetId": {
+                    "format": "int64",
+                    "description": "The creator target Id",
+                    "type": "integer"
+                },
+                "price": {
+                    "format": "int64",
+                    "description": "The Price for onSale asset\r\nNote: This is now considered deprecated in favor of PriceConfiguration",
+                    "type": "integer"
+                },
+                "priceConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.PriceConfigurationModel",
+                    "description": "Gets or sets the price configuration for the asset"
+                },
+                "isArchived": {
+                    "description": "Is the asset archived",
+                    "type": "boolean"
+                },
+                "assetType": {
+                    "description": "Type of the asset",
+                    "type": "string"
+                },
+                "releaseConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ReleaseConfigurationResponseModel",
+                    "description": "Gets or sets the release configuration for the asset"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.PriceConfigurationModel": {
+            "description": "Defines the configuration options for an items price",
+            "type": "object",
+            "properties": {
+                "priceInRobux": {
+                    "format": "int64",
+                    "description": "Gets or sets the standard price of the item in Robux",
+                    "type": "integer"
+                },
+                "premiumDiscountPercentage": {
+                    "format": "int32",
+                    "description": "Gets or sets the discount rate on the price of the item that is given to premium users\r\nShould not be used while applying a PremiumPriceInRobux",
+                    "type": "integer"
+                },
+                "premiumPriceInRobux": {
+                    "format": "int64",
+                    "description": "Gets or sets the price of the item in Robux that applies only to premium users\r\nShould not be used while applying a PremiumDiscountPercentage",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ReleaseConfigurationResponseModel": {
+            "description": "Defines the configuration options associated with releasing an item",
+            "type": "object",
+            "properties": {
+                "saleAvailabilityLocations": {
+                    "description": "Get or sets the sale availability locations list",
+                    "type": "array",
+                    "items": {
+                        "enum": ["Undefined", "Catalog", "AllUniverses", "MyUniverses"],
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.Paging.StartIndexCursor": {
+            "type": "object",
+            "properties": {
+                "startIndex": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "discriminator": {
+                    "type": "string"
+                },
+                "count": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ItemConfiguration.Api.AssetCreationsResponse]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.AssetCreationsResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.AssetCreationsResponse": {
+            "description": "Asset Status response model",
+            "type": "object",
+            "properties": {
+                "assetId": {
+                    "format": "int64",
+                    "description": "The asset Id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "The asset name",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.ItemConfiguration.Api.ItemWithTags]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemWithTags"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ItemWithTags": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Gets or sets the item id",
+                    "type": "string"
+                },
+                "itemTags": {
+                    "description": "Gets or sets the item tag details related to this item",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ItemTagDetails"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ItemTagDetails": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Gets or sets the item tag id",
+                    "type": "string"
+                },
+                "tag": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.TagDetails",
+                    "description": "Gets or sets the tag details related to this item tag"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.TagDetails": {
+            "description": "The tag model for any tag-related gets",
+            "type": "object",
+            "properties": {
+                "tagId": {
+                    "description": "Gets or sets the tag Id",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Gets or sets the name of the tag",
+                    "type": "string"
+                },
+                "localizedDisplayName": {
+                    "description": "Gets or sets the localized display name of the tag",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Gets or sets the status for the fetch of this tag",
+                    "enum": ["Success", "MissingItem"],
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.CreateItemTagRequest": {
+            "description": "Request model to add a tag to an item",
+            "type": "object",
+            "properties": {
+                "itemId": {
+                    "description": "Gets or sets the item Id",
+                    "type": "string"
+                },
+                "tagId": {
+                    "description": "Gets or sets the tag Id",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.ItemConfiguration.Api.ItemTagsMetadataResponse": {
+            "description": "Item-tags related metadata response model",
+            "type": "object",
+            "properties": {
+                "isItemTagsFeatureEnabled": {
+                    "description": "Gets or sets a value indicating whether the item tags feature is enabled",
+                    "type": "boolean"
+                },
+                "enabledAssetTypes": {
+                    "description": "Gets or sets the asset types where item tagging is enabled.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "maximumItemTagsPerItem": {
+                    "format": "int32",
+                    "description": "Gets or sets the maximum item tags per item limit",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.GetSellingFeeResponse": {
+            "description": "Defines the response model for the /v1/assets/{assetId}/get-selling-fee endpoint",
+            "type": "object",
+            "properties": {
+                "price": {
+                    "format": "int64",
+                    "description": "Gets the price in Robux required to be paid in order to upload",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ReleaseAssetRequest": {
+            "description": "Request Model to release an asset",
+            "type": "object",
+            "properties": {
+                "price": {
+                    "format": "int64",
+                    "description": "Sets Price associated with the asset before releasing it\r\nNote: This is now considered deprecated in favor of PriceConfiguration",
+                    "type": "integer"
+                },
+                "priceConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.PriceConfigurationModel",
+                    "description": "Gets or sets the price configuration associated with the asset before releasing it"
+                },
+                "saleStatus": {
+                    "description": "Sets New Sale status for the associated asset",
+                    "enum": ["OnSale", "OffSale", "Free"],
+                    "type": "string"
+                },
+                "releaseConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ReleaseConfigurationRequestModel",
+                    "description": "Gets or sets the release configuration associated with the asset before releasing it"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.ReleaseConfigurationRequestModel": {
+            "description": "Defines the configuration options for an items price",
+            "type": "object",
+            "properties": {
+                "saleAvailabilityLocations": {
+                    "description": "Get or sets the sale availability locations list",
+                    "type": "array",
+                    "items": {
+                        "enum": ["Catalog", "AllUniverses", "MyUniverses"],
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.UpdatePriceForAssetRequest": {
+            "type": "object",
+            "properties": {
+                "price": {
+                    "format": "int64",
+                    "description": "Sets Price associated with the asset before releasing it\r\nNote: This is now considered deprecated in favor of PriceConfiguration",
+                    "type": "integer"
+                },
+                "priceConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.PriceConfigurationModel",
+                    "description": "Gets or sets the price configuration associated with the asset before releasing it"
+                }
+            }
+        },
+        "Roblox.ItemConfiguration.Api.UpdateAssetRequest": {
+            "type": "object",
+            "properties": {
+                "releaseConfiguration": {
+                    "$ref": "#/definitions/Roblox.ItemConfiguration.Api.ReleaseConfigurationRequestModel"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.ItemConfiguration.Api.TagDetails]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.ItemConfiguration.Api.TagDetails"
+                    }
+                }
+            }
+        }
+    }
+}

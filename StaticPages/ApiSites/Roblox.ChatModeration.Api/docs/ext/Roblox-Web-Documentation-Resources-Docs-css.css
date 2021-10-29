@@ -1,0 +1,96 @@
+﻿/* Hide Swagger stuff */
+#api_info, .footer {
+    display: none;
+}
+
+/* Add some padding to the top of the page */
+body {
+    padding-top: 10px;
+}
+
+/* copied from api_info CSS */
+#doc_info {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 1;
+    font-family: "Droid Sans", sans-serif;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Custom CSS */
+.swagger-section #message-bar {
+    background-color: #e5effa;
+    border: 1px solid #06C;
+    padding: 5px 10px;
+    min-height: 18px;
+}
+
+.swagger-section #message-bar:empty,
+#version-selector.hidden {
+    display: none;
+}
+
+#Description {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* allows new lines on:
+    - HTTP response messages 'reason'
+    - Deprecation warning text
+*/
+.endpoint .operations .response-messages td.markdown,
+.operations .operation .deprecation-text {
+    white-space: pre;
+}
+
+.swagger-section.show-warning #doc-warning {
+    display: flex;
+    min-height: 60px;
+}
+
+.swagger-section.show-warning #doc_info {
+    margin-top: 60px;
+}
+
+#doc-warning {
+    display: none;
+    min-height: 0px;
+    position: fixed;
+    max-width: 960px;
+    flex-direction: column;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    min-height: 60px;
+    font-family: "Droid Sans", sans-serif;
+    background-color: #ffdddd;
+    border: 1px solid #ee9999;
+    color: #8f1d1d;
+    box-sizing: border-box;
+}
+
+#doc-warning .warning-description,
+#doc-warning .warning-safety-link {
+    margin: auto;
+}
+
+#doc-warning .warning-safety-link a {
+    color: #8f1d1d;
+    font-weight: 700;
+}
+
+#doc-warning .warning-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 32px;
+    width: 32px;
+    font-size: 32px;
+    text-align: center;
+    cursor: pointer;
+}

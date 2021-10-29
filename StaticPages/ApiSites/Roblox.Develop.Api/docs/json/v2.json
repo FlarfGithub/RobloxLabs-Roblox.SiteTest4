@@ -1,0 +1,1303 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v2",
+        "title": "Develop Api v2"
+    },
+    "host": "develop.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v2/assets/{id}/versions": {
+            "get": {
+                "tags": ["Assets"],
+                "summary": "Retrieves asset information for the specified asset ID. The authenticated user must be able to manage the asset \r\nor granted by package permission.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "The ID of the asset.{Roblox.IAsset}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "Roblox-Place-Id",
+                    "in": "header",
+                    "description": "The ID of the place.{Roblox.Platform.Assets.IPlace}",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "Sort by version number, default is desc.",
+                    "required": false,
+                    "type": "string",
+                    "default": "Desc",
+                    "enum": ["Asc", "Desc"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.AssetVersion]"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["AssetsV2:GetAssetVersionsByAssetIdAndPlaceIdAsync"]
+                }
+            }
+        },
+        "/v2/places/{placeId}": {
+            "get": {
+                "tags": ["Places"],
+                "summary": "Gets the place configuration for the place with the id {placeId}",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "placeId",
+                    "in": "path",
+                    "description": "The place id for the place to be updated.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.PlaceModelV2"
+                        }
+                    },
+                    "403": {
+                        "description": "Authenticated user is not authorized to manage this place."
+                    },
+                    "404": {
+                        "description": "{placeId} Place not found."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["PlacesV2:GetPlaceConfiguration"]
+                }
+            },
+            "patch": {
+                "tags": ["Places"],
+                "summary": "Updates the place configuration for the place with the id {placeId}",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "placeId",
+                    "in": "path",
+                    "description": "The place id for the place to be updated.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "configuration",
+                    "in": "body",
+                    "description": "",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.Models.PlaceConfigurationModelV2"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.PlaceModelV2"
+                        }
+                    },
+                    "403": {
+                        "description": "Authenticated user is not authorized to manage this place.\r\n0: Token Validation Failed"
+                    },
+                    "404": {
+                        "description": "{placeId} Place not found."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["PlacesV2:UpdatePlaceConfiguration"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/configuration": {
+            "get": {
+                "tags": ["UniverseSettings"],
+                "summary": "Get settings for an owned universe. \r\nV2 Contains data for avatar scale and asset override.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "The universe Id.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniverseSettingsResponseV2"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The universe does not exist."
+                    },
+                    "403": {
+                        "description": "2: You are not authorized to configure this universe."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["UniverseSettings:GetUniverseSettingsV2Async"]
+                }
+            },
+            "patch": {
+                "tags": ["UniverseSettings"],
+                "summary": "Update universe settings for an owned universe.\r\nV2 Contains data for avatar scale and asset override.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "The universeId.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "model",
+                    "in": "body",
+                    "description": "The {Roblox.Api.Develop.Models.UniverseSettingsRequest} model.",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.Models.UniverseSettingsRequestV2"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniverseSettingsResponseV2"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The universe does not exist.\r\n3: Invalid UniverseAvatarType.\r\n4: Invalid UniverseScaleType.\r\n5: Invalid UniverseAnimationType.\r\n6: Invalid UniverseCollisionType.\r\n7: New universe name or description has been rejected.\r\n8: New universe name is too long.\r\n10: Invalid UniverseBodyType.\r\n11: Invalid UniverseJointPositioningType.\r\n12: The universe has no root place.\r\n13: At least one playable device must be provided.\r\n15: Price is required when isForSale is true.\r\n16: This game cannot be offered for sale because it is not public.\r\n17: This game cannot be offered for sale because it has private servers enabled.\r\n18: The game price is outside of the allowed range.\r\n19: Invalid genre.\r\n20: The request body is missing.\r\n21: Invalid device type.\r\n22: Invalid asset type.\r\n23: Invalid value, the min must be less than or equal to the max\r\n24: Invalid scale value"
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n2: You are not authorized to configure this universe.\r\n14: You are not authorized to sell games."
+                    },
+                    "409": {
+                        "description": "9: Failed to shutdown all intances of game after changing AvatarType. The change has been reverted."
+                    }
+                },
+                "properties": {
+                    "internal": false,
+                    "metricIds": ["UniverseSettings:UpdateUniverseSettingsV2Async"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/permissions": {
+            "get": {
+                "tags": ["Permissions"],
+                "summary": "Get all permissions for a universe.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[System.Collections.Generic.IDictionary[System.String,System.String]]"
+                        }
+                    },
+                    "400": {
+                        "description": "5: Invalid resource ID."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "15: The user is not authorized to perform this action."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:GetPermissionsForUniverse"]
+                }
+            },
+            "post": {
+                "tags": ["Permissions"],
+                "summary": "Create one or more new permissions towards a universe.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "permissions",
+                    "in": "body",
+                    "description": "Array of {Roblox.Api.Develop.Models.UniversePermissionModel}.",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePermissionModel"
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The request body is missing.\r\n3: The resource type is missing.\r\n5: Invalid resource ID.\r\n8: The action is missing.\r\n9: The subject type is missing.\r\n10: Invalid subject type.\r\n11: The subject ID is missing.\r\n12: Invalid subject ID."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    },
+                    "409": {
+                        "description": "13: The permission already exists."
+                    },
+                    "503": {
+                        "description": "1: PermissionResolution service exception."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:AddUniversePermissionsAsync"]
+                }
+            },
+            "delete": {
+                "tags": ["Permissions"],
+                "summary": "Remove one or more permissions towards a universe.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "permissions",
+                    "in": "body",
+                    "description": "Array of {Roblox.Api.Develop.Models.UniversePermissionModel}.",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePermissionModel"
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The request body is missing.\r\n2: The request body is missing.\r\n3: The resource type is missing.\r\n4: The resource ID is missing.\r\n5: Invalid resource ID.\r\n8: The action is missing.\r\n9: The subject type is missing.\r\n10: Invalid subject type.\r\n11: The subject ID is missing."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed"
+                    },
+                    "404": {
+                        "description": "14: The permission doesn't exist."
+                    },
+                    "503": {
+                        "description": "1: PermissionResolution service exception."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:RemoveUniversePermissionsAsync"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/places": {
+            "get": {
+                "tags": ["Universes"],
+                "summary": "Gets a page of places for a universe sorted by name.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "The universe id.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "extendedSettings",
+                    "in": "query",
+                    "description": "If additional settings should be returned including current version and instance constraints",
+                    "required": false,
+                    "type": "boolean"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "Sorted by place name",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.Models.IPlaceModel]"
+                        }
+                    },
+                    "400": {
+                        "description": "1: The universe does not exist."
+                    },
+                    "404": {
+                        "description": "1: The universe does not exist."
+                    },
+                    "500": {
+                        "description": "0: Unknown error."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["UniversesV2:GetUniversePlacesPagedSortedByName"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/symbolic-links": {
+            "get": {
+                "tags": ["Packages"],
+                "summary": "Gets all packages existing for the places in a specified universe, sorted by Name and ID",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "The id of the universe.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "Sorted by the names and ids of the packages.",
+                    "required": false,
+                    "type": "string",
+                    "default": "Asc",
+                    "enum": ["Asc", "Desc"]
+                }, {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "The amount of results per request.",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 10,
+                    "enum": [10, 25, 50, 100]
+                }, {
+                    "name": "cursor",
+                    "in": "query",
+                    "description": "The paging cursor for the previous or next page.",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.Models.ISymbolicLink]"
+                        }
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "11: Authenticated user does not have read permissions or UseView package permission."
+                    },
+                    "404": {
+                        "description": "9: Game does not exist."
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Use GET /v1/universes/{universeId}/packages instead",
+                    "metricIds": ["PackagesV2:GetSymbolicLinksForUniverseOrderByNameAndIdAsync"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/users-have-permission/{permissionAction}": {
+            "get": {
+                "tags": ["Permissions"],
+                "summary": "Retrieve specified permissions on the universe resource if one exists.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "permissionAction",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "userIds",
+                    "in": "query",
+                    "description": "Id of {!:IUser}",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "collectionFormat": "csv"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Api.Develop.Models.UserHasPermissionResponse]"
+                        }
+                    },
+                    "400": {
+                        "description": "5: Invalid resource ID.\r\n8: The action is missing.\r\n12: Invalid subject ID.\r\n16: The maximum number of permission checks has been exceeded."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:UsersHaveUniversePermissionAsync"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/permissions_batched": {
+            "post": {
+                "tags": ["Permissions"],
+                "summary": "Create one or more new permissions towards a universe.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "permissions",
+                    "in": "body",
+                    "description": "Array of {Roblox.Api.Develop.Models.UniversePermissionModel}.",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePermissionModel"
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[System.Int32]"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The request body is missing.\r\n3: The resource type is missing.\r\n5: Invalid resource ID.\r\n8: The action is missing.\r\n9: The subject type is missing.\r\n10: Invalid subject type.\r\n11: The subject ID is missing.\r\n12: Invalid subject ID."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n15: The user is not authorized to perform this action."
+                    },
+                    "409": {
+                        "description": "13: The permission already exists."
+                    },
+                    "503": {
+                        "description": "1: PermissionResolution service exception."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:AddUniversePermissionsBatchedAsync"]
+                }
+            },
+            "delete": {
+                "tags": ["Permissions"],
+                "summary": "Remove one or more permissions towards a universe.",
+                "consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "Id of {Roblox.Platform.Universes.IUniverse}",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "permissions",
+                    "in": "body",
+                    "description": "Array of {Roblox.Api.Develop.Models.UniversePermissionModel}.",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePermissionModel"
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[System.Int32]"
+                        }
+                    },
+                    "400": {
+                        "description": "2: The request body is missing.\r\n2: The request body is missing.\r\n3: The resource type is missing.\r\n4: The resource ID is missing.\r\n5: Invalid resource ID.\r\n8: The action is missing.\r\n9: The subject type is missing.\r\n10: Invalid subject type.\r\n11: The subject ID is missing."
+                    },
+                    "401": {
+                        "description": "0: Authorization has been denied for this request."
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n15: The user is not authorized to perform this action."
+                    },
+                    "404": {
+                        "description": "14: The permission doesn't exist."
+                    },
+                    "503": {
+                        "description": "1: PermissionResolution service exception."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["Permissions:RemoveUniversePermissionsBatchedAsync"]
+                }
+            }
+        },
+        "/v2/universes/{universeId}/shutdown": {
+            "post": {
+                "tags": ["Universes"],
+                "summary": "Shuts down all game instances for a universe.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "universeId",
+                    "in": "path",
+                    "description": "The universe id.",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+                        }
+                    },
+                    "403": {
+                        "description": "0: Token Validation Failed\r\n3: You are not authorized to configure this universe."
+                    },
+                    "404": {
+                        "description": "1: The universe does not exist."
+                    },
+                    "500": {
+                        "description": "0: Unknown error."
+                    }
+                },
+                "properties": {
+                    "internal": true,
+                    "metricIds": ["UniversesV2:ShutdownAllGameInstances"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Web.WebAPI.ExclusiveStartRequest[System.String]": {
+            "type": "object",
+            "properties": {
+                "ExclusiveStartKeyInfo": {
+                    "$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.String]",
+                    "readOnly": true
+                },
+                "CursorRecipe": {
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.String]": {
+            "type": "object",
+            "properties": {
+                "SortOrder": {
+                    "enum": ["Asc", "Desc"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "PagingDirection": {
+                    "enum": ["Forward", "Backward"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "Count": {
+                    "format": "int32",
+                    "type": "integer",
+                    "readOnly": true
+                }
+            }
+        },
+        "System.Threading.CancellationToken": {
+            "type": "object",
+            "properties": {
+                "IsCancellationRequested": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "CanBeCanceled": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "WaitHandle": {
+                    "$ref": "#/definitions/System.Threading.WaitHandle",
+                    "readOnly": true
+                }
+            }
+        },
+        "System.Threading.WaitHandle": {
+            "type": "object",
+            "properties": {
+                "Handle": {
+                    "type": "object"
+                },
+                "SafeWaitHandle": {
+                    "$ref": "#/definitions/Microsoft.Win32.SafeHandles.SafeWaitHandle"
+                }
+            }
+        },
+        "Microsoft.Win32.SafeHandles.SafeWaitHandle": {
+            "type": "object",
+            "properties": {
+                "IsInvalid": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "IsClosed": {
+                    "type": "boolean",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.AssetVersion]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.AssetVersion"
+                    }
+                }
+            }
+        },
+        "Roblox.Api.Develop.AssetVersion": {
+            "description": "Model of an asset version.",
+            "type": "object",
+            "properties": {
+                "assetId": {
+                    "format": "int64",
+                    "description": "The ID of the asset.",
+                    "type": "integer"
+                },
+                "assetVersionNumber": {
+                    "format": "int32",
+                    "description": "The version number.",
+                    "type": "integer"
+                },
+                "creatorType": {
+                    "description": "Type of the asset version creator.",
+                    "type": "string"
+                },
+                "creatorTargetId": {
+                    "format": "int64",
+                    "description": "ID of the asset version creator.",
+                    "type": "integer"
+                },
+                "creatingUniverseId": {
+                    "format": "int64",
+                    "description": "ID of the universe this asset version was created in.",
+                    "type": "integer"
+                },
+                "created": {
+                    "format": "date-time",
+                    "description": "The created date of this asset version.",
+                    "type": "string"
+                },
+                "isEqualToCurrentPublishedVersion": {
+                    "description": "Indicates if this version is same to current published version.\r\nThis property is available on /v1/{assetId}/published-versions and /v1/{assetId}/version/{versionNumber}.",
+                    "type": "boolean"
+                },
+                "isPublished": {
+                    "description": "Indicates if this version is / was published.\r\nThis property is available on /v1/{assetId}/saved-versions.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.Models.ISymbolicLink]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.Models.ISymbolicLink"
+                    }
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.ISymbolicLink": {
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.Api.Develop.Models.UserHasPermissionResponse]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.Models.UserHasPermissionResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.UserHasPermissionResponse": {
+            "description": "Representation of user permission check.",
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "userHasPermission": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.UniversePermissionModel": {
+            "type": "object",
+            "properties": {
+                "Action": {
+                    "description": "Gets or sets the permitted action, such as 'EDIT' or 'VIEW.'",
+                    "type": "string"
+                },
+                "SubjectType": {
+                    "description": "Gets or sets the type of the subject, such as 'User' or 'Group.'",
+                    "enum": ["User", "Group", "Roleset"],
+                    "type": "string"
+                },
+                "SubjectId": {
+                    "description": "Gets or sets the ID of the subject.",
+                    "type": "string"
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+            "type": "object",
+            "properties": {}
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[System.Collections.Generic.IDictionary[System.String,System.String]]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiArrayResponse[System.Int32]": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.PlaceModelV2": {
+            "description": "A model containing information about a place",
+            "type": "object",
+            "properties": {
+                "maxPlayerCount": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "socialSlotType": {
+                    "type": "string"
+                },
+                "customSocialSlotsCount": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "allowCopying": {
+                    "type": "boolean"
+                },
+                "currentSavedVersion": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "id": {
+                    "format": "int64",
+                    "description": "Returns the place id.",
+                    "type": "integer"
+                },
+                "universeId": {
+                    "format": "int64",
+                    "description": "Returns the id of the place's universe, or null - if the place is not part of a universe.",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Returns the place name.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Returns the place description.",
+                    "type": "string"
+                },
+                "isRootPlace": {
+                    "description": "Returns whether this place is the root place.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.PlaceConfigurationModelV2": {
+            "description": "A model containing information about a place to be configured",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "maxPlayerCount": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "socialSlotType": {
+                    "type": "string"
+                },
+                "customSocialSlotsCount": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "allowCopying": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.UniverseSettingsResponseV2": {
+            "description": "Model for UniverseSettings controller responses",
+            "type": "object",
+            "properties": {
+                "allowPrivateServers": {
+                    "type": "boolean"
+                },
+                "privateServerPrice": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "id": {
+                    "format": "int64",
+                    "description": "The universe Id.",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "The universe name.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The universe description.",
+                    "type": "string"
+                },
+                "universeAvatarType": {
+                    "description": "Which avatar types are allowed in the universe.",
+                    "enum": ["MorphToR6", "PlayerChoice", "MorphToR15"],
+                    "type": "string"
+                },
+                "universeAnimationType": {
+                    "description": "Whether custom animations are allowed in the universe.",
+                    "enum": ["Standard", "PlayerChoice"],
+                    "type": "string"
+                },
+                "universeCollisionType": {
+                    "description": "What type of collisions are used by the universe.",
+                    "enum": ["InnerBox", "OuterBox"],
+                    "type": "string"
+                },
+                "universeJointPositioningType": {
+                    "description": "What avatar joint positioning is allowed by the universe.",
+                    "enum": ["Standard", "ArtistIntent"],
+                    "type": "string"
+                },
+                "isArchived": {
+                    "description": "Archive status of the universe",
+                    "type": "boolean"
+                },
+                "isFriendsOnly": {
+                    "description": "Whether game access is limited to friends for user-owned games or group members for group-owned games.",
+                    "type": "boolean"
+                },
+                "genre": {
+                    "description": "Game genre.",
+                    "enum": ["All", "Tutorial", "Scary", "TownAndCity", "War", "Funny", "Fantasy", "Adventure", "SciFi", "Pirate", "FPS", "RPG", "Sports", "Ninja", "WildWest"],
+                    "type": "string"
+                },
+                "playableDevices": {
+                    "description": "List of device types this game can be played on.",
+                    "type": "array",
+                    "items": {
+                        "enum": ["Computer", "Phone", "Tablet", "Console"],
+                        "type": "string"
+                    }
+                },
+                "isForSale": {
+                    "description": "Whether the game is offered for sale.",
+                    "type": "boolean"
+                },
+                "price": {
+                    "format": "int64",
+                    "description": "Price of the game, in Robux.",
+                    "type": "integer"
+                },
+                "universeAvatarAssetOverrides": {
+                    "description": "A collection of avatar asset settings allowed by the universe.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Platform.UniverseSettings.UniverseAvatarAssetOverrideResponseModel"
+                    }
+                },
+                "universeAvatarMinScales": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Avatar.ScaleModel",
+                    "description": "A collection of minimum scales for the universe's avatars."
+                },
+                "universeAvatarMaxScales": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Avatar.ScaleModel",
+                    "description": "A collection of maximum scales for the universe's avatars."
+                },
+                "studioAccessToApisAllowed": {
+                    "description": "Whether Studio can access data stores of this universe.",
+                    "type": "boolean"
+                },
+                "permissions": {
+                    "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePluginPermissions",
+                    "description": "Plugin permissions for third party.\r\nCurrently, this is a part of configuration, but will be separated into permission system in the future."
+                }
+            }
+        },
+        "Roblox.Platform.UniverseSettings.UniverseAvatarAssetOverrideResponseModel": {
+            "type": "object",
+            "properties": {
+                "assetID": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "assetTypeID": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "isPlayerChoice": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Web.Responses.Avatar.ScaleModel": {
+            "type": "object",
+            "properties": {
+                "height": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "width": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "head": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "depth": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "proportion": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "bodyType": {
+                    "format": "double",
+                    "type": "number"
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.UniversePluginPermissions": {
+            "description": "Plugin permissions for third party.\r\nCurrently, this is a part of configuration, but will be separated into permission system in the future.",
+            "type": "object",
+            "properties": {
+                "IsThirdPartyTeleportAllowed": {
+                    "description": "Indicates if it allows game server to teleport to other games out of your universe.",
+                    "type": "boolean"
+                },
+                "IsThirdPartyAssetAllowed": {
+                    "description": "Indicates if it allows players to purchase items not created by you.",
+                    "type": "boolean"
+                },
+                "IsThirdPartyPurchaseAllowed": {
+                    "description": "Indicates if it allows script execution or insertion of models not under your control.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.UniverseSettingsRequestV2": {
+            "description": "Model for UniverseSettings patch requests",
+            "type": "object",
+            "properties": {
+                "allowPrivateServers": {
+                    "type": "boolean"
+                },
+                "privateServerPrice": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "The name of the universe.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description of the universe.",
+                    "type": "string"
+                },
+                "universeAvatarType": {
+                    "description": "Which avatar types are allowed in the universe.",
+                    "enum": ["MorphToR6", "PlayerChoice", "MorphToR15"],
+                    "type": "string"
+                },
+                "universeAnimationType": {
+                    "description": "Whether custom animations are allowed in the universe.",
+                    "enum": ["Standard", "PlayerChoice"],
+                    "type": "string"
+                },
+                "universeCollisionType": {
+                    "description": "What type of collisions are used by the universe.",
+                    "enum": ["InnerBox", "OuterBox"],
+                    "type": "string"
+                },
+                "universeJointPositioningType": {
+                    "description": "What avatar joint positioning type is allowed by the universe.",
+                    "enum": ["Standard", "ArtistIntent"],
+                    "type": "string"
+                },
+                "isArchived": {
+                    "description": "Archive status of the universe.",
+                    "type": "boolean"
+                },
+                "isFriendsOnly": {
+                    "description": "Whether game access is limited to friends for user-owned games or group members for group-owned games.",
+                    "type": "boolean"
+                },
+                "genre": {
+                    "description": "Game genre.",
+                    "enum": ["All", "Tutorial", "Scary", "TownAndCity", "War", "Funny", "Fantasy", "Adventure", "SciFi", "Pirate", "FPS", "RPG", "Sports", "Ninja", "WildWest"],
+                    "type": "string"
+                },
+                "playableDevices": {
+                    "description": "List of device types this game can be played on.",
+                    "type": "array",
+                    "items": {
+                        "enum": ["Computer", "Phone", "Tablet", "Console"],
+                        "type": "string"
+                    }
+                },
+                "isForSale": {
+                    "description": "Whether the game is offered for sale.",
+                    "type": "boolean"
+                },
+                "price": {
+                    "format": "int64",
+                    "description": "Price of the game, in Robux.",
+                    "type": "integer"
+                },
+                "universeAvatarAssetOverrides": {
+                    "description": "A list of avatar asset overrides.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Platform.UniverseSettings.UniverseAvatarAssetOverrideResponseModel"
+                    }
+                },
+                "universeAvatarMinScales": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Avatar.ScaleModel",
+                    "description": "A collection of minimum scales for the universe's avatars."
+                },
+                "universeAvatarMaxScales": {
+                    "$ref": "#/definitions/Roblox.Web.Responses.Avatar.ScaleModel",
+                    "description": "A collection of maximum scales for the universe's avatars."
+                },
+                "studioAccessToApisAllowed": {
+                    "description": "Whether Studio can access data stores of this universe.",
+                    "type": "boolean"
+                },
+                "permissions": {
+                    "$ref": "#/definitions/Roblox.Api.Develop.Models.UniversePluginPermissions",
+                    "description": "Plugin permissions for third party.\r\nCurrently, this is a part of configuration, but will be separated into permission system in the future."
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.ExclusiveStartRequest[System.Int64]": {
+            "type": "object",
+            "properties": {
+                "ExclusiveStartKeyInfo": {
+                    "$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]",
+                    "readOnly": true
+                },
+                "CursorRecipe": {
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int64]": {
+            "type": "object",
+            "properties": {
+                "SortOrder": {
+                    "enum": ["Asc", "Desc"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "PagingDirection": {
+                    "enum": ["Forward", "Backward"],
+                    "type": "string",
+                    "readOnly": true
+                },
+                "Count": {
+                    "format": "int32",
+                    "type": "integer",
+                    "readOnly": true
+                }
+            }
+        },
+        "Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Api.Develop.Models.IPlaceModel]": {
+            "type": "object",
+            "properties": {
+                "previousPageCursor": {
+                    "type": "string"
+                },
+                "nextPageCursor": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Api.Develop.Models.IPlaceModel"
+                    }
+                }
+            }
+        },
+        "Roblox.Api.Develop.Models.IPlaceModel": {
+            "description": "A model containing information about a place",
+            "type": "object",
+            "properties": {}
+        }
+    }
+}

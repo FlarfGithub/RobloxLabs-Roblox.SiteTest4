@@ -1,0 +1,35 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Build-And-Run",
+			"cwd": "${workspaceFolder}",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run-script", "Build-And-Run"],
+			"envFile": "${workspaceFolder}/.env"
+		},
+		{
+			"name": "Run-Without-NPM",
+			"program": "${workspaceFolder}/Source/Bin/Global.asax.js",
+			"request": "launch",
+			"skipFiles": ["<node_internals>/**"],
+			"type": "pwa-node",
+			"runtimeArgs": ["--no-deprecation", "--report-filename=server.log", "--diagnostic-dir=Diagnostiscs"],
+			"envFile": "${workspaceFolder}/.env",
+			"preLaunchTask": "pre"
+			/*
+				This script is for vsc-insiders when it kills npm scripts via debug configs
+			*/
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Program",
+			"runtimeArgs": ["-r", "ts-node/register"],
+			"args": ["${workspaceFolder}/Source/Global.asax.ts"]
+		}
+	],
+	"compounds": []
+}

@@ -1,0 +1,62 @@
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+
+	window.GoogleAnalyticsDisableRoblox2 = true;
+	_gaq.push(['b._setAccount', 'UA-486632-5']);
+	_gaq.push(['b._setCampSourceKey', 'rbx_source']);
+	_gaq.push(['b._setCampMediumKey', 'rbx_medium']);
+	_gaq.push(['b._setCampContentKey', 'rbx_campaign']);
+
+	_gaq.push(['b._setDomainName', 'robloxlabs.com']);
+
+	_gaq.push(['b._setCustomVar', 1, 'Visitor', 'Anonymous', 2]);
+	_gaq.push(['b._trackPageview']);
+
+	_gaq.push(['c._setAccount', 'UA-26810151-1']);
+	_gaq.push(['c._setDomainName', 'robloxlabs.com']);
+
+	(function () {
+		if (!Roblox.browserDoNotTrack) {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		}
+	})();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-824697473"></script>
+<script type="text/javascript">
+	var accountCode = 'AW-824697473';
+	var signupConversionEventKey = 'aZvQCO7HvcsBEIHFn4kD';
+	var webPurchaseConversionEventKey = '0EBYCMzGzssBEIHFn4kD';
+	window.dataLayer = window.dataLayer || [];
+
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag.conversionEvents = {
+		signupConversionEvent: accountCode + '/' + signupConversionEventKey,
+		webPurchaseConversionEvent: accountCode + '/' + webPurchaseConversionEventKey,
+	};
+	gtag('js', new Date());
+	gtag('config', accountCode);
+</script>
+
+<script type="text/javascript">
+	if (Roblox && Roblox.EventStream) {
+		Roblox.EventStream.Init(
+			'//<%= urlMetadata.Hosts.EphemeralCountersV2 %>/www/e.png',
+			'//<%= urlMetadata.Hosts.EphemeralCountersV2 %>/www/e.png',
+			'//<%= urlMetadata.Hosts.EphemeralCountersV2 %>/pe?t=studio',
+			'//<%= urlMetadata.Hosts.EphemeralCountersV2 %>/pe?t=diagnostic',
+		);
+	}
+</script>
+
+<script type="text/javascript">
+	if (Roblox && Roblox.PageHeartbeatEvent) {
+		Roblox.PageHeartbeatEvent.Init([2, 8, 20, 60]);
+	}
+</script>

@@ -1,0 +1,282 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "ChatModeration Api v1" },
+	"host": "chatmoderation.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/users/{userId}/conversations": {
+			"get": {
+				"tags": ["ChatModeration"],
+				"summary": "Retrieve all the conversations for a user.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "the user's Id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The amount of results per request.",
+						"required": false,
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"enum": [10, 25, 50, 100]
+					},
+					{
+						"name": "cursor",
+						"in": "query",
+						"description": "The paging cursor for the previous or next page.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ChatModeration.Api.Models.Response.ConversationResponse]"
+						}
+					},
+					"400": { "description": "1: Invalid user id" },
+					"401": { "description": "3: The User has insufficient permissions to perform this action" }
+				},
+				"properties": { "internal": true, "metricIds": ["ChatModeration:GetUserConversations"] }
+			}
+		},
+		"/v1/users/{userId}/conversations/{conversationId}/export": {
+			"get": {
+				"tags": ["ChatExport"],
+				"summary": "Exports chat conversation messages to csv file.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "The target user id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "conversationId",
+						"in": "path",
+						"description": "The conversation id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{ "name": "inclusiveStartDate", "in": "query", "description": "", "required": false, "type": "string" },
+					{ "name": "exclusiveEndDate", "in": "query", "description": "", "required": false, "type": "string" }
+				],
+				"responses": {
+					"200": { "description": "OK", "schema": { "type": "object" } },
+					"400": { "description": "0: Conversation is not valid.\r\n1: User is not valid." },
+					"401": { "description": "2: User is not authorized to export user platform chat." },
+					"500": { "description": "3: Processing error has occured." }
+				},
+				"properties": { "internal": true, "metricIds": ["ChatExport:ExportConversationHistoryBetweenDates"] }
+			}
+		},
+		"/v1/users/{userId}/conversations/{conversationId}/messages": {
+			"get": {
+				"tags": ["ChatModeration"],
+				"summary": "Gets messages from a conversation.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "the user id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "conversationId",
+						"in": "path",
+						"description": "the conversation id",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The amount of results per request.",
+						"required": false,
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"enum": [10, 25, 50, 100]
+					},
+					{
+						"name": "cursor",
+						"in": "query",
+						"description": "The paging cursor for the previous or next page.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "sortOrder",
+						"in": "query",
+						"description": "The order the results are sorted in.",
+						"required": false,
+						"type": "string",
+						"default": "Asc",
+						"enum": ["Asc", "Desc"]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ChatModeration.Api.Models.Response.MessageResponse]"
+						}
+					},
+					"400": { "description": "1: Invalid user id\r\n2: Invalid conversation id" },
+					"401": { "description": "3: The User has insufficient permissions to perform this action" }
+				},
+				"properties": { "internal": true, "metricIds": ["ChatModeration:GetConversationMessages"] }
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Paging.StartIndexCursor": {
+			"type": "object",
+			"properties": {
+				"startIndex": { "format": "int64", "type": "integer" },
+				"discriminator": { "type": "string" },
+				"count": { "format": "int32", "type": "integer" }
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ChatModeration.Api.Models.Response.ConversationResponse]": {
+			"type": "object",
+			"properties": {
+				"previousPageCursor": { "type": "string" },
+				"nextPageCursor": { "type": "string" },
+				"data": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/Roblox.ChatModeration.Api.Models.Response.ConversationResponse" }
+				}
+			}
+		},
+		"Roblox.ChatModeration.Api.Models.Response.ConversationResponse": {
+			"description": "Response model for a conversation from the GetUserConversations endpoint.",
+			"type": "object",
+			"properties": {
+				"conversationId": { "format": "int64", "description": "Gets or sets the conversation id.", "type": "integer" },
+				"conversationType": {
+					"description": "Gets or sets the conversation type.",
+					"enum": [
+						"OneToOneConversation",
+						"MultiUserConversation",
+						"CloudEditConversation",
+						"DiscussionChannelConversation",
+						"TalentHubConversation"
+					],
+					"type": "string"
+				},
+				"title": { "description": "Gets or sets conversation title.", "type": "string" },
+				"initiator": {
+					"$ref": "#/definitions/Roblox.Chat.Client.ParticipantModel",
+					"description": "Gets or sets the initiator who starts the conversation."
+				},
+				"updated": { "format": "date-time", "description": "Gets or sets the updated time of the conversation.", "type": "string" },
+				"participants": {
+					"description": "Gets or sets participants of the conversation.",
+					"type": "array",
+					"items": { "$ref": "#/definitions/Roblox.Chat.Client.ParticipantModel" }
+				},
+				"pinnedUniverseId": {
+					"format": "int64",
+					"description": "Gets or sets the universe id of pinned game in the conversation.",
+					"type": "integer"
+				},
+				"conversationStatus": { "description": "Gets or sets conversation status.", "enum": ["Unread", "Read"], "type": "string" }
+			}
+		},
+		"Roblox.Chat.Client.ParticipantModel": {
+			"type": "object",
+			"properties": {
+				"participantType": { "enum": ["User"], "type": "string" },
+				"targetId": { "format": "int64", "type": "integer" }
+			}
+		},
+		"Roblox.Paging.ExclusiveStartKeyCursor[System.Nullable[System.Guid]]": {
+			"type": "object",
+			"properties": {
+				"key": { "format": "uuid", "type": "string", "example": "00000000-0000-0000-0000-000000000000" },
+				"sortOrder": { "enum": ["Asc", "Desc"], "type": "string" },
+				"pagingDirection": { "enum": ["Forward", "Backward"], "type": "string" },
+				"pageNumber": { "format": "int32", "type": "integer" },
+				"discriminator": { "type": "string" },
+				"count": { "format": "int32", "type": "integer" }
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.ChatModeration.Api.Models.Response.MessageResponse]": {
+			"type": "object",
+			"properties": {
+				"previousPageCursor": { "type": "string" },
+				"nextPageCursor": { "type": "string" },
+				"data": { "type": "array", "items": { "$ref": "#/definitions/Roblox.ChatModeration.Api.Models.Response.MessageResponse" } }
+			}
+		},
+		"Roblox.ChatModeration.Api.Models.Response.MessageResponse": {
+			"description": "Response model for a chat message",
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "uuid",
+					"description": "Gets or sets Unique identifier for the message.",
+					"type": "string",
+					"example": "00000000-0000-0000-0000-000000000000"
+				},
+				"messageType": {
+					"description": "Gets or sets the message type.",
+					"enum": ["PlainText", "Link", "EventBased"],
+					"type": "string"
+				},
+				"sent": {
+					"format": "date-time",
+					"description": "Gets or sets the instant at which the message was sent",
+					"type": "string"
+				},
+				"read": {
+					"description": "Gets or sets a value indicating whether or not the message has been read by the viewer requesting this message",
+					"type": "boolean"
+				},
+				"decorators": { "description": "Gets or sets A list of decorators", "type": "array", "items": { "type": "string" } },
+				"messageSource": {
+					"description": "Gets or sets the source who sent the message",
+					"enum": ["User", "System"],
+					"type": "string"
+				},
+				"content": { "description": "Gets or sets the message content for plaintext messages", "type": "string" },
+				"senderId": {
+					"format": "int64",
+					"description": "Gets or sets the sender id for user messages (plaintext or link messages)",
+					"type": "integer"
+				},
+				"universeId": {
+					"format": "int64",
+					"description": "Gets or sets the universe id for game link messages and set universe events",
+					"type": "integer"
+				},
+				"actorUserId": {
+					"format": "int64",
+					"description": "Gets or sets the actor user id for set universe event messages",
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

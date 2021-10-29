@@ -1,0 +1,105 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v2",
+    "title": "TextFilter Api v2"
+  },
+  "host": "textfilter.sitetest3.robloxlabs.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v2/moderation/textfilter": {
+      "post": {
+        "tags": [
+          "Moderation"
+        ],
+        "summary": "Filters Text for live game chat (and eventually for all 'live' Text exchanges).\r\n\r\nIt passes the given Text through multiple filters and returns the results for each filter, the idea being that the\r\ncaller can choose which filtered Text to show the viewer based on the viewers age or other factors. This is a\r\ndeparture from all other Text moderation we perform in which the Text is filtered exclusively based on the status \r\nof the Text creator.\r\n\r\nCurrently the filters used are thus:\r\n\r\nWith CommunitySift enabled:\r\n    Age13OrOver: Rule set defined by CommunitySift.Properties.Settings.Default.CommunitySiftTextFiltering13AndOverRule\r\n    AgeUnder13: Rule set defined by CommunitySift.Properties.Settings.Default.CommunitySiftTextFilteringUnder13Rule\r\n\r\nWith CommunitySift disabled:\r\n    Age13OrOver: blacklist\r\n    AgeUnder13: white list\r\n\r\nThe returned json takes the form of\r\n{\r\n    \"success\": true,\r\n    \"message\": \"\",\r\n    \"data\": \r\n    {\r\n        \"AgeUnder13\":\"##############################\",\r\n        \"Age13OrOver\":\"Do you have a twitter account?\"\r\n    }\r\n}",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "requestBody",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Roblox.TextFilter.Api.TextFilterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Roblox.TextFilter.Api.TextFilterResponse"
+            }
+          }
+        },
+        "properties": {
+          "internal": true,
+          "metricIds": [
+            "Moderation:TextFilter"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Roblox.TextFilter.Api.TextFilterRequest": {
+      "description": "A request for filtering text for a given user.",
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "Text to be filtered.",
+          "type": "string"
+        },
+        "userId": {
+          "format": "int64",
+          "description": "Id of the User that entered the text.",
+          "type": "integer"
+        },
+        "context": {
+          "description": "The {Roblox.TextFilter.Api.TextContext} of the submitted text.",
+          "enum": [
+            "Undefined",
+            "Public",
+            "Private"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "Roblox.TextFilter.Api.TextFilterResponse": {
+      "description": "A model containing results from text filter.",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Gets or sets the message.",
+          "type": "string",
+          "readOnly": true
+        },
+        "success": {
+          "description": "Gets or sets a value indicating whether this {Roblox.TextFilter.Api.TextFilterResponse} is success.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "data": {
+          "description": "Gets or sets the data.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "readOnly": true
+        }
+      }
+    }
+  }
+}

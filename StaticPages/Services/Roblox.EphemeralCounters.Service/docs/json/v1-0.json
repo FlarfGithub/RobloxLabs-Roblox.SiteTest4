@@ -1,0 +1,107 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1.0", "title": "Ephemeral Counters Api v1.0" },
+	"host": "ephemeralcounters.api.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1.0/MultiIncrement": {
+			"post": {
+				"tags": ["Counters"],
+				"summary": "Increments multiple counters.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "counterNamesCsv",
+						"in": "body",
+						"description": "A list of counter names to increment, in a CSV style, \"counter1,counter2\" etc.",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ServiceError"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Counters:MultiIncrement"],
+					"obsoleteMessage": "Use POST /v1.1/Counters/MultiIncrement instead"
+				},
+				"deprecated": true
+			}
+		},
+		"/v1.0/SequenceStatistics/BatchAddToSequencesV2": {
+			"post": {
+				"tags": ["SequenceStatistics"],
+				"summary": "Adds the given session based SequenceItems to the sessions's Sequence.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "enrollments",
+						"in": "body",
+						"description": "A collection of {Roblox.EphemeralCounters.Service.SequencesItem}s containing the Key and Value of the Stats to be added to this session's sequence.",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.EphemeralCounters.Service.SequencesItem"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ServiceError"
+						}
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["SequenceStatistics:BatchAddToSequencesV2"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Web.WebAPI.Models.ServiceError": {
+			"type": "object",
+			"properties": {
+				"Message": {
+					"example": "An error has occurred.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.EphemeralCounters.Service.SequencesItem": {
+			"type": "object",
+			"properties": {
+				"Key": {
+					"type": "string"
+				},
+				"Value": {
+					"type": "integer",
+					"format": "double"
+				}
+			}
+		}
+	}
+}

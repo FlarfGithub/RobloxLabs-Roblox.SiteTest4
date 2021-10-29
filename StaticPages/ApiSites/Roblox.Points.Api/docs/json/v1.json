@@ -1,0 +1,151 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "Points Api v1"
+	},
+	"host": "points.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/universes/{universeId}/users/{userId}/all-time": {
+			"get": {
+				"tags": ["Points"],
+				"summary": "Gets a user's all-time points balance from an universe.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "The universe's id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "The user's id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Points.Api.GetAllTimePointBalanceResponse"
+						}
+					},
+					"404": {
+						"description": "1: The universe is invalid.\r\n2: The user is invalid."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Points:GetAllTimePointBalance"]
+				}
+			}
+		},
+		"/v1/universes/{universeId}/users/{userId}": {
+			"post": {
+				"tags": ["Points"],
+				"summary": "Awards points to a user in an universe.\r\nCan only be used by game servers from places within that universe.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "request",
+						"in": "body",
+						"description": "An {Roblox.Points.Api.AwardPointsRequest}.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Points.Api.AwardPointsRequest"
+						}
+					},
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "The server's place id.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "universeId",
+						"in": "path",
+						"description": "The universe's id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "The user's id.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Points.Api.AwardPointsResponse"
+						}
+					},
+					"400": {
+						"description": "4: The specified points amount is invalid."
+					},
+					"403": {
+						"description": "5: The game server is not authorized to award points in the requested universe."
+					},
+					"404": {
+						"description": "2: The user is invalid."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Points:AwardPoints"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Points.Api.GetAllTimePointBalanceResponse": {
+			"description": "Response model for getting a user's all-time score.",
+			"type": "object",
+			"properties": {
+				"allTimeScore": {
+					"format": "int64",
+					"description": "The user's current all-time score.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Points.Api.AwardPointsRequest": {
+			"description": "Model for awarding points",
+			"type": "object",
+			"properties": {
+				"amount": {
+					"format": "int32",
+					"description": "How many points to award to the user.",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Points.Api.AwardPointsResponse": {
+			"description": "Response model for awarding points.",
+			"type": "object",
+			"properties": {
+				"allTimeScore": {
+					"format": "int64",
+					"description": "The user's new all-time score.",
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

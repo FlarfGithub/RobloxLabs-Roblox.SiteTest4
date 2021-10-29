@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roblox Exploiting Report</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<script src="js/modernizr-2.8.1.js"></script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap.min.3.4.1.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/jquery.bootgrid.fa.js"></script>
+		<script src="js/csrutils.js"></script>
+		<style>
+			@-webkit-viewport {
+				width: device-width;
+			}
+			@-moz-viewport {
+				width: device-width;
+			}
+			@-ms-viewport {
+				width: device-width;
+			}
+			@-o-viewport {
+				width: device-width;
+			}
+			@viewport {
+				width: device-width;
+			}
+
+			body {
+				padding-top: 70px;
+				padding-left: 30px;
+			}
+
+			.column .text {
+				color: #f00 !important;
+			}
+			.cell {
+				font-weight: bold;
+			}
+			th {
+				height: 30px;
+				vertical-align: middle;
+			}
+			td {
+				height: 30px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" data-i18n="title">Roblox Exploiting Report: Player History</span>
+				</div>
+				<nav id="menu" class="navbar-collapse collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.htm">Home</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">
+					<span
+						><b>Show Player (<input id="player-id-text" type="text" width="48px" />) Exploiting History:&nbsp;&nbsp;</b></span
+					>
+					<span
+						>From<span class="timezone"></span>: &nbsp;<input
+							type="text"
+							id="datepicker1"
+							placeholder="Begin Date"
+							readonly
+						/>&nbsp;&nbsp;</span
+					>
+					<span
+						>To<span class="timezone"></span>: &nbsp;<input
+							type="text"
+							id="datepicker2"
+							placeholder="End Date"
+							readonly
+						/>&nbsp;&nbsp;</span
+					>
+					<button id="btn-create-report">Show</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<table id="tbl_reports" cellpadding="30">
+						<thead style="background-color: rgb(60, 100, 60); color: white">
+							<tr>
+								<th style="width: 40px; text-align: center">&nbsp;&nbsp;ID&nbsp;&nbsp;</th>
+								<th style="width: 160px; text-align: center">
+									&nbsp;&nbsp;Timestamp<span class="timezone"></span>&nbsp;&nbsp;
+								</th>
+								<th style="width: 80px; text-align: center">&nbsp;&nbsp;IPv4&nbsp;&nbsp;</th>
+								<th style="width: 80px; text-align: center">&nbsp;&nbsp;ClientUuid&nbsp;&nbsp;</th>
+								<th style="width: 160px; text-align: center">&nbsp;&nbsp;ExploitID&nbsp;&nbsp;</th>
+								<th style="width: 160px; text-align: center">&nbsp;&nbsp;ExploitFlag&nbsp;&nbsp;</th>
+								<th style="width: 160px; text-align: left">&nbsp;&nbsp;ExploitMatchedRules&nbsp;&nbsp;</th>
+								<th style="width: 160px; text-align: left">&nbsp;&nbsp;ExploitPath&nbsp;&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_reports_body" class="reportarea"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<span><img id="wait-spinner" src="images/color-spinner.gif" alt="Loading ..." /></span>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">© Copyright 2020 Roblox Corporation. All Rights Reserved.</footer>
+
+		<script>
+			function getLastReportEndDate() {
+				var rows = $('#tbl_reports_body').children().length;
+				var result = '';
+				var i = 0;
+				for (i = 0; i < rows; i++) {
+					var row = $('#tbl_reports_body').children()[i];
+					if (row.children[7].innerHTML != 'Deleted') {
+						result = row.children[5].innerHTML;
+						return result;
+					}
+				}
+				return result;
+			}
+
+			function getTodayDate() {
+				var t = (Date.now() / 86400000) * 86400000;
+				return new Date(t);
+			}
+
+			function int2ip(ipInt) {
+				return (ipInt >>> 24) + '.' + ((ipInt >> 16) & 255) + '.' + ((ipInt >> 8) & 255) + '.' + (ipInt & 255);
+			}
+
+			$(document).ready(function () {
+				var tzone = new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2];
+				$('.timezone').text(' (' + tzone + ')');
+
+				$('#datepicker1').datepicker({
+					dateFormat: 'yy-mm-dd',
+					beforeShowDay: function (date) {
+						var dtEnd = $('#datepicker2').datepicker('getDate');
+						if (dtEnd) {
+							var dtStart = new Date(dtEnd);
+							dtStart.setDate(dtEnd.getDate() - 30);
+							return [date <= dtEnd && date > dtStart, '', ''];
+						} else {
+							var dtPrev = new Date(getLastReportEndDate());
+							dtPrev.setDate(dtPrev.getDate() + 1);
+							var dtToday = new Date(Date.now());
+							dtToday.setHours(0);
+							dtToday.setMinutes(0);
+							dtToday.setSeconds(0);
+							dtToday.setMilliseconds(0);
+							if (isNaN(dtPrev.getTime())) return [date < dtToday, '', ''];
+							else return [date > dtPrev && date < dtToday, '', ''];
+						}
+					},
+				});
+
+				$('#datepicker2').datepicker({
+					dateFormat: 'yy-mm-dd',
+					beforeShowDay: function (date) {
+						var dtStart = $('#datepicker1').datepicker('getDate');
+						if (dtStart) {
+							var dtToday = CsrUtils.getBeginOfToday();
+							var dtEnd = new Date(dtStart);
+							dtEnd.setDate(dtStart.getDate() + 30);
+							if (dtToday < dtEnd) {
+								dtEnd = dtToday;
+							}
+							return [date >= dtStart && date < dtEnd, '', ''];
+						} else {
+							var dtPrev = new Date(getLastReportEndDate());
+							dtPrev.setDate(dtPrev.getDate() + 1);
+							var dtToday = CsrUtils.getBeginOfToday();
+							if (isNaN(dtPrev.getTime())) return [date < dtToday, '', ''];
+							else return [date > dtPrev && date < dtToday, '', ''];
+						}
+					},
+				});
+
+				function init() {
+					var playerid = $('#player-id-text').val();
+					//alert("Playerid = " + playerid);
+					if (playerid != '' && !isNaN(playerid)) {
+						var vExternalTimeRange = 0;
+						var vUrl = CsrUtils.csrApiHost + '/player/history?id=' + playerid;
+						if (urlParams.has('st')) {
+							vUrl += '&st=' + urlParams.get('st');
+							vExternalTimeRange = 1;
+						}
+						if (urlParams.has('et')) {
+							vUrl += '&et=' + urlParams.get('et');
+							vExternalTimeRange = 1;
+						}
+
+						var dtEnd = new Date(Date.now());
+						var dtBegin = CsrUtils.addDays(dtEnd, -7);
+
+						if (vExternalTimeRange) {
+							dtEnd = new Date(urlParams.get('et') * 1000);
+							dtBegin = new Date(urlParams.get('st') * 1000);
+							$('#datepicker1').prop('placeholder', CsrUtils.timeToLocalTimeString(dtBegin));
+							$('#datepicker2').prop('placeholder', CsrUtils.timeToLocalTimeString(dtEnd));
+							$('#datepicker1').prop('disabled', true);
+							$('#datepicker2').prop('disabled', true);
+							$('#btn-create-report').hide();
+						} else {
+							var sBegin = $('#datepicker1').val();
+							var sEnd = $('#datepicker2').val();
+							dtBegin = CsrUtils.localDateStringToDate(sBegin);
+							dtEnd = CsrUtils.localDateStringToDate(sEnd);
+							if (isNaN(dtEnd.getTime())) {
+								dtEnd = new Date(Date.now());
+							} else {
+								dtEnd = CsrUtils.addDays(dtEnd, 1);
+							}
+							if (isNaN(dtBegin.getTime())) {
+								dtBegin = CsrUtils.addDays(dtEnd, -7);
+							}
+							var tbegin = dtBegin.getTime() / 1000;
+							var tend = dtEnd.getTime() / 1000;
+							vUrl += '&st=' + tbegin;
+							vUrl += '&et=' + tend;
+						}
+
+						//alert("Get: " + vUrl);
+
+						$('#tbl_reports_body').empty();
+						$('#wait-spinner').show();
+						$.ajax({
+							url: vUrl,
+							type: 'GET',
+							data: '',
+							success: function (data, status) {
+								var i = 0;
+								var idx = 0;
+								var removable = true;
+
+								for (i = 0; i < data.result.length; i++) {
+									var rowContent = '';
+									rowContent += '<tr id="csreport-' + data.result[i].ID + '"';
+									if (idx == 0) {
+										rowContent += ', style="background-color: rgb(240, 255, 240)">';
+										idx = 1;
+									} else {
+										rowContent += ', style="background-color: rgb(220, 255, 220)">';
+										idx = 0;
+									}
+
+									var timestamp = new Date(CsrUtils.localTimeStringToISOString(data.result[i].TIMESTAMP));
+
+									rowContent += '<td style="text-align: center;"><span>' + i + '</span>.</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' +
+										CsrUtils.timeToLocalTimeString(timestamp) +
+										'&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' +
+										int2ip(data.result[i].CLIENTIPV4) +
+										'&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' + data.result[i].CLIENTUUID + '&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' + data.result[i].EXPLOITID + '&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' + data.result[i].EXPLOITFLAGS + '&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' + data.result[i].EXPLOITRULES + '&nbsp;&nbsp;</td>';
+									rowContent +=
+										'<td style="text-align: center;">&nbsp;&nbsp;' + data.result[i].EXPLOITPATH + '&nbsp;&nbsp;</td>';
+									rowContent += '</tr>';
+									$('#tbl_reports_body').append(rowContent);
+								}
+
+								$('#wait-spinner').hide();
+							},
+						});
+					}
+				}
+
+				$('#btn-create-report').click(function () {
+					init();
+				});
+
+				var urlParams = new URLSearchParams(window.location.search);
+				if (urlParams.has('id')) {
+					$('#player-id-text').val(urlParams.get('id'));
+					$('#player-id-text').prop('readonly', true);
+				}
+				init();
+				$('#wait-spinner').hide();
+			});
+		</script>
+	</body>
+</html>

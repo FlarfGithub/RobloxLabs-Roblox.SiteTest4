@@ -1,0 +1,93 @@
+﻿fieldset.AddMerchantBox {
+    width:740px;
+    margin: 10px 0px;
+}
+
+button#AddMerchantButton {
+    width:80px;float:right;
+}
+
+input.merchantActiveInput {
+    padding:20px;
+}
+
+div#ErrorDiv {
+    color: red; 
+    margin: 10px 0px; 
+    display:none;
+}
+
+div#SuccessDiv {
+    color: green; 
+    margin: 10px 0px; 
+    display:none;
+}
+
+fieldset#MerchantList {
+    width:740px;
+}
+
+table#tableTemplate {
+    display: none;
+}
+
+tr#trTemplate {
+    display:none;
+}
+
+td.MerchID {
+    width: 50px;
+}
+
+td.MerchName {
+    width: 210px;
+}
+
+td.MerchActive {
+    width: 50px; 
+    text-align:center;
+}
+
+td.MerchCreated {
+    width: 210px;
+}
+
+td.MerchUpdated {
+    width: 210px;
+}
+
+td.merch-hidden {
+    width:50px; 
+    text-align: center;
+}
+
+td.MerchCountry {
+    width: 210px;
+}
+
+td.MerchLocator {
+    width: 210px;
+}
+
+td.MerchImage {
+    width: 210px;
+}
+
+td.MerchEdit {
+    width: 50px; 
+    text-align: center;
+}
+
+div#pager {
+    margin-left:auto; 
+    margin-right:auto; 
+    margin-top:15px;
+    height: 23px; 
+    text-align: center; 
+    display: none;
+    padding: 3px 3px 3px 3px;
+}
+
+div#NoMerchantDisplays {
+    margin-top:100px;
+}

@@ -1,0 +1,29 @@
+[NullReferenceException]: Object reference not set to an instance of an object.
+   at Roblox.Caching.RedisCacheInvalidator.TryRegisterNewEntity(String entityType) in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Caching\Roblox.Caching\Redis\RedisCacheInvalidator.cs:line 61
+   at Roblox.Caching.CacheInfo..ctor(CacheabilitySettings cacheability, String entityType, Boolean isNullCacheable, String replicationPort) in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Caching\Roblox.Caching\CacheInfo.cs:line 30
+   at Roblox.AccountRoleSet..cctor() in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Server Class Library\Roblox Class Library\Business Logic Layer\AccountRoleSet.cs:line 188
+[TypeInitializationException]: The type initializer for &#39;Roblox.AccountRoleSet&#39; threw an exception.
+   at Roblox.AccountRoleSet.GetAllAccountRoleSets() in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Server Class Library\Roblox Class Library\Business Logic Layer\AccountRoleSet.cs:line 158
+   at Roblox.Account.<>c.<.cctor>b__123_0() in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Server Class Library\Roblox Class Library\Business Logic Layer\Account.cs:line 41
+   at Roblox.Common.RefreshAhead`1.ConstructAndPopulate(TimeSpan refreshInterval, Func`1 refreshDelegate) in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Common\Roblox.Common\RefreshAhead.cs:line 61
+   at Roblox.Account..cctor() in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Server Class Library\Roblox Class Library\Business Logic Layer\Account.cs:line 37
+[TypeInitializationException]: The type initializer for &#39;Roblox.Account&#39; threw an exception.
+   at Roblox.Account.add_EntityCreated(EntityCreatedEventHandler value)
+   at Roblox.Platform.Membership.Events.AccountEventListener.Register() in C:\teamcity-agent\work\947a729149ad8354\Assemblies\Platform\Membership\Roblox.Platform.Membership\Events\AccountEventListener.cs:line 10
+   at CSWebsite.MvcApplication..cctor() in C:\teamcity-agent\work\86cd81071c5e1c35\InternalWebsites\CSWebsite\CSWebsite\Global.asax.cs:line 314
+[TypeInitializationException]: The type initializer for &#39;CSWebsite.MvcApplication&#39; threw an exception.
+   at ASP.global_asax..ctor()
+[TargetInvocationException]: Exception has been thrown by the target of an invocation.
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+   at System.Web.HttpRuntime.CreateNonPublicInstance(Type type, Object[] args)
+   at System.Web.HttpApplicationFactory.GetSpecialApplicationInstance(IntPtr appContext, HttpContext context)
+   at System.Web.Hosting.PipelineRuntime.InitializeApplication(IntPtr appContext)
+[HttpException]: Exception has been thrown by the target of an invocation.
+   at System.Web.HttpRuntime.FirstRequestInit(HttpContext context)
+   at System.Web.HttpRuntime.EnsureFirstRequestInit(HttpContext context)
+   at System.Web.HttpRuntime.ProcessRequestNotificationPrivate(IIS7WorkerRequest wr, HttpContext context)

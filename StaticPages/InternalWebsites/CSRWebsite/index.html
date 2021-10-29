@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roblox Exploiting Report</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<script src="js/modernizr-2.8.1.js"></script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap.min.3.4.1.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/jquery.bootgrid.fa.js"></script>
+		<script src="js/csrutils.js"></script>
+		<style>
+			@-webkit-viewport {
+				width: device-width;
+			}
+			@-moz-viewport {
+				width: device-width;
+			}
+			@-ms-viewport {
+				width: device-width;
+			}
+			@-o-viewport {
+				width: device-width;
+			}
+			@viewport {
+				width: device-width;
+			}
+
+			body {
+				padding-top: 70px;
+				padding-left: 30px;
+			}
+
+			.column .text {
+				color: #f00 !important;
+			}
+			.cell {
+				font-weight: bold;
+			}
+			th {
+				height: 30px;
+				vertical-align: middle;
+			}
+			td {
+				height: 30px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" data-i18n="title">Roblox Exploiting Report: Home</span>
+				</div>
+				<nav id="menu" class="navbar-collapse collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Home</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<table id="tbl_reports" cellpadding="30" width="800">
+						<tr>
+							<td align="center"><h1>Roblox Exploiting Report</h1></td>
+						</tr>
+						<tr>
+							<td align="center">
+								<span
+									><a href="summary.htm"><h3>Summary</h3></a></span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<span
+									><a href="csreportmgr.htm"><h3>CS Report</h3></a></span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<span
+									><a href="playerhistory.htm"><h3>Player Exploiting History</h3></a></span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<span
+									><a href="https://rcity.simulping.com/p3047/"><h3>Exploits Detection Metrics</h3></a></span
+								>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+		</div>
+
+		<footer id="footer">© Copyright 2020 Roblox Corporation. All Rights Reserved.</footer>
+
+		<script>
+			$(document).ready(function () {
+				$('#btn-player-history').click(function () {
+					var playerid = $('#player-history-id').val();
+					if (isNaN(playerid)) {
+						alert('Invalid player id!');
+					} else {
+						window.open('playerhistory.htm?id=' + playerid, '_blank');
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

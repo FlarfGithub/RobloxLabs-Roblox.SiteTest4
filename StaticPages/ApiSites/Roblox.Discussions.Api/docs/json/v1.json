@@ -1,0 +1,1049 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "Discussions Api v1"
+	},
+	"host": "discussions.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/channels": {
+			"get": {
+				"tags": ["Channels"],
+				"summary": "Gets a list of channels for each discussion id given",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "discussionIds",
+						"in": "query",
+						"description": "A comma-separated list of discussion ids",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"collectionFormat": "csv"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The maximum number of channels to get for each discussion",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.Discussions.Api.DiscussionChannelList"
+							}
+						}
+					},
+					"400": {
+						"description": "3: Invalid discussion"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "2: The user does not have the appropriate permissions to perform an action"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:GetDiscussionChannelLists"]
+				}
+			}
+		},
+		"/v1/channels/{channelId}": {
+			"get": {
+				"tags": ["Channels"],
+				"summary": "Gets the channel details for the given channel Id",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.ChannelDetails"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "2: The user does not have the appropriate permissions to perform an action"
+					},
+					"404": {
+						"description": "10: Invalid channel"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:GetChannelDetails"]
+				}
+			},
+			"delete": {
+				"tags": ["Channels"],
+				"summary": "Deletes a channel",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The id of the channel to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: The user does not have the appropriate permissions to perform an action"
+					},
+					"404": {
+						"description": "10: Invalid channel\r\n11: Channel already deleted"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:DeleteChannel"]
+				}
+			},
+			"patch": {
+				"tags": ["Channels"],
+				"summary": "Updates an existing channel",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The id of the channel to update",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "requestModel",
+						"in": "body",
+						"description": "The request model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.ChannelConfigurationRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "4: Missing request model\r\n5: Invalid title\r\n6: Title was filtered\r\n7: A channel with the same name already exists\r\n9: Invalid channel permissions configuration"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: The user does not have the appropriate permissions to perform an action"
+					},
+					"404": {
+						"description": "10: Invalid channel"
+					},
+					"500": {
+						"description": "1: An unknown problem occurred"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:Update"]
+				}
+			}
+		},
+		"/v1/channels/{channelId}/messages": {
+			"get": {
+				"tags": ["Messages"],
+				"summary": "Gets a list of messages in a channel.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The channel id.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "sortOrder",
+						"in": "query",
+						"description": "Sorted by message date",
+						"required": false,
+						"type": "string",
+						"default": "Asc",
+						"enum": ["Asc", "Desc"]
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The amount of results per request.",
+						"required": false,
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"enum": [10, 25, 50, 100]
+					},
+					{
+						"name": "cursor",
+						"in": "query",
+						"description": "The paging cursor for the previous or next page.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Discussions.Api.MessageResponse]"
+						}
+					},
+					"400": {
+						"description": "1: Invalid channel."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "3: Insufficient permissions."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Messages:GetMessages"]
+				}
+			},
+			"post": {
+				"tags": ["Messages"],
+				"summary": "Sends a message in a channel.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The channel id.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "sendMessageRequest",
+						"in": "body",
+						"description": "The message to send.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.SendMessageRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.MessageResponse"
+						}
+					},
+					"400": {
+						"description": "1: Invalid channel.\r\n6: Text is filtered.\r\n7: Text is too long.\r\n8: Text is missing.\r\n9: Text is too short."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n3: Insufficient permissions.\r\n5: Privacy settings are too strict."
+					},
+					"429": {
+						"description": "4: Too many requests."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Messages:SendMessage"]
+				}
+			}
+		},
+		"/v1/discussions": {
+			"get": {
+				"tags": ["Discussions"],
+				"summary": "Gets details regarding a list of discussions that the user is in",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "sortOrder",
+						"in": "query",
+						"description": "The order the results are sorted in.",
+						"required": false,
+						"type": "string",
+						"default": "Asc",
+						"enum": ["Asc", "Desc"]
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The amount of results per request.",
+						"required": false,
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"enum": [10, 25, 50, 100]
+					},
+					{
+						"name": "cursor",
+						"in": "query",
+						"description": "The paging cursor for the previous or next page.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Discussions.Api.DiscussionResponse]"
+						}
+					},
+					"400": {
+						"description": "8: The cursor value was invalid"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"503": {
+						"description": "2: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Discussions:GetDiscussionDetailsList"]
+				}
+			}
+		},
+		"/v1/discussions/{discussionType}/{targetId}": {
+			"get": {
+				"tags": ["Discussions"],
+				"summary": "Gets details regarding a particular discussion",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "discussionType",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "string",
+						"enum": ["Group"]
+					},
+					{
+						"name": "targetId",
+						"in": "path",
+						"description": "",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.DiscussionResponse"
+						}
+					},
+					"400": {
+						"description": "7: The discussion does not exist"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"503": {
+						"description": "2: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Discussions:GetDiscussionDetails"]
+				}
+			}
+		},
+		"/v1/discussions/metadata": {
+			"get": {
+				"tags": ["Discussions"],
+				"summary": "Gets global information about the state of Discussions for a particular user, including roll-out settings",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.Metadata"
+						}
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Discussions:Metadata"]
+				}
+			}
+		},
+		"/v1/channels/{channelId}/report": {
+			"post": {
+				"tags": ["Channels"],
+				"summary": "Reports the given channel",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The id of the channel to report",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "requestModel",
+						"in": "body",
+						"description": "The report request model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.ReportChannelRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "4: Missing request model"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:ReportChannel"]
+				}
+			}
+		},
+		"/v1/channels/create": {
+			"post": {
+				"tags": ["Channels"],
+				"summary": "Creates a new channel for a discussion",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "requestModel",
+						"in": "body",
+						"description": "The request model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.ChannelConfigurationRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.CreateChannelResponse"
+						}
+					},
+					"400": {
+						"description": "4: Missing request model\r\n5: Invalid title\r\n6: Title was filtered\r\n7: A channel with the same name already exists\r\n9: Invalid channel permissions configuration"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n2: The user does not have the appropriate permissions to perform an action\r\n8: Maximum number of channels already exists for the discussion"
+					},
+					"404": {
+						"description": "3: Invalid discussion"
+					},
+					"500": {
+						"description": "1: An unknown problem occurred"
+					},
+					"503": {
+						"description": "12: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Channels:Create"]
+				}
+			}
+		},
+		"/v1/discussions/create": {
+			"post": {
+				"tags": ["Discussions"],
+				"summary": "Creates a new Discussion",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "requestModel",
+						"in": "body",
+						"description": "The request model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.CreateDiscussionRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "3: The request model was null\r\n4: A platform argument exception was raised\r\n5: The discussion already exists\r\n6: The target does not exist"
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n9: The user does not have the appropriate permissions to perform an action"
+					},
+					"500": {
+						"description": "1: An unknown problem occurred"
+					},
+					"503": {
+						"description": "2: Discussions is not enabled for a given user"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Discussions:Create"]
+				}
+			}
+		},
+		"/v1/discussions/subscribe": {
+			"post": {
+				"tags": ["Discussions"],
+				"summary": "Subscribes the authenticated user to real time notifications for all their discussions",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channels",
+						"in": "query",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "csv"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Discussions.Api.RealTimeNotificationsSubscriptionResponse"
+						}
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Discussions:SubscribeToRealTimeNotifications"]
+				}
+			}
+		},
+		"/v1/channels/{channelId}/messages/{messageId}": {
+			"delete": {
+				"tags": ["Messages"],
+				"summary": "Deletes a message.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "channelId",
+						"in": "path",
+						"description": "The channel id.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "messageId",
+						"in": "path",
+						"description": "The message id to delete.",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.ApiEmptyResponseModel"
+						}
+					},
+					"400": {
+						"description": "1: Invalid channel.\r\n2: Invalid message."
+					},
+					"401": {
+						"description": "0: Authorization has been denied for this request."
+					},
+					"403": {
+						"description": "0: Token Validation Failed\r\n3: Insufficient permissions."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["Messages:DeleteMessage"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Discussions.Api.ChannelConfigurationRequestModel": {
+			"description": "The request model for the CreateChannel API endpoint",
+			"type": "object",
+			"properties": {
+				"discussionId": {
+					"format": "int64",
+					"description": "Gets or sets the discussion id for the requested channel",
+					"type": "integer"
+				},
+				"title": {
+					"description": "Gets or sets the title for the requested channel",
+					"type": "string"
+				},
+				"permissions": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.PermissionsConfigurationModel",
+					"description": "Gets or sets the permissions configuration for the requested channel"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.PermissionsConfigurationModel": {
+			"description": "Part of the request model for creating or updating a channel",
+			"type": "object",
+			"properties": {
+				"read": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.PermissionGroupModel",
+					"description": "Gets or sets the permission groups for reading messages in the channel"
+				},
+				"send": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.PermissionGroupModel",
+					"description": "Gets or sets the permission groups for sending messages in the channel"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.PermissionGroupModel": {
+			"description": "Part of the request model for creating or updating a channel",
+			"type": "object",
+			"properties": {
+				"type": {
+					"description": "Gets or sets the type for the permission group",
+					"enum": ["GroupRoleSet"],
+					"type": "string"
+				},
+				"id": {
+					"format": "int64",
+					"description": "Gets or sets the id for the permission group according to its type",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.CreateChannelResponse": {
+			"description": "Basic details about a newly created channel",
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "Gets or sets the Id of the channel",
+					"type": "string"
+				},
+				"title": {
+					"description": "Gets or sets the title of the channel",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ApiEmptyResponseModel": {
+			"type": "object",
+			"properties": {}
+		},
+		"Roblox.Discussions.Api.ChannelDetails": {
+			"description": "Basic details about a channel",
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "Gets or sets the Id of the channel",
+					"type": "string"
+				},
+				"title": {
+					"description": "Gets or sets the title of the channel",
+					"type": "string"
+				},
+				"permissions": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.ChannelPermissionsResponseModel",
+					"description": "Gets or sets the permissions of the channel for the user"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.ChannelPermissionsResponseModel": {
+			"description": "Simple read/send permissions data for a user for a given channel",
+			"type": "object",
+			"properties": {
+				"canRead": {
+					"description": "Gets or sets a value indicating whether the user can read messages from the channel",
+					"type": "boolean"
+				},
+				"canSend": {
+					"description": "Gets or sets a value indicating whether the user can send messages to the channel",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.ReportChannelRequestModel": {
+			"description": "The request model for reporting a channel",
+			"type": "object",
+			"properties": {
+				"reportType": {
+					"description": "Gets or sets the type of report being made",
+					"type": "string"
+				},
+				"reportMessage": {
+					"description": "Gets or sets the user-entered report message",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.DiscussionChannelList": {
+			"description": "A channel list for a particular discussion",
+			"type": "object",
+			"properties": {
+				"discussionId": {
+					"format": "int64",
+					"description": "Gets or sets the discussion Id for this list",
+					"type": "integer"
+				},
+				"channels": {
+					"description": "Gets or sets the channels for the discussion",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Discussions.Api.ChannelDetails"
+					}
+				}
+			}
+		},
+		"Roblox.Discussions.Api.CreateDiscussionRequest": {
+			"description": "The request model for the CreateDiscussion API endpoint",
+			"type": "object",
+			"properties": {
+				"type": {
+					"description": "Gets or sets the type for the requested discussion",
+					"enum": ["Group"],
+					"type": "string"
+				},
+				"targetId": {
+					"format": "int64",
+					"description": "Gets or sets the target Id for the requested discussion",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.DiscussionResponse": {
+			"description": "The response model for sending data about a discussion",
+			"type": "object",
+			"properties": {
+				"id": {
+					"format": "int64",
+					"description": "Gets or sets the Id for the discussion",
+					"type": "integer"
+				},
+				"name": {
+					"description": "Gets or sets the name for the discussion",
+					"type": "string"
+				},
+				"type": {
+					"description": "Gets or sets the type for the discussion",
+					"enum": ["Group"],
+					"type": "string"
+				},
+				"targetId": {
+					"format": "int64",
+					"description": "Gets or sets the target Id for the discussion",
+					"type": "integer"
+				},
+				"enabled": {
+					"description": "Gets or sets a value indicating whether the discussion is enabled",
+					"type": "boolean"
+				},
+				"permissions": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.PermissionsResponse",
+					"description": "Gets or sets the permissions for the authenticated user for this discussion"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.PermissionsResponse": {
+			"description": "The response model for sending data about a user's permissions",
+			"type": "object",
+			"properties": {
+				"canManage": {
+					"description": "Gets or sets a value indicating whether the user can manage the discussion",
+					"type": "boolean"
+				},
+				"canModerate": {
+					"description": "Gets or sets a value indicating whether the user can moderate the discussion",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ExclusiveStartRequest[System.Int32]": {
+			"type": "object",
+			"properties": {
+				"ExclusiveStartKeyInfo": {
+					"$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int32]",
+					"readOnly": true
+				},
+				"CursorRecipe": {
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.Int32]": {
+			"type": "object",
+			"properties": {
+				"SortOrder": {
+					"enum": ["Asc", "Desc"],
+					"type": "string",
+					"readOnly": true
+				},
+				"PagingDirection": {
+					"enum": ["Forward", "Backward"],
+					"type": "string",
+					"readOnly": true
+				},
+				"Count": {
+					"format": "int32",
+					"type": "integer",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Discussions.Api.DiscussionResponse]": {
+			"type": "object",
+			"properties": {
+				"previousPageCursor": {
+					"type": "string"
+				},
+				"nextPageCursor": {
+					"type": "string"
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Discussions.Api.DiscussionResponse"
+					}
+				}
+			}
+		},
+		"Roblox.Discussions.Api.Metadata": {
+			"description": "Global information about the state of Discussions for a particular user, including roll-out settings",
+			"type": "object",
+			"properties": {
+				"privacySettingsAllowSending": {
+					"description": "Gets a value indicating whether the user is allowed to send messages\r\nDetermined from the user's \"Is Account Restricted\" setting",
+					"type": "boolean"
+				},
+				"discussionsEnabledForUser": {
+					"description": "Gets a value indicating whether the user is allowed to access Discussions at all\r\nDetermined using a roll-out setting from Platform.Discussions",
+					"type": "boolean"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.RealTimeNotificationsSubscriptionResponse": {
+			"description": "The response model for subscribing to real time notifications",
+			"type": "object",
+			"properties": {
+				"subscribeReceipt": {
+					"description": "Gets or sets the subscribe receipt",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.ExclusiveStartRequest[System.String]": {
+			"type": "object",
+			"properties": {
+				"ExclusiveStartKeyInfo": {
+					"$ref": "#/definitions/Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.String]",
+					"readOnly": true
+				},
+				"CursorRecipe": {
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Platform.Core.ExclusiveStartPaging.IExclusiveStartKeyInfo[System.String]": {
+			"type": "object",
+			"properties": {
+				"SortOrder": {
+					"enum": ["Asc", "Desc"],
+					"type": "string",
+					"readOnly": true
+				},
+				"PagingDirection": {
+					"enum": ["Forward", "Backward"],
+					"type": "string",
+					"readOnly": true
+				},
+				"Count": {
+					"format": "int32",
+					"type": "integer",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiPageResponse[Roblox.Discussions.Api.MessageResponse]": {
+			"type": "object",
+			"properties": {
+				"previousPageCursor": {
+					"type": "string"
+				},
+				"nextPageCursor": {
+					"type": "string"
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Discussions.Api.MessageResponse"
+					}
+				}
+			}
+		},
+		"Roblox.Discussions.Api.MessageResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"isDeleted": {
+					"type": "boolean"
+				},
+				"sender": {
+					"$ref": "#/definitions/Roblox.Discussions.Api.SenderResponse"
+				},
+				"created": {
+					"format": "date-time",
+					"type": "string"
+				},
+				"messageText": {
+					"type": "string"
+				},
+				"messageChunks": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Discussions.Api.MessageChunkResponse"
+					}
+				}
+			}
+		},
+		"Roblox.Discussions.Api.SenderResponse": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"targetId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"type": {
+					"enum": ["User"],
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.MessageChunkResponse": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Discussions.Api.SendMessageRequest": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

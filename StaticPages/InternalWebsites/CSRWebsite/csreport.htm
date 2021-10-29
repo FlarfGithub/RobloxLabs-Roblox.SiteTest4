@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roblox Exploiting Report</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<script src="js/modernizr-2.8.1.js"></script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap.min.3.4.1.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/jquery.bootgrid.fa.js"></script>
+		<script src="js/csrutils.js"></script>
+		<style>
+			@-webkit-viewport {
+				width: device-width;
+			}
+			@-moz-viewport {
+				width: device-width;
+			}
+			@-ms-viewport {
+				width: device-width;
+			}
+			@-o-viewport {
+				width: device-width;
+			}
+			@viewport {
+				width: device-width;
+			}
+
+			body {
+				padding-top: 70px;
+				padding-left: 30px;
+			}
+
+			.column .text {
+				color: #f00 !important;
+			}
+			.cell {
+				font-weight: bold;
+			}
+			th {
+				height: 30px;
+				vertical-align: middle;
+			}
+			td {
+				height: 30px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" data-i18n="title"
+						>Roblox Exploiting Report: CS Report #<span id="text-report-num"></span
+					></span>
+				</div>
+				<nav id="menu" class="navbar-collapse collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.htm">Home</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">
+					<table id="tbl_report" cellpadding="30">
+						<thead style="background-color: rgb(60, 100, 60); color: white">
+							<tr>
+								<th style="width: 120px; text-align: center">Player</th>
+								<th style="width: 120px; text-align: center">ReportTimes</th>
+								<th style="width: 120px; text-align: center">ExploitingTimes</th>
+								<th style="width: 120px; text-align: center">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_report_body"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<span><img id="wait-spinner" src="images/color-spinner.gif" alt="Loading ..." /></span>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">© Copyright 2020 Roblox Corporation. All Rights Reserved.</footer>
+
+		<script>
+			var timeRange = [0, 0];
+
+			$(document).ready(function () {
+				function getReportTimeRange(id) {
+					var vUrl = CsrUtils.csrApiHost + '/report/meta?id=' + id;
+					//alert("Get: " + vUrl);
+					$.ajax({
+						async: false,
+						type: 'GET',
+						url: vUrl,
+						dataType: 'json',
+						success: function (data, status) {
+							if (data.result.length > 0) {
+								var statBeginTime = new Date(CsrUtils.localTimeStringToISOString(data.result[0].STATBEGIN));
+								var statEndTime = new Date(CsrUtils.localTimeStringToISOString(data.result[0].STATEND));
+								timeRange[0] = statBeginTime.getTime() / 1000;
+								timeRange[1] = statEndTime.getTime() / 1000;
+							}
+						},
+						error: function (xhr, status, error) {},
+					});
+				}
+
+				function init(id) {
+					$.get(CsrUtils.csrApiHost + '/report?id=' + id, function (data, status) {
+						var i = 0;
+						var idx = 0;
+						for (i = 0; i < data.result.length; i++) {
+							var rowContent = '';
+							rowContent += '<tr id="item-' + data.result[i].ID + '"';
+							if (idx == 0) {
+								rowContent += ', style="background-color: rgb(240, 255, 240)">';
+								idx = 1;
+							} else {
+								rowContent += ', style="background-color: rgb(220, 255, 220)">';
+								idx = 0;
+							}
+
+							rowContent +=
+								"<td style=\"text-align: center;\"><a target='_blank' href='https://www.roblox.com/users/" +
+								data.result[i].PLAYERID +
+								"/profile'>" +
+								data.result[i].PLAYERID +
+								'</td>';
+							rowContent += '<td style="text-align: center;">' + data.result[i].STATS_RCOUNT + '</td>';
+							rowContent += '<td style="text-align: center;">' + data.result[i].STATS_ECOUNT + '</td>';
+							rowContent +=
+								'<td style="text-align: center;">&nbsp;&nbsp;<a href=\'playerhistory.htm?id=' +
+								data.result[i].PLAYERID +
+								'&st=' +
+								timeRange[0] +
+								'&et=' +
+								timeRange[1] +
+								"' target='_blank'>Details</a>&nbsp;&nbsp;</td>";
+							rowContent += '</tr>';
+							$('#tbl_report_body').append(rowContent);
+						}
+						$('#wait-spinner').hide();
+					});
+				}
+
+				var urlParams = new URLSearchParams(window.location.search);
+				if (urlParams.has('id')) {
+					var reportId = urlParams.get('id');
+					$('#text-report-num').text(reportId);
+					getReportTimeRange(reportId);
+					init(reportId);
+				} else {
+					$('#wait-spinner').hide();
+				}
+			});
+		</script>
+	</body>
+</html>

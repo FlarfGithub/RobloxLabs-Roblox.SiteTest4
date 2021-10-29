@@ -1,0 +1,168 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "AbTesting Api v1"
+	},
+	"host": "abtesting.sitetest4.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/enrollments": {
+			"post": {
+				"tags": ["Enrollments"],
+				"summary": "Enrolls a subject in an experiment.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "enrollments",
+						"in": "body",
+						"description": "The {Roblox.AbTesting.Api.Models.Request.ExperimentSubjectModel}s containing the subjects and the experiments to enroll them into.",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.AbTesting.Api.Models.Request.ExperimentSubjectModel"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.AbTesting.Api.Models.Response.EnrollmentStatusResponseModel]"
+						}
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Enrollments:Enroll"]
+				}
+			}
+		},
+		"/v1/get-enrollments": {
+			"post": {
+				"tags": ["Enrollments"],
+				"summary": "Gets a subject's enrollment in an experiment.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "enrollments",
+						"in": "body",
+						"description": "A collection of {Roblox.AbTesting.Api.Models.Request.ExperimentSubjectModel}s containing the name of the experiments and the subjects to get the enrollments for.",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Roblox.AbTesting.Api.Models.Request.ExperimentSubjectModel"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.AbTesting.Api.Models.Response.EnrollmentResponseModel]"
+						}
+					},
+					"403": {
+						"description": "0: Token Validation Failed"
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Enrollments:GetEnrollment"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.AbTesting.Api.Models.Request.ExperimentSubjectModel": {
+			"type": "object",
+			"properties": {
+				"SubjectType": {
+					"enum": ["User", "BrowserTracker"],
+					"type": "string"
+				},
+				"SubjectTargetId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"ExperimentName": {
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.AbTesting.Api.Models.Response.EnrollmentResponseModel]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.AbTesting.Api.Models.Response.EnrollmentResponseModel"
+					}
+				}
+			}
+		},
+		"Roblox.AbTesting.Api.Models.Response.EnrollmentResponseModel": {
+			"type": "object",
+			"properties": {
+				"SubjectType": {
+					"enum": ["User", "BrowserTracker"],
+					"type": "string"
+				},
+				"SubjectTargetId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"ExperimentName": {
+					"type": "string"
+				},
+				"Variation": {
+					"format": "int32",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Web.WebAPI.Models.ApiArrayResponse[Roblox.AbTesting.Api.Models.Response.EnrollmentStatusResponseModel]": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.AbTesting.Api.Models.Response.EnrollmentStatusResponseModel"
+					}
+				}
+			}
+		},
+		"Roblox.AbTesting.Api.Models.Response.EnrollmentStatusResponseModel": {
+			"type": "object",
+			"properties": {
+				"SubjectType": {
+					"enum": ["User", "BrowserTracker"],
+					"type": "string"
+				},
+				"SubjectTargetId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"ExperimentName": {
+					"type": "string"
+				},
+				"Status": {
+					"type": "string"
+				},
+				"Variation": {
+					"format": "int32",
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

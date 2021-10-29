@@ -1,0 +1,47 @@
+﻿.game-template {
+	width: 150px;
+	float: left;
+	margin-right: 10px;
+}
+
+.game-template a {
+	width: 150px;
+	height: 150px;
+	display: block;
+	position: relative;
+}
+
+.game-template img {
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	z-index: -1;
+}
+
+.game-template .templateName {
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.game-template .removeTemplate {
+	float: right;
+}
+
+.game-template.template {
+	display: none;
+}
+
+
+#gameTemplatesList {
+	float: left;
+	width: 100%;
+}
+
+
+.error-message {
+	color: red;
+	font-weight: bold;
+	font-size: 13px;
+	padding-bottom: 10px;
+}

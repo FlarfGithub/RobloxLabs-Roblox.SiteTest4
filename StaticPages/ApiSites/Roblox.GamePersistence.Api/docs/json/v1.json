@@ -1,0 +1,630 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "GamePersistence Api v1"
+	},
+	"host": "gamepersistence.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/persistence/{type}": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Retrieves the value of a single key.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "type",
+						"in": "path",
+						"description": "Datastore type, \"standard\" or \"sorted\".",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "Datastore scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "target",
+						"in": "query",
+						"description": "Datastore item.",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided scope is invalid.\r\n3: The provided target is invalid.\r\n4: The provided key is invalid.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "11: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "8: The provided storage type is invalid."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:Get"]
+				}
+			},
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Sets the value of a key.",
+				"description": "<para>If {usn} is not provided at all, the operation is unconditional and the\r\n            provided value replaces any exiting value of the key. The return status is 200 OK and the\r\n            result object is a {Roblox.GamePersistence.Api.Models.V1.SetResponse} instance containing the new USN of the key.\r\n            </para>\r\n<para>If {usn} is provided and empty, the operation only succeeds if the\r\n            specified key does not exist. If {usn} is not empty, the operation only\r\n            succeeds if the current key USN matches the provided USN.\r\n            </para>\r\n<para>If the condition is not matched, the response status is 409 conflict and the response\r\n            body contains the current key value. The current key USN is provided in the Roblox-Usn header.\r\n            This is exact same response as from a GET operation on this key.\r\n            </para>",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "type",
+						"in": "path",
+						"description": "Datastore type, \"standard\" or \"sorted\".",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "Datastore scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "target",
+						"in": "query",
+						"description": "Datastore item.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "usn",
+						"in": "query",
+						"description": "Optional USN to match for a conditional update (see remarks).",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided scope is invalid.\r\n3: The provided target is invalid.\r\n4: The provided key is invalid.\r\n7: The size of the provided value exceeds the allowed maximum.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "10: The provided key is read-only.\r\n11: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "8: The provided storage type is invalid."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:Set"]
+				}
+			}
+		},
+		"/v1/persistence/sorted/list": {
+			"get": {
+				"tags": ["Persistence"],
+				"summary": "Returns a range of values from a sorted data store.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "Datastore scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size.",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "direction",
+						"in": "query",
+						"description": "Enumeration direction, \"asc\" or \"desc\".",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "minValue",
+						"in": "query",
+						"description": "Minimum value to return, inclusive.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "maxValue",
+						"in": "query",
+						"description": "Maximum value to return, inclusive.",
+						"required": false,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "exclusiveStartKey",
+						"in": "query",
+						"description": "Exclusive start key.",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.GetSortedResponse"
+						}
+					},
+					"400": {
+						"description": "2: The provided scope is invalid.\r\n4: The provided key is invalid.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "11: Studio access to APIs is not allowed."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:GetSorted"]
+				}
+			}
+		},
+		"/v1/persistence/{type}/increment": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Increments the value of the key by the provided amount.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "type",
+						"in": "path",
+						"description": "Datastore type, \"standard\" or \"sorted\".",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "Datastore scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "target",
+						"in": "query",
+						"description": "Datastore item.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "by",
+						"in": "query",
+						"description": "The amount to increment by.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.IncrementResponse"
+						}
+					},
+					"400": {
+						"description": "2: The provided scope is invalid.\r\n3: The provided target is invalid.\r\n4: The provided key is invalid.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "10: The provided key is read-only.\r\n11: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "8: The provided storage type is invalid."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:Increment"]
+				}
+			}
+		},
+		"/v1/persistence/{type}/multi-get": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Retrieves the values of multiple keys.",
+				"consumes": ["application/json", "text/json", "application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "type",
+						"in": "path",
+						"description": "Datastore type, \"standard\" or \"sorted\".",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "request",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.MultiGetRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.MultiGetResponse"
+						}
+					},
+					"400": {
+						"description": "1: The required request body is missing.\r\n2: The provided scope is invalid.\r\n3: The provided target is invalid.\r\n4: The provided key is invalid.\r\n5: At least one key must be provided.\r\n6: The number of provided keys exceeds the allowed maximum.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "11: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "8: The provided storage type is invalid."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:MultiGet"]
+				}
+			}
+		},
+		"/v1/persistence/{type}/remove": {
+			"post": {
+				"tags": ["Persistence"],
+				"summary": "Removes the value of the specfiied key.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "Roblox-Place-Id",
+						"in": "header",
+						"description": "Place identifier of the requesting place.",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "type",
+						"in": "path",
+						"description": "Datastore type, \"standard\" or \"sorted\".",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "scope",
+						"in": "query",
+						"description": "Datastore scope.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "key",
+						"in": "query",
+						"description": "Datastore name.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "target",
+						"in": "query",
+						"description": "Datastore item.",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"400": {
+						"description": "2: The provided scope is invalid.\r\n3: The provided target is invalid.\r\n4: The provided key is invalid.\r\n9: The provided place is invalid."
+					},
+					"403": {
+						"description": "10: The provided key is read-only.\r\n11: Studio access to APIs is not allowed."
+					},
+					"404": {
+						"description": "8: The provided storage type is invalid."
+					},
+					"429": {
+						"description": "12: The request rate exceeds the allowed maximum for the key.\r\n13: The request rate exceeds the allowed maximum for the datastore."
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["PersistenceV1:Remove"]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"System.Threading.CancellationToken": {
+			"type": "object",
+			"properties": {
+				"IsCancellationRequested": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"CanBeCanceled": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"WaitHandle": {
+					"$ref": "#/definitions/System.Threading.WaitHandle",
+					"readOnly": true
+				}
+			}
+		},
+		"System.Threading.WaitHandle": {
+			"type": "object",
+			"properties": {
+				"Handle": {
+					"type": "object"
+				},
+				"SafeWaitHandle": {
+					"$ref": "#/definitions/Microsoft.Win32.SafeHandles.SafeWaitHandle"
+				}
+			}
+		},
+		"Microsoft.Win32.SafeHandles.SafeWaitHandle": {
+			"type": "object",
+			"properties": {
+				"IsInvalid": {
+					"type": "boolean",
+					"readOnly": true
+				},
+				"IsClosed": {
+					"type": "boolean",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.MultiGetRequest": {
+			"description": "Multi-get request body.",
+			"type": "object",
+			"properties": {
+				"keys": {
+					"description": "Gets or sets the keys to return.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.QualifiedKey"
+					}
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.QualifiedKey": {
+			"description": "Represents a key in a datastore. Contains all information required to identify the key.",
+			"type": "object",
+			"properties": {
+				"scope": {
+					"description": "Gets or sets the key scope.",
+					"type": "string"
+				},
+				"target": {
+					"description": "Gets or sets the key target.",
+					"type": "string"
+				},
+				"key": {
+					"description": "Gets or sets the key name.",
+					"type": "string"
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.MultiGetResponse": {
+			"description": "Multi-get operation response.",
+			"type": "object",
+			"properties": {
+				"entries": {
+					"description": "Gets the retrieved entries.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.QualifiedEntry"
+					},
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.QualifiedEntry": {
+			"description": "Represents a {Roblox.GamePersistence.Api.Models.V1.QualifiedKey} with a specified value.",
+			"type": "object",
+			"properties": {
+				"scope": {
+					"description": "Gets the key scope.",
+					"type": "string",
+					"readOnly": true
+				},
+				"target": {
+					"description": "Gets the key target.",
+					"type": "string",
+					"readOnly": true
+				},
+				"key": {
+					"description": "Gets the key name.",
+					"type": "string",
+					"readOnly": true
+				},
+				"value": {
+					"description": "Gets the key value.",
+					"type": "string",
+					"readOnly": true
+				},
+				"usn": {
+					"description": "Gets the key USN.",
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.GetSortedResponse": {
+			"description": "GetSorted operation response.",
+			"type": "object",
+			"properties": {
+				"entries": {
+					"description": "Gets the retrieved entries.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.GamePersistence.Api.Models.V1.TargetValuePair"
+					},
+					"readOnly": true
+				},
+				"lastEvaluatedKey": {
+					"description": "Gets the last evaluated key.",
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.TargetValuePair": {
+			"description": "A target and value pair.",
+			"type": "object",
+			"properties": {
+				"target": {
+					"description": "Gets the key target.",
+					"type": "string",
+					"readOnly": true
+				},
+				"value": {
+					"format": "int64",
+					"description": "Gets the item value.",
+					"type": "integer",
+					"readOnly": true
+				},
+				"usn": {
+					"description": "Gets the item USN.",
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		},
+		"Roblox.GamePersistence.Api.Models.V1.IncrementResponse": {
+			"description": "Increment operation response.",
+			"type": "object",
+			"properties": {
+				"value": {
+					"description": "Gets the incremented value.",
+					"type": "string",
+					"readOnly": true
+				},
+				"usn": {
+					"description": "Gets the USN of the key after the increment operation.",
+					"type": "string",
+					"readOnly": true
+				}
+			}
+		}
+	}
+}

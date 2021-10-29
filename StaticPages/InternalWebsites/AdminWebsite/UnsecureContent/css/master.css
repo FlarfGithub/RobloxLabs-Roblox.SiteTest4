@@ -1,0 +1,440 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	background: #fcfcfc;
+	margin: 0;
+}
+div.header {
+	margin: 0 0 10px;
+	background: #f0f0f0;
+	text-align: right;
+	padding: 5px;
+	border-top: 2px solid #3679bc;
+	height: 18px;
+}
+a {
+	color: #095fb5;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+div.ContentPaneFloat {
+	float: left;
+	padding-left: 230px;
+	min-height: 500px;
+}
+div.NavigationPaneFloat {
+	position: absolute;
+	width: 200px;
+	border-right: 1px solid #f0f0f0;
+}
+div.NavigationPaneFloat .navSection {
+	padding-left: 10px;
+}
+div.NavigationPaneFloat ul {
+	margin: 0px;
+	margin-bottom: 10px;
+}
+div.navHeader {
+	margin-bottom: 10px;
+	margin-top: 15px;
+	color: #999999;
+	font-weight: bold;
+	font-size: 15px;
+}
+h1 {
+	margin-top: 35px;
+	margin-bottom: 12px;
+	font-size: 40px;
+	font-weight: bold;
+	color: #363636;
+	letter-spacing: -2px;
+}
+h2 {
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #000;
+}
+
+/*  Legacy */
+.StandardTabWhite,
+.StandardTabGrayActive,
+.StandardTabGray {
+	display: inline-block;
+	height: 26px;
+	z-index: 2;
+	position: relative;
+	*display: inline;
+	*zoom: 1;
+}
+.StandardTabWhite span {
+	*padding-right: 14px;
+}
+.StandardTabGray {
+	background-color: #b4cde9;
+	margin-right: 4px;
+}
+li.ConfigTabs {
+	padding: 6px 10px 0px 10px;
+}
+.StandardTabGrayActive {
+	margin-right: 4px;
+}
+
+.StandardTabGray a,
+.StandardTabGrayActive a {
+	color: White;
+}
+.StandardTabGray a:hover,
+.StandardTabGrayActive a:hover {
+	text-decoration: none;
+}
+
+.StandardTabGray:hover,
+.StandardTabGrayActive {
+	background-color: #6c98cb;
+	color: White;
+}
+
+div.Signin {
+	margin: 0 auto;
+	width: 198px;
+	margin-top: 150px;
+	color: #666;
+}
+
+div.Signin .formRow {
+	margin-bottom: 5px;
+}
+div.Signin .formRow label {
+	display: block;
+}
+div.Signin .formRow input {
+	border: 1px solid #999;
+	padding: 3px;
+	width: 190px;
+}
+
+div.Signin .formRowSubmit {
+	text-align: right;
+	margin-top: 12px;
+}
+div.Signin .formRowSubmit input {
+	border: 1px solid #999;
+	padding: 3px 6px;
+	border-radius: 3px;
+	margin: 0;
+}
+div.Signin .formRowSubmit input:hover {
+	cursor: pointer;
+	background: white;
+	color: #666;
+}
+
+div.header div.headerFloatLeft {
+	float: left;
+}
+div.header div.headerFloatRight {
+	float: right;
+}
+
+/* mvc pages */
+
+#GroupName {
+	width: 550px;
+	height: 20px;
+	margin-bottom: 3px;
+}
+
+#NamePattern {
+	width: 550px;
+	height: 20px;
+}
+
+#ValuePattern {
+	width: 550px;
+	height: 20px;
+}
+
+#messageDiv {
+	display: none;
+}
+
+/* div containing lists of settings, maybe populated with ajax */
+.resultsContainer {
+	margin-top: 20px;
+}
+
+.settingsTableCaption {
+	padding: 3px;
+}
+
+.settingsTable {
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.settingsTable td {
+	white-space: nowrap;
+}
+
+.settingsTable td div {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.infoMessage {
+	display: inline-block;
+	min-width: 40%;
+}
+
+/* actions column -> anchor */
+.settingsTable .a a {
+	color: #095fb5;
+}
+
+/* name column */
+.settingsTable .n {
+	width: 270px;
+}
+
+/* Highlight results from filter*/
+.settingsTable .highlighted {
+	font-weight: bold;
+	background-color: lightgoldenrodyellow;
+}
+
+/* value column */
+.settingsTable .valueCell {
+	width: 300px;
+	margin: auto;
+}
+
+/* actual value */
+.settingsTable .value {
+	width: 210px;
+	float: left;
+}
+
+/* icon div*/
+.settingsTable .copyValue {
+	float: right;
+}
+
+.settingsTable .masked {
+	display: none;
+}
+
+/* icon */
+.settingsTable .copyToClipboardIcon {
+	height: 15px;
+	width: 15px;
+	background-image: url('/UnsecureContent/images/Logo/clipboard.svg');
+	background-size: 15px 15px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: left;
+	margin-left: 15px;
+}
+
+/* secret value */
+.settingsTable .secret {
+	color: red;
+}
+
+/* show masked value button*/
+.settingsTable .ui-button .ui-button-text {
+	line-height: 0.5;
+	font-size: 10px;
+}
+
+/* connection string */
+.settingsTable .cs {
+	width: 400px;
+}
+
+/* comment column */
+.settingsTable .c {
+	width: 280px;
+}
+
+/* group column in connection strings */
+.settingsTable .g {
+	width: 300px;
+}
+
+/* group column trimmed */
+.settingsTable .gt {
+	width: 200px;
+}
+
+/* type column */
+.settingsTable .t {
+	width: 110px;
+}
+
+.settingsTable td,
+.settingsTable th {
+	border: 1px solid #999999;
+}
+
+.settingsTable td {
+	padding: 4px;
+}
+
+.settingsTable th {
+	padding: 5px 4px;
+	color: black;
+}
+
+.settingsTable tr:hover {
+	background-color: #dddddd;
+}
+
+.configDialog {
+	display: none;
+}
+.configDialog input[type='text'] {
+	width: 400px;
+}
+
+.configDialog .hiddenRow {
+	display: none;
+}
+
+#settingsDialog .timeSpan input[type='text'] {
+	width: 70px;
+	margin-right: 2px;
+}
+#settingsDialog .guid #guidInput1 {
+	width: 75px;
+	margin-right: 2px;
+}
+
+#settingsDialog .guid #guidInput2,
+#settingsDialog .guid #guidInput3,
+#settingsDialog .guid #guidInput4 {
+	width: 50px;
+	margin-right: 2px;
+}
+
+#settingsDialog .guid #guidInput5 {
+	width: 110px;
+	margin-right: 2px;
+}
+#settingsDialog .hide {
+	display: none;
+}
+
+#settingsDialog table {
+	margin: 0 auto;
+}
+
+#settingsDialog input[type='text'] {
+	margin-bottom: 3px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+	color: #ff0000;
+}
+
+.field-validation-valid {
+	display: none;
+}
+
+.input-validation-error {
+	border: 1px solid #ff0000 !important;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.validation-summary-valid {
+	display: none;
+}
+
+/** styles for services config pages begin ***/
+.authorization-column span,
+.authorization-column a {
+	width: 50px;
+	display: inline-block;
+	text-align: center;
+}
+
+.authorization-column span.selected {
+	font-weight: bold;
+	background-color: #ededed;
+	border-radius: 4px;
+}
+/** styles for services config pages end ***/
+
+/*** client settings beging ***/
+#client-settings label {
+	display: block;
+}
+#client-settings .add-top-margin {
+	margin-top: 20px;
+}
+#client-settings #status-message {
+	margin-left: 5px;
+}
+#client-settings input#setting-key {
+	width: 602px;
+	margin-bottom: 10px;
+	display: block;
+}
+#client-settings textarea {
+	width: 600px;
+	height: 350px;
+	margin-bottom: 10px;
+	display: block;
+	margin-top: 2px;
+}
+#client-settings table {
+	border-spacing: 0;
+}
+#client-settings table td {
+	padding: 0;
+	vertical-align: top;
+}
+/*** client settings end ***/
+
+/*** regex start ***/
+a.edit-regex-link {
+	margin-right: 10px;
+}
+.contentFilter {
+	float: left;
+	margin: 20px 20px 20px 0;
+	max-width: 50%;
+}
+.margin-bottom {
+	margin-bottom: 5px;
+}
+
+/*** regex ends ***/
+
+#duo_iframe {
+	border: none;
+	width: 100%;
+	/* ReSharper disable CssBrowserCompatibility */
+	min-width: 304px;
+	/* ReSharper restore CssBrowserCompatibility */
+	max-width: 620px;
+	height: 330px;
+	display: block;
+	margin-top: 50px;
+	margin: 50px auto 0 auto;
+}
+
+#duo_form {
+	display: none;
+}

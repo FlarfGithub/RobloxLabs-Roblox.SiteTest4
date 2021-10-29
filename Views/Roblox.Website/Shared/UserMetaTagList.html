@@ -1,0 +1,37 @@
+<% if (IUserAuthenticated) { %>
+<meta
+	name="user-data"
+	data-userid="<%= IUser.ID %>"
+	data-name="<%= IUser.Name %>"
+	data-displayname="<%= IUser.DisplayName %>"
+	data-isunder13="<%= IUser.IsUnder13 %>"
+	data-created="<%= IUser.Created %>"
+	data-ispremiumuser="<%= IUser.IsPremium %>"
+/>
+<% } %>
+<meta
+	name="locale-data"
+	data-language-code="<%= IUserAuthenticated === true ? IUser.LanguageCode : ISessionUser.LanguageCode %>"
+	data-language-name="<%= IUserAuthenticated === true ? IUser.LanguageName : ISessionUser.LanguageName %>"
+/>
+<meta
+	name="device-meta"
+	data-device-type="<%= ISessionUser.Device.DeviceName %>"
+	data-is-in-app="<%= ISessionUser.Device.IsInApp %>"
+	data-is-desktop="<%= ISessionUser.Device.IsDesktop %>"
+	data-is-phone="<%= ISessionUser.Device.IsPhone %>"
+	data-is-tablet="<%= ISessionUser.Device.IsTablet %>"
+	data-is-console="<%= ISessionUser.Device.IsConsole %>"
+	data-is-android-app="<%= ISessionUser.Device.IsAndroidApp %>"
+	data-is-ios-app="<%= ISessionUser.Device.IsIosApp %>"
+	data-is-uwp-app="<%= ISessionUser.Device.IsUWPApp %>"
+	data-is-xbox-app="<%= ISessionUser.Device.IsXboxApp %>"
+	data-is-amazon-app="<%= ISessionUser.Device.IsAmazonApp %>"
+	data-is-win32-app="<%= ISessionUser.Device.IsWin32App %>"
+	data-is-studio="<%= ISessionUser.Device.IsStudio %>"
+	data-is-game-client-browser="<%= ISessionUser.Device.IsGameClientBrowser %>"
+	data-is-ios-device="<%= ISessionUser.Device.IsIosDevice %>"
+	data-is-android-device="<%= ISessionUser.Device.IsAndroidDevice %>"
+	data-is-universal-app="<%= ISessionUser.Device.IsUniversalApp %>"
+	data-app-type="unknown"
+/>

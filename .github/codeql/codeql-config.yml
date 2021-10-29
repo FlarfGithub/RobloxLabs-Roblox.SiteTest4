@@ -1,0 +1,6 @@
+name: 'CodeQL config'
+
+paths:
+    - Source
+paths-ignore:
+    - '**/*.js'

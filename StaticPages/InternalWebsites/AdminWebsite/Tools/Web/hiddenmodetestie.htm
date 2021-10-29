@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title></title>
+		<script type="text/javascript" src="/UnsecureContent/js/jquery-1.11.js"></script>
+	</head>
+	<body>
+		<object id="robloxpluginobj" type="application/x-vnd-roblox-launcher">
+			<p>You need Our Plugin for this. Get the latest version from<a href="setup-sitetest.roblox.com">here</a>.</p>
+		</object>
+		<object
+			classid="clsid:76D50904-6780-4c8b-8986-1A7EE0B1716D"
+			id="robloxpluginobj"
+			type="application/x-vnd-roblox-launcher"
+			codebase="setup-sitetest.roblox.com"
+		>
+			Failed to INIT Plugin
+		</object>
+		<p><input type="text" size="20" id="placeID" value="91388704" /></p>
+		<input type="button" value="Get game URLs" onclick="getGameUrls();" />
+		<input type="button" value="Start game normal" onclick="startGameNormal();" />
+		<input type="button" value="Set game hidden" id="setGameHidden" onclick="setGameHidden();" />
+		<input type="button" value="Show hidden game" id="showHiddenGame" onclick="showHiddenGame();" />
+		<input type="button" value="Get game started status" onclick="getGameStarted()" />
+		<p>Game request status: <span id="gameReqStatus">No game req.</span></p>
+		<p>Game started status: <span id="gameStartedStatus">Unknown</span></p>
+		<script type="text/javascript">
+			var visitUrl = '';
+			var authenticationUrl = 'http://sitetest4.robloxlabs.com/Login/Negotiate.ashx';
+
+			var launcher = document.getElementById('robloxpluginobj');
+			function el(e) {
+				return document.getElementById(e);
+			}
+
+			function getGameUrls() {
+				//launcher.PreStartGame();
+				el('gameReqStatus').innerHTML = 'Starting request...';
+				RequestGame(el('placeID').value, false, null);
+			}
+
+			function RequestGame(placeId, isPartyLeader, gender) {
+				gender = gender !== null && gender !== undefined ? gender : '';
+				$.getJSON(
+					'/Game/PlaceLauncher.ashx',
+					{ request: 'RequestGame', placeId: placeId, isPartyLeader: isPartyLeader, gender: gender },
+					function (data) {
+						if (data.Error) {
+							el('gameReqStatus').innerHTML = data.Error.toString();
+						} else {
+							CheckGameJobStatusResponse(data);
+						}
+					},
+				);
+			}
+
+			function CheckGameJobStatus(jobId) {
+				$.getJSON('/Game/PlaceLauncher.ashx', { request: 'CheckGameJobStatus', jobId: jobId }, function (data) {
+					if (data.Error) {
+						el('gameReqStatus').innerHTML = data.Error.toString();
+					} else {
+						CheckGameJobStatusResponse(data);
+					}
+				});
+			}
+
+			function CheckGameJobStatusResponse(result) {
+				if (result.status === 2) {
+					visitUrl = result.joinScriptUrl;
+					authenticationUrl = result.authenticationUrl;
+					el('gameReqStatus').innerHTML = 'Game is ready, <br>visit url=' + visitUrl + '<br>auth url=' + authenticationUrl;
+					//RobloxLaunch.StartGame(result.joinScriptUrl, "Join", result.authenticationUrl, result.authenticationTicket);
+					//$.modal.close();
+
+					//report length of time between click of join and successfully joining a game.
+					//var s_duration = new Date().getTime() - RobloxLaunch.timer.getTime();
+					//this._reportDuration(s_duration, "Success");
+				} else if (result.status < 2 || result.status === 6) {
+					// Try again
+					el('gameReqStatus').innerHTML = 'Game is not ready.  Retrying...';
+					//var onSuccess = function (result, context) { context._onGameStatus(result); };
+					//var onError = function (result, context) { context._onGameError(result); };
+					//var self = this;
+					var call = function () {
+						CheckGameJobStatus(result.jobId);
+					};
+					window.setTimeout(call, 2000);
+				} else if (result.status === 4) {
+					//error
+					//report length of time between click of join and failed joining a game.
+					//var f_duration = new Date().getTime() - RobloxLaunch.timer.getTime();
+					//this._reportDuration(f_duration, "Failure");
+					el('gameReqStatus').innerHTML = 'Got back a 4, failure.  :-(';
+				}
+			}
+
+			function startGameNormal() {
+				launcher.SetSilentModeEnabled(true);
+				launcher.StartGame(authenticationUrl, visitUrl);
+			}
+
+			function setGameHidden() {
+				launcher.SetStartInHiddenMode(true);
+				el('setGameHidden').disabled = true;
+				el('setGameHidden').value = 'Game will start hidden';
+			}
+
+			function showHiddenGame() {
+				setInterval('launcher.UnhideApp();', 200);
+			}
+
+			function getGameStarted() {
+				var started = false;
+				if (window.ActiveXObject) {
+					started = launcher.IsGameStarted;
+				} else {
+					started = launcher.Get_GameStarted();
+				}
+				el('gameStartedStatus').innerHTML = started.toString();
+			}
+		</script>
+	</body>
+</html>

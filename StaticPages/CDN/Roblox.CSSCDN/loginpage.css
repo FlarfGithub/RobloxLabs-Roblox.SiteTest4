@@ -1,0 +1,62 @@
+body {
+	margin: 0;
+	padding: 1;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: #202124;
+}
+div {
+	text-align: center;
+}
+div .home {
+	font-size: 75px;
+}
+#login {
+	width: 300px;
+	padding: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+#login h1 {
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+#login input[id='password'],
+#login input[id='username'] {
+	border: 0;
+	background: 0 0;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #3498db;
+	padding: 14px 10px;
+	width: 200px;
+	outline: 0;
+	color: #fff;
+	border-radius: 24px;
+	transition: 0.25s;
+}
+#login input[id='password']:focus,
+#login input[id='username']:focus {
+	width: 280px;
+	border-color: #2ecc71;
+}
+#login button {
+	border: 0;
+	background: 0 0;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #3498db;
+	padding: 14px 40px;
+	outline: 0;
+	color: #fff;
+	border-radius: 24px;
+	transition: 0.25s;
+}
+#login button:hover {
+	background: #2ecc71;
+}

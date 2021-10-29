@@ -1,0 +1,65 @@
+
+Error Detail: Cannot open database "RobloxMarketing" requested by the login. The login failed.
+Login failed for user 'RobloxDataAccess'.
+Inner Exception: 
+Exception Stack Trace:    at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Roblox.Mssql.Database.Execute(CommandType commandType, String commandText, SqlParameter[] sqlParameters, Action`1 action, Nullable`1 commandTimeout, Nullable`1 applicationIntent) in Z:\build\work\73cbbb52b9c062db\Assemblies\Mssql\Roblox.Mssql\Database.cs:line 105
+   at Roblox.Mssql.GuardedDatabase.<>c__DisplayClass2_0.<Execute>b__0() in Z:\build\work\73cbbb52b9c062db\Assemblies\Mssql\Roblox.Mssql\GuardedDatabase.cs:line 21
+   at Roblox.Sentinels.ExecutionCircuitBreakerBase.Execute(Action action)
+   at Roblox.Mssql.GuardedDatabase.Execute(CommandType commandType, String commandText, SqlParameter[] sqlParameters, Action`1 action, Nullable`1 commandTimeout, Nullable`1 applicationIntent) in Z:\build\work\73cbbb52b9c062db\Assemblies\Mssql\Roblox.Mssql\GuardedDatabase.cs:line 22
+   at Roblox.Mssql.Database.ExecuteReader(String commandText, SqlParameter[] sqlParameters, CommandType commandType, Nullable`1 commandTimeout, Nullable`1 applicationIntent) in Z:\build\work\73cbbb52b9c062db\Assemblies\Mssql\Roblox.Mssql\Database.cs:line 226
+   at Roblox.Entities.Mssql.RobloxDataAccessPatternExtensions.Get[TDal,TIndex](RobloxDatabase database, String storedProcedureName, TIndex id, Func`2 dalBuilder, Nullable`1 commandTimeout, Boolean includeApplicationIntent) in Z:\build\work\73cbbb52b9c062db\Assemblies\Entities\Roblox.Entities.Mssql\RobloxDataAccessPatternExtensions.cs:line 70
+   at Roblox.Marketing.DAL.BrowserTrackerDAL.Get(Int64 id) in Z:\build\work\73cbbb52b9c062db\Assemblies\Marketing\Roblox.Marketing\DAL\BrowserTrackerDAL.cs:line 35
+   at Roblox.Common.EntityHelper.DoGet[TIndex,TDal,TEntity](Func`1 dalGetter, TIndex index) in Z:\build\work\73cbbb52b9c062db\Assemblies\Data\Roblox.Data\Entities\EntityHelper.cs:line 381
+   at Roblox.Caching.MemCached.MemcachedCache.GetEntityFromCache[TIndex,TEntity,TDal](ICacheInfo cacheInfo, TIndex entityId, Func`1 getter)
+   at Roblox.Caching.MemCached.LocalBackedByMemcache.<>c__DisplayClass4_0`3.<GetEntityFromCache>b__0()
+   at Roblox.Caching.LocalCache.FillItemFetcher[TIndex,TEntity,TDal](Func`1 getter, ItemFetcher itemFetcher, ICacheInfo cacheInfo, TIndex entityId)
+   at Roblox.Caching.LocalCache.GetEntityFromCache[TIndex,TEntity,TDal](ICacheInfo cacheInfo, TIndex entityId, Func`1 getter)
+   at Roblox.Caching.MemCached.LocalBackedByMemcache.GetEntityFromCache[TIndex,TEntity,TDal](ICacheInfo cacheInfo, TIndex entityId, Func`1 getter)
+   at Roblox.Platform.Marketing.BrowserTrackerFactory.Get(Int64 id) in Z:\build\work\73cbbb52b9c062db\Assemblies\Platform\Marketing\Roblox.Platform.Marketing\Factories\BrowserTrackerFactory.cs:line 43
+   at Roblox.Web.Code.EventStream.WebEvents.WebEventArgsFactory.GetBrowserTracker(HttpContext context, IUser authenticatedUser)
+   at Roblox.Web.Code.EventStream.WebEvents.WebEventArgsFactory.Create[TWebEventArgs](HttpContext httpContext)
+   at ASP._Page_Views_Shared_SendPageLoadEvent_cshtml.Execute()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   at System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper htmlHelper, String partialViewName, Object model)
+   at ASP._Page_Views_Shared_RobloxEventStreamInitializer_cshtml.Execute()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   at System.Web.Mvc.Html.PartialExtensions.Partial(HtmlHelper htmlHelper, String partialViewName, Object model, ViewDataDictionary viewData)
+   at ASP._Page_Views_Shared__LeanBase_cshtml.Execute()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   at System.Web.WebPages.WebPageBase.<>c__DisplayClass3.<RenderPageCore>b__2(TextWriter writer)
+   at System.Web.WebPages.WebPageBase.Write(HelperResult result)
+   at System.Web.WebPages.WebPageBase.RenderSurrounding(String partialViewName, Action`1 body)
+   at System.Web.WebPages.WebPageBase.PopContext()
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+Exception Source: .Net SqlClient Data Provider
+Exception TargetSite: Boolean TryGetConnection(System.Data.Common.DbConnection, UInt32, Boolean, Boolean, System.Data.Common.DbConnectionOptions, System.Data.ProviderBase.DbConnectionInternal ByRef)
+Exception Data: System.Collections.ListDictionaryInternal

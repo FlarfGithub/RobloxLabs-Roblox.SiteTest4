@@ -1,0 +1,126 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Share Api v1"
+  },
+  "host": "share.sitetest3.robloxlabs.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/share/{gameId}/game": {
+      "get": {
+        "tags": [
+          "Share"
+        ],
+        "summary": "Gets game details.",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Roblox.Share.Api.GameResponse"
+            }
+          },
+          "400": {
+            "description": "2: The current user is not authorized."
+          },
+          "401": {
+            "description": "0: Authorization has been denied for this request."
+          },
+          "404": {
+            "description": "3: Game was not found."
+          },
+          "503": {
+            "description": "1: Service unavailable, please try again later."
+          }
+        },
+        "properties": {
+          "internal": true,
+          "metricIds": [
+            "Share:GetGame"
+          ]
+        }
+      }
+    },
+    "/v1/share/profile": {
+      "get": {
+        "tags": [
+          "Share"
+        ],
+        "summary": "Gets profile details.",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Roblox.Share.Api.ProfileResponse"
+            }
+          },
+          "400": {
+            "description": "2: The current user is not authorized."
+          },
+          "401": {
+            "description": "0: Authorization has been denied for this request."
+          }
+        },
+        "properties": {
+          "internal": true,
+          "metricIds": [
+            "Share:GetProfile"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Roblox.Share.Api.GameResponse": {
+      "description": "A game response.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title of the game",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the game",
+          "type": "string"
+        }
+      }
+    },
+    "Roblox.Share.Api.ProfileResponse": {
+      "description": "A profile response.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title of the user",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the user",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

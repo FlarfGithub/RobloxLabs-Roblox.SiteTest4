@@ -1,0 +1,121 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v2", "title": "Auth Api v2" },
+	"host": "api.sitetest4.robloxlabs.com",
+	"schemes": ["http", "https"],
+	"paths": {
+		"/auth/v2/login": {
+			"post": {
+				"tags": ["Auth"],
+				"summary": "Old method of logging in.",
+				"consumes": ["application/json", "text/json"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "Request",
+						"schema": {
+							"$ref": "#/definitions/Mfd.Auth.Api.Models.Request"
+						},
+						"required": true,
+						"description": "Request body"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.Captcha.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required."
+					},
+					"401": {
+						"description": "Authorization has been denied for this request."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "Body was null.\nRequest body was given but no/incorrect Content-Type was given.\nThe body provided was invalid."
+					},
+					"404": {
+						"description": "User not found."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["CSRF:getToken"],
+					"obsoleteMessage": "Deprecated for the WWWAuthAPIV1, use https://www.sitetest4.robloxlabs.com/Authentication/Login.ashx"
+				},
+				"deprecated": true
+			}
+		},
+		"/auth/v2/logout": {
+			"post": {
+				"tags": ["Auth"],
+				"summary": "Old method of logging out.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.Captcha.Api.Models.Success" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required."
+					},
+					"401": {
+						"description": "Authorization has been denied for this request."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"404": {
+						"description": "User not found."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["CSRF:getToken"],
+					"obsoleteMessage": "Deprecated for the WWWAuthAPIV1, use https://www.sitetest4.robloxlabs.com/Authentication/Logout.ashx"
+				},
+				"deprecated": true
+			}
+		}
+	},
+	"definitions": {
+		"Mfd.Captcha.Api.Models.Success": {
+			"type": "object",
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"example": true
+				},
+				"message": {
+					"type": "string",
+					"example": "Success"
+				}
+			}
+		},
+		"Mfd.Auth.Api.Models.Request": {
+			"type": "object",
+			"properties": {
+				"username": {
+					"type": "string",
+					"example": "..."
+				},
+				"password": {
+					"type": "string",
+					"example": "..."
+				}
+			}
+		}
+	}
+}

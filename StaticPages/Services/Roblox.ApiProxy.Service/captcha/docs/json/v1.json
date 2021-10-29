@@ -1,0 +1,95 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "Captcha Api v1" },
+	"host": "api.sitetest4.robloxlabs.com",
+	"schemes": ["http", "https"],
+	"paths": {
+		"/captcha/v1/get-image-hashes": {
+			"post": {
+				"tags": ["Captcha"],
+				"summary": "Get the Captcha image hashes based on the original hash.",
+				"consumes": ["application/x-www-form-urlencoded"],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"in": "formData",
+						"name": "captchaHash",
+						"type": "string",
+						"required": true,
+						"description": "The captchaHash to use."
+					},
+					{
+						"in": "formData",
+						"name": "captchaProvider",
+						"type": "string",
+						"required": true,
+						"description": "PROVIDER_MFD_LABS_300."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Mfd.Captcha.Api.Models.IMAGE_HASHES_SUCCESS" }
+					},
+					"503": {
+						"description": "The service is currently disabled or is experiencing an attack"
+					},
+					"403": {
+						"description": "Token Validation Failed.\nhttps Required."
+					},
+					"405": {
+						"description": "The requested resource does not support https method '{request.method}'."
+					},
+					"400": {
+						"description": "No body provided.\nThe Content-Type {request.headers['content-type']} is not supported.\nThe body provided was invalid.\nThe current CAPTCHA_PROVIDER is not valid"
+					},
+					"404": {
+						"description": "The captchaToken supplied is not valid."
+					}
+				},
+				"properties": {
+					"internal": false,
+					"metricIds": ["captcha:getHashes"]
+				},
+				"deprecated": false
+			}
+		}
+	},
+	"definitions": {
+		"Mfd.Captcha.Api.Models.IMAGE_HASHES_SUCCESS": {
+			"description": "A model containing information on whether or not the api is up.",
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Mfd.Captcha.Api.Models.IMAGE_HASH"
+					}
+				},
+				"captchaHash": {
+					"description": "The hash of the request, changed.",
+					"type": "string",
+					"example": "p7iXXdp6YiCafeUbQ3nenbJenCEO6baJw8WU48o0E_..."
+				},
+				"expires": {
+					"description": "The new hash expire.",
+					"type": "number",
+					"example": 900000
+				}
+			}
+		},
+		"Mfd.Captcha.Api.Models.IMAGE_HASH": {
+			"description": "Image hash",
+			"type": "object",
+			"properties": {
+				"imageHash": {
+					"type": "string"
+				},
+				"imageUri": {
+					"type": "string",
+					"example": "https://ti.sitetest4.robloxlabs.com/..."
+				}
+			}
+		}
+	}
+}

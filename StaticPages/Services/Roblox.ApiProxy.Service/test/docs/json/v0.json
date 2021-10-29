@@ -1,0 +1,39 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v0", "title": "Test Api v0" },
+	"host": "test.sitetest3.robloxlabs.com",
+	"schemes": ["https"],
+	"paths": {
+		"/checkhealth": {
+			"get": {
+				"tags": ["Tests"],
+				"summary": "Checks the health of the testers API.",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": { "$ref": "#/definitions/Roblox.Tests.Api.Models.Cheakhealth" }
+					}
+				},
+				"properties": {
+					"internal": true,
+					"metricIds": ["Tests:uptime"]
+				},
+				"deprecated": true
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Tests.Api.Models.Cheakhealth": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"type": "string",
+					"example": "OK"
+				}
+			}
+		}
+	}
+}

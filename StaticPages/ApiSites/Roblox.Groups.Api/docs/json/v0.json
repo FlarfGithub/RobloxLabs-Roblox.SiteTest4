@@ -1,0 +1,229 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v0",
+        "title": "Groups Api v0"
+    },
+    "host": "groups.sitetest3.robloxlabs.com",
+    "schemes": ["https"],
+    "paths": {
+        "/v0/groups/{groupId}": {
+            "get": {
+                "tags": ["LegacyGroups"],
+                "summary": "Retrieves information for the specified group ID.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "description": "The group id to fetch information for",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "1: Group is invalid or does not exist."
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Do not use these endpoints for new development.",
+                    "metricIds": ["LegacyGroups:GetGroupInfo"]
+                }
+            }
+        },
+        "/v0/groups/{groupId}/relationships": {
+            "get": {
+                "tags": ["LegacyGroups"],
+                "summary": "Retrieves a paged list of allied or enemy groups.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "groupId",
+                    "in": "path",
+                    "description": "The ID of the group",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "relationshipType",
+                    "in": "query",
+                    "description": "The group relationship type.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["Ally", "Enemy"]
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "description": "The page number to retrieve",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupRelationshipsResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "1: Group is invalid or does not exist."
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Do not use these endpoints for new development.",
+                    "metricIds": ["LegacyGroups:GetGroupRelationships"]
+                }
+            }
+        },
+        "/v0/users/{userId}/groups": {
+            "get": {
+                "tags": ["LegacyGroups"],
+                "summary": "Lists a user's groups.",
+                "consumes": [],
+                "produces": ["application/json", "text/json"],
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "The ID of the user",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupMembershipResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "3: The user is invalid or does not exist."
+                    }
+                },
+                "deprecated": true,
+                "properties": {
+                    "internal": true,
+                    "obsoleteMessage": "Do not use these endpoints for new development.",
+                    "metricIds": ["LegacyGroups:GetGroupsByUser"]
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupMembershipResponse": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Id": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "EmblemUrl": {
+                    "type": "string"
+                },
+                "EmblemId": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "Rank": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "Role": {
+                    "type": "string"
+                },
+                "IsPrimary": {
+                    "type": "boolean"
+                },
+                "IsInClan": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupResponse": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Id": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "Owner": {
+                    "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupOwnerResponse"
+                },
+                "EmblemUrl": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyRoleSetResponse"
+                    }
+                }
+            }
+        },
+        "Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupOwnerResponse": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Id": {
+                    "format": "int64",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Groups.Api.Models.Response.Legacy.LegacyRoleSetResponse": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Rank": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupRelationshipsResponse": {
+            "description": "Returns a page of allied or enemy groups.",
+            "type": "object",
+            "properties": {
+                "Groups": {
+                    "description": "The related groups.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Roblox.Groups.Api.Models.Response.Legacy.LegacyGroupResponse"
+                    }
+                },
+                "FinalPage": {
+                    "description": "Whether the request is the final page.",
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

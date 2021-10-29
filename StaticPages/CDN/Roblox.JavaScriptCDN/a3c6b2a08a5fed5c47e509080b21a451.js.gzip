@@ -1,0 +1,36 @@
+var _____WB$wombat$assign$function_____ = function(name) {return (self._wb_wombat && self._wb_wombat.local_init && self._wb_wombat.local_init(name)) || self[name]; };
+if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; return this; } }
+{
+  let window = _____WB$wombat$assign$function_____("window");
+  let self = _____WB$wombat$assign$function_____("self");
+  let document = _____WB$wombat$assign$function_____("document");
+  let location = _____WB$wombat$assign$function_____("location");
+  let top = _____WB$wombat$assign$function_____("top");
+  let parent = _____WB$wombat$assign$function_____("parent");
+  let frames = _____WB$wombat$assign$function_____("frames");
+  let opener = _____WB$wombat$assign$function_____("opener");
+
+/* Bundle: page_splitApps___39bc7faf887f8bdf06ae6df9ecd2cd8b_m */"use strict"; angular.module("pageTemplateApp", []).run(['$templateCache', function($templateCache) { $templateCache.put("toolbox-header", "<div class=client-toolbox-header-bar><form><select class=client-toolbox-selection ng-model=option ng-options=\"option.name for option in options\" data-options={{options}}></select> <select class=client-toolbox-selection ng-model=childOption ng-options=\"childOption.name for childOption in option.children\" data-options={{option.children}} ng-show=\"option.hasChildren==true\"></select><div class=client-toolbox-search ng-hide=\"option.searchable==false\"><button class=client-toolbox-search-btn type=submit ng-click=search()></button><div class=client-input-wrapper><input type=text name=clientToolboxSearchInput class=client-toolbox-searchinput ng-model=searchText></div></div></form></div>");$templateCache.put("toolbox-subnav", "<div class=client-toolbox-sort ng-hide=showReferralLinks()><label class=client-toolbox-label ng-hide=\"option.searchable==false\">Sort by</label> <select class=\"client-toolbox-subnav-selection client-toolbox-sort-selection\" ng-init=sortTypes[0] ng-model=sort ng-options=\"sort for sort in sortTypes\" ng-disabled=\"option.sortable==false\"></select></div>");$templateCache.put("toolbox-pagination", "<div><div class=client-toolbox-paging><button type=button ng-click=\"pagination('next')\" ng-hide=\"page.currentPage>=page.totalPage\" next-page={{page.nextPage}} class=client-toolbox-paging-btn>Show More</button></div></div>");$templateCache.put("toolbox-assets", "<div><div ng-if=\"getAssetsError==true\"><div class=client-toolbox-error-message ng-show=\"loadingComplete==true\">An error occured!</div></div><div ng-if=\"getAssetsError==false\"><div class=client-toolbox-noresult ng-show=\"page.totalAssetsNum==0\">No results found</div><div class=client-toolbox-message ng-hide=\"creatorName==null\">Search by creator: {{creatorName}}</div><ul class=client-toolbox-assets ng-show=\"isAssetsPageShown==true\"><li class=client-toolbox-item ng-repeat=\"asset in assets\"><div class=client-toolbox-inner data-asset={{asset}}><span roblox-toolbox-thumbnail asset=asset index={{$index}} insert-asset=insertAsset() class=client-toolbox-image></span><div class=client-toolbox-voting ng-show=\"asset.Voting.HasVoted||selectedIds.indexOf(asset.Asset.Id)>-1\"><span class=\"client-toolbox-vote client-toolbox-upvote\" ng-class=\"{'client-toolbox-vote-selected':asset.Voting.UserVote==true}\" ng-click=handleVote(true)></span> <span class=\"client-toolbox-vote client-toolbox-downvote\" ng-class=\"{'client-toolbox-vote-selected':asset.Voting.UserVote==false}\" ng-click=handleVote(false)></span></div><p class=client-toolbox-creator ng-click=searchByCreator() title={{asset.Creator.Name}}>by <span class=client-toolbox-creator-name>{{asset.Creator.Name}}</span></p><span ng-if=\"asset.Voting.ShowVotes==true&amp;&amp;asset.Voting.UpVotes+asset.Voting.DownVotes>0\" ng-hide=\"asset.Voting.HasVoted||selectedIds.indexOf(asset.Asset.Id)>-1\" class=client-toolbox-vote-container><div class=client-toolbox-progress><span class=client-toolbox-bar style=width:{{asset.Voting.UpVotes|getPercentage:asset.Voting.DownVotes}}></span></div><span ng-if=\"asset.Voting.UpVotes+asset.Voting.DownVotes>1\">{{asset.Voting.UpVotes+asset.Voting.DownVotes}} votes</span> <span ng-if=\"asset.Voting.UpVotes+asset.Voting.DownVotes==1\">{{asset.Voting.UpVotes+asset.Voting.DownVotes}} vote</span></span></div></ul></div><div ng-show=\"loadingComplete==false\" class=client-toolbox-loading></div></div>");$templateCache.put("toolbox-thumbnail", "<div draggable=true data-asset-index={{index}} title={{asset.Asset.Name}} ng-click=insertAsset()><img ng-src={{imageUrl}} ng-class=\"{'client-toolbox-bg-checkered':imageBackground=='None','client-toolbox-bg-white':imageBackground=='White','client-toolbox-bg-black':imageBackground=='Black'}\" alt=\"{{asset.Asset.Name}} image\" class=\"client-toolbox-asset-img client-toolbox-img-bg\"><div ng-class=\"{'client-toolbox-stamp':asset.Asset.TypeId!=3,'client-toolbox-stamp-audio':asset.Asset.TypeId==3}\" ng-if=\"asset.Asset.IsEndorsed==true\" title=\"Marked as a high-quality item\"></div><span class=client-toolbox-asset-name>{{asset.Asset.Name}}</span><div ng-class=\"{'client-toolbox-audio':true,'playing':isPlaying}\" ng-if=\"asset.Asset.TypeId==3\" onclick=event.stopPropagation() ng-click=playSound()></div></div>");$templateCache.put("toolbox-footer", "<div><label class=client-toolbox-lbl>Background:</label> <a ng-repeat=\"background in backgrounds\" ng-click=updateBg(background) ng-mouseover=updateBg(null,background) ng-mouseleave=updateBg() ng-class=\"{'client-toolbox-btn-color':true,selected:isSelected(background)}\" href=#><div ng-class=\"{'client-toolbox-color-chip':true,black:background=='Black',white:background=='White'}\"><div ng-if=\"background=='None'\" class=\"small-chip white\"></div><div ng-if=\"background=='None'\" class=small-chip></div><div ng-if=\"background=='None'\" class=small-chip></div><div ng-if=\"background=='None'\" class=\"small-chip white\"></div></div><div>{{background}}</div></a></div>"); }]);
+
+}
+/*
+     FILE ARCHIVED ON 04:36:33 Oct 05, 2019 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 08:20:33 Feb 14, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 84.138
+  exclusion.robots: 0.222
+  exclusion.robots.policy: 0.213
+  RedisCDXSource: 2.015
+  esindex: 0.014
+  LoadShardBlock: 58.615 (3)
+  PetaboxLoader3.datanode: 89.759 (4)
+  CDXLines.iter: 20.63 (3)
+  load_resource: 71.919
+  PetaboxLoader3.resolve: 20.982
+*/

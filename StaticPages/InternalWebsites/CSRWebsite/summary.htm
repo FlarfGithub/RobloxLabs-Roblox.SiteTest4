@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roblox Exploiting Report</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/jquery.bootgrid.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/modernizr-2.8.1.js"></script>
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/bootstrap.min.3.4.1.js"></script>
+		<script type="text/javascript" src="js/jquery.bootgrid.js"></script>
+		<script type="text/javascript" src="js/jquery.bootgrid.fa.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="js/csrutils.js"></script>
+		<style>
+			@-webkit-viewport {
+				width: device-width;
+			}
+			@-moz-viewport {
+				width: device-width;
+			}
+			@-ms-viewport {
+				width: device-width;
+			}
+			@-o-viewport {
+				width: device-width;
+			}
+			@viewport {
+				width: device-width;
+			}
+
+			body {
+				padding-top: 70px;
+				padding-left: 30px;
+			}
+
+			.column .text {
+				color: #f00 !important;
+			}
+			.cell {
+				font-weight: bold;
+			}
+			th {
+				height: 30px;
+				vertical-align: middle;
+			}
+			td {
+				height: 30px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" data-i18n="title">Roblox Exploiting Report: Summary</span>
+				</div>
+				<nav id="menu" class="navbar-collapse collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.htm">Home</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">
+					<span><b>Choose&nbsp;</b></span>
+					<span>Date: &nbsp;<input type="text" id="datepicker1" placeholder="End Date" readonly />&nbsp;&nbsp;</span>
+					<span
+						>Duration:&nbsp;
+						<select id="sel-timespan">
+							<option value="6">6 Hours</option>
+							<option value="12">12 Hours</option>
+							<option value="24">1 Day</option>
+							<option value="72">3 Days</option>
+							<option value="168">7 Days</option>
+						</select>
+						&nbsp;&nbsp;
+					</span>
+					<button id="btn-create-report">Refresh</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-9">
+					<span><h2>Exploiting Summary</h2></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<div id="summary-general-chart" style="width: 900px; height: 500px"></div>
+					<div id="summary-general-spinner" style="width: 900px; height: 500px">
+						<span><img src="images/color-spinner.gif" alt="Loading ..." /></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">&nbsp;</div>
+			</div>
+		</div>
+
+		<footer id="footer">© Copyright 2020 Roblox Corporation. All Rights Reserved.</footer>
+
+		<script>
+			var vBaseUrl = CsrUtils.csrApiHost;
+
+			function drawGeneralSummaryChart(arrayData) {
+				var data = google.visualization.arrayToDataTable(arrayData);
+				var options = {
+					title: 'General Summary',
+					curveType: 'function',
+					legend: { position: 'bottom' },
+				};
+				var chart = new google.visualization.LineChart(document.getElementById('summary-general-chart'));
+				chart.draw(data, options);
+			}
+
+			function resetGeneralSummaryChart() {
+				// Show waiting summary-general-spinner
+				$('#summary-general-chart').hide();
+				$('#summary-general-spinner').show();
+
+				// Get sel-general-timespan
+				var sEnd = $('#datepicker1').val();
+				var dtEnd = CsrUtils.localDateStringToDate(sEnd);
+				var dtNow = new Date(Date.now());
+				if (isNaN(dtEnd.getTime())) {
+					dtEnd = new Date(dtNow);
+				} else {
+					dtEnd.setDate(dtEnd.getDate() + 1);
+					if (dtNow.getTime() < dtEnd.getTime()) dtEnd = new Date(dtNow);
+				}
+				//alert("End date: " + dtEnd);
+
+				var generalTimespan = $('#sel-timespan').val();
+				var tend = dtEnd.getTime();
+				tend = tend - (tend % 1000);
+				tend = tend / 1000;
+				var tbegin = tend - generalTimespan * 3600;
+				var vUrl = vBaseUrl + '/stats?st=' + tbegin + '&et=' + tend;
+				//alert("GET " + vUrl);
+
+				$.ajax({
+					type: 'GET',
+					url: vUrl,
+					dataType: 'json',
+					success: function (data, status) {
+						$('#summary-general-spinner').hide();
+						$('#summary-general-chart').show();
+						var i = 0;
+						for (i = 1; i < data.length; i++) {
+							data[i][0] = CsrUtils.timeToLocalTimeString(new Date(data[i][0] * 1000));
+						}
+						drawGeneralSummaryChart(data);
+					},
+					error: function (xhr, status, error) {
+						alert('Fail to get stats data for general summary (' + status + '): ' + error);
+					},
+				});
+			}
+
+			$(document).ready(() => {
+				google.charts.load('current', { packages: ['corechart'] });
+				google.setOnLoadCallback(function () {
+					// Load google charts
+
+					$('#datepicker1').datepicker({
+						dateFormat: 'yy-mm-dd',
+						beforeShowDay: function (date) {
+							var dtToday = CsrUtils.getBeginOfToday();
+							var dtEnd = new Date(dtToday);
+							dtEnd.setDate(dtEnd.getDate() + 1);
+							return [date < dtEnd, '', ''];
+						},
+						onSelect: function (dateText, inst) {
+							resetGeneralSummaryChart();
+						},
+					});
+
+					$('#sel-timespan').change(function () {
+						resetGeneralSummaryChart();
+					});
+
+					resetGeneralSummaryChart();
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+name: Test Linux
+
+on:
+    pull_request:
+        branches: [Roblox.SiteTest4]
+    push:
+        branches: [Roblox.SiteTest4]
+
+jobs:
+    TestLinux:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - run: npm run test

@@ -1,0 +1,49 @@
+/* Hide Swagger stuff */
+#api_info,
+.footer {
+	display: none;
+}
+
+/* Add some padding to the top of the page */
+body {
+	padding-top: 10px;
+}
+
+/* copied from api_info CSS */
+#doc_info {
+	padding-bottom: 10px;
+	font-weight: bold;
+	font-size: 25px;
+	line-height: 1;
+	font-family: 'Droid Sans', sans-serif;
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Custom CSS */
+.swagger-section #message-bar {
+	background-color: #e5effa;
+	border: 1px solid #06c;
+	padding: 5px 10px;
+	min-height: 18px;
+}
+
+.swagger-section #message-bar:empty,
+#version-selector.hidden {
+	display: none;
+}
+
+#Description {
+	font-weight: normal;
+	font-size: 14px;
+}
+
+/* allows new lines on:
+    - https response messages 'reason'
+    - Deprecation warning text
+*/
+.endpoint .operations .response-messages td.markdown,
+.operations .operation .deprecation-text {
+	white-space: pre;
+}

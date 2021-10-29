@@ -1,0 +1,22 @@
+div {
+	text-align: center;
+}
+div .title {
+	font-size: 75px;
+}
+div .b {
+	border: 0;
+	background: 0 0;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #3498db;
+	padding: 14px 40px;
+	outline: 0;
+	color: #fff;
+	border-radius: 24px;
+	transition: 0.25s;
+}
+div .b:hover {
+	background: #2ecc71;
+}
